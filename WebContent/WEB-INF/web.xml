@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	id="WebApp_ID" version="4.0">
+	<display-name>palette</display-name>
+	<welcome-file-list>
+		<welcome-file>/WEB-INF/index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<!-- 톰캣에서 url에 아래의 파일 형태들이 있을때 인지할 수 있게 해주기 -->
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>/</url-pattern>
+		<url-pattern>*.js</url-pattern>
+		<url-pattern>*.css</url-pattern>
+		<url-pattern>*.jpg</url-pattern>
+		<url-pattern>*.png</url-pattern>
+		<url-pattern>*.ico</url-pattern>
+		<url-pattern>*.swf</url-pattern>
+		<url-pattern>*.gif</url-pattern>
+		<url-pattern>*.svg</url-pattern>
+		<url-pattern>*.woff</url-pattern>
+	</servlet-mapping>
+
+	<!-- 언어 인코딩 필터 -->
+	<filter>
+		<filter-name>EncodingFilter</filter-name>
+		<filter-class>common.filter.EncodingFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>EncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- JDBC DBCP(Database Connection Pool) : 클라이언트가 여러명 들어왔을때 순서대로 처리 -->
+
+	<!-- Error code 따라 Page 연결 (404에러, 405에러, 500에러, NullPointerException 등) 
+		=> 프로젝트 마지막에 지정해주기 -->
+
+</web-app>
