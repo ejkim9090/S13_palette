@@ -16,5 +16,6 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="selenium-server-standalone-3.141.59.jar"/>
 	<classpathentry kind="lib" path="ojdbc6.jar"/>
+	<classpathentry kind="lib" path="jsoup-1.15.3.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
