@@ -6,15 +6,15 @@ import kh.s13.palette.review.model.vo.ReviewVo;
 
 public class ProductVo {
 	
-//	PID       NOT NULL VARCHAR2(100)  
-//	CID       NOT NULL NUMBER(2)      
-//	PNAME     NOT NULL VARCHAR2(50)   
-//	PIMG1     NOT NULL VARCHAR2(500)  
-//	PIMG2     NOT NULL VARCHAR2(500)  
-//	PPRICE    NOT NULL NUMBER         
-//	PBENEFIT           VARCHAR2(200)  
-//	PDELIVERY          VARCHAR2(200)  
-//	PINTRO             VARCHAR2(4000) 
+//	PID       NOT NULL VARCHAR2(100) 
+//	CID       NOT NULL NUMBER(2)     
+//	PNAME     NOT NULL VARCHAR2(50)  
+//	PIMG1     NOT NULL VARCHAR2(500) 
+//	PIMG2     NOT NULL VARCHAR2(500) 
+//	PPRICE    NOT NULL NUMBER        
+//	PBENEFIT           VARCHAR2(200) 
+//	PDELIVERY          VARCHAR2(200) 
+//	PDETAIL            CLOB  
 	
 	private String pid;
 	private int cid;
@@ -24,21 +24,14 @@ public class ProductVo {
 	private int pprice;
 	private String pbenefit;
 	private String pdelivery;
-	private String pintro;
-	
-	private List<ProductImageVo> pimagelist;
-	private List<ProductDetailVo> pdetaillist;
-	private List<ProductWishVo> pwhishlist;
-	private List<ReviewVo> reviewlist;
-	
+	private String pdetail;
 	
 	public ProductVo() {
 		super();
 	}
 
 	public ProductVo(String pid, int cid, String pname, String pimage1, String pimage2, int pprice, String pbenefit,
-			String pdelivery, String pintro, List<ProductImageVo> pimagelist, List<ProductDetailVo> pdetaillist,
-			List<ProductWishVo> pwhishlist, List<ReviewVo> reviewlist) {
+			String pdelivery, String pdetail) {
 		super();
 		this.pid = pid;
 		this.cid = cid;
@@ -48,19 +41,14 @@ public class ProductVo {
 		this.pprice = pprice;
 		this.pbenefit = pbenefit;
 		this.pdelivery = pdelivery;
-		this.pintro = pintro;
-		this.pimagelist = pimagelist;
-		this.pdetaillist = pdetaillist;
-		this.pwhishlist = pwhishlist;
-		this.reviewlist = reviewlist;
+		this.pdetail = pdetail;
 	}
 
 	@Override
 	public String toString() {
 		return "ProductVo [pid=" + pid + ", cid=" + cid + ", pname=" + pname + ", pimage1=" + pimage1 + ", pimage2="
-				+ pimage2 + ", pprice=" + pprice + ", pbenefit=" + pbenefit + ", pdelivery=" + pdelivery + ", pintro="
-				+ pintro + ", pimagelist=" + pimagelist + ", pdetaillist=" + pdetaillist + ", pwhishlist=" + pwhishlist
-				+ ", reviewlist=" + reviewlist + "]";
+				+ pimage2 + ", pprice=" + pprice + ", pbenefit=" + pbenefit + ", pdelivery=" + pdelivery + ", pdetail="
+				+ pdetail + "]";
 	}
 
 	public String getPid() {
@@ -127,45 +115,15 @@ public class ProductVo {
 		this.pdelivery = pdelivery;
 	}
 
-	public String getPintro() {
-		return pintro;
+	public String getPdetail() {
+		return pdetail;
 	}
 
-	public void setPintro(String pintro) {
-		this.pintro = pintro;
+	public void setPdetail(String pdetail) {
+		this.pdetail = pdetail;
 	}
 
-	public List<ProductImageVo> getPimagelist() {
-		return pimagelist;
-	}
 
-	public void setPimagelist(List<ProductImageVo> pimagelist) {
-		this.pimagelist = pimagelist;
-	}
 
-	public List<ProductDetailVo> getPdetaillist() {
-		return pdetaillist;
-	}
-
-	public void setPdetaillist(List<ProductDetailVo> pdetaillist) {
-		this.pdetaillist = pdetaillist;
-	}
-
-	public List<ProductWishVo> getPwhishlist() {
-		return pwhishlist;
-	}
-
-	public void setPwhishlist(List<ProductWishVo> pwhishlist) {
-		this.pwhishlist = pwhishlist;
-	}
-
-	public List<ReviewVo> getReviewlist() {
-		return reviewlist;
-	}
-
-	public void setReviewlist(List<ReviewVo> reviewlist) {
-		this.reviewlist = reviewlist;
-	}
-	
 	
 }

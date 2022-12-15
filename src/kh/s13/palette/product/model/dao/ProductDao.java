@@ -16,7 +16,7 @@ public class ProductDao {
 		System.out.println(">>>> ProductDao insert param : " + vo);
 		int result = 0;
 		
-		String sql = "insert into product values(?,?,?,?,?,?,?,?,?)"; // ""안에 ; 는 쓰면 안됨
+		String sql = "insert into product values(?,?,?,?,?,?,?,?)"; // ""안에 ; 는 쓰면 안됨
 		PreparedStatement pstmt = null;
 		
 		try {
@@ -29,7 +29,6 @@ public class ProductDao {
 			pstmt.setInt(6, vo.getPprice());
 			pstmt.setString(7, vo.getPbenefit());
 			pstmt.setString(8, vo.getPdelivery());
-			pstmt.setString(9, vo.getPintro());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -105,7 +104,6 @@ public class ProductDao {
 					vo.setPprice(rs.getInt("pprice"));
 					vo.setPbenefit(rs.getString("pbenefit"));
 					vo.setPdelivery(rs.getString("pdelivery"));
-					vo.setPintro(rs.getString("pintro"));
 					
 					volist.add(vo);
 				} while(rs.next());
@@ -143,7 +141,6 @@ public class ProductDao {
 				vo.setPprice(rs.getInt("pprice"));
 				vo.setPbenefit(rs.getString("pbenefit"));
 				vo.setPdelivery(rs.getString("pdelivery"));
-				vo.setPintro(rs.getString("pintro"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

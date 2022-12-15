@@ -18,7 +18,6 @@ public class ReviewVo {
 	private Timestamp rdate;
 	
 	private List<ReviewImageVo> rimagelist;
-	private List<ReviewLikeVo> rlikelist;
 	
 	
 	
@@ -26,8 +25,7 @@ public class ReviewVo {
 		super();
 	}
 
-	public ReviewVo(int rno, String pid, String mid, String rcontent, Timestamp rdate, List<ReviewImageVo> rimagelist,
-			List<ReviewLikeVo> rlikelist) {
+	public ReviewVo(int rno, String pid, String mid, String rcontent, Timestamp rdate, List<ReviewImageVo> rimagelist) {
 		super();
 		this.rno = rno;
 		this.pid = pid;
@@ -35,13 +33,12 @@ public class ReviewVo {
 		this.rcontent = rcontent;
 		this.rdate = rdate;
 		this.rimagelist = rimagelist;
-		this.rlikelist = rlikelist;
 	}
 
 	@Override
 	public String toString() {
 		return "ReviewVo [rno=" + rno + ", pid=" + pid + ", mid=" + mid + ", rcontent=" + rcontent + ", rdate=" + rdate
-				+ ", rimagelist=" + rimagelist + ", rlikelist=" + rlikelist + "]";
+				+ ", rimagelist=" + rimagelist + "]";
 	}
 
 	public int getRno() {
@@ -92,12 +89,5 @@ public class ReviewVo {
 		this.rimagelist = rimagelist;
 	}
 
-	public List<ReviewLikeVo> getRlikelist() {
-		return rlikelist;
-	}
-
-	public void setRlikelist(List<ReviewLikeVo> rlikelist) {
-		this.rlikelist = rlikelist;
-	}
 	
 }
