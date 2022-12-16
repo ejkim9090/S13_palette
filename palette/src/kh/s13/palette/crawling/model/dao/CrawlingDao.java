@@ -29,7 +29,7 @@ public class CrawlingDao {
 			pstmt.setString(7, vo.getPbenefit());
 			pstmt.setString(8, vo.getPdelivery());
 //			pstmt.setClob(9, vo.getPdetail()); // 이방법 비추..
-//			pstmt.setString(9, vo.getPdetail()); // 이것도 안됨..
+//			pstmt.setString(9, vo.getPdetail()); // 위에 to_clob(?) -> 이것도 안됨.. 
 			// CLOB 변환 방법
 			Clob clob = conn.createClob(); 
 			clob.setString(9, vo.getPdetail());

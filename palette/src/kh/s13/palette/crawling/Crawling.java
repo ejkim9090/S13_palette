@@ -31,7 +31,7 @@ public class Crawling {
 	
 	public void crawling() throws IOException {
 		
-		String url = "https://www.poom.co.kr/dispctg/initArtboxCtg.action?disp_ctg_no=2008003291";
+		String url = "https://www.poom.co.kr/dispctg/initArtboxCtg.action?disp_ctg_no=2008003322";
 		
 		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
 		WebDriver drv = new ChromeDriver();   // 크롬창이 열림을 확인함.
@@ -44,21 +44,19 @@ public class Crawling {
 		// 카테고리페이지에서 (뷰페이지에서) 추출할때 for문 돌리기
 		//*[@id="goods_list"]/ul/li[1]/dl/dt/a[1]
 		//*[@id="goods_list"]/ul/li[2]/dl/dt/a[1]
-		//*[@id="goods_list"]/ul/li[5]/dl/dt/a[1]
 		
-		for (int i = 1; i <= 27; i++) {
+		for (int i = 1; i <= 22; i++) {
 			
 //			ChromeOptions options = new ChromeOptions();
 //	        options.addArguments("start-maximized");
 //	        drv = new ChromeDriver(options);
 		
 			wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"goods_list\"]/ul/li["+i+"]/dl/dt/a[1]"))).click();
-	
 			wait.until(ExpectedConditions.titleContains("POOM"));
 		
 		
 			// 카테고리아이디 TODO
-			int cid = 11;
+			int cid = 54;
 			
 			// 상품아이디
 			WebElement pidEle = drv.findElement(By.xpath("//*[@id=\"conTab_0\"]/div[1]/dl/dd"));
@@ -72,21 +70,15 @@ public class Crawling {
 			
 			// 가격
 			int pprice = 0;
-			if (drv.findElement(By.xpath("//*[@id=\"content\"]/div/div[1]/div[2]/div[1]/div[3]/dl/dd/div")).getSize().width == 1) { // TODO
-				WebElement ppriceEle = drv.findElement(By.xpath("//*[@id=\"content\"]/div/div[1]/div[2]/div[1]/div[3]/dl/dd/div"));
-			//*[@id="content"]/div/div[1]/div[2]/div[1]/div[3]/dl/dd/div 	--> 할인X
-			//*[@id="content"]/div/div[1]/div[2]/div[1]/div[3]/dl/dd/div[2]	--> 할인O
-				
-				// 가격만 추출
-				String[] ppriceArr = ppriceEle.getText().split(" ");
-				String ppriceStr = ppriceArr[1]; 
-				System.out.println(ppriceStr);
-				try {
-					pprice = Integer.parseInt(ppriceStr);
-				} catch (Exception exp) {
-				}
-			} else {
-				continue;
+			WebElement ppriceEle = drv.findElement(By.cssSelector("#content > div > div.gds_view > div.gds_info > div.gds_base > div.gd_prc > dl > dd > div.amt"));
+			
+			// 가격만 추출
+			String[] ppriceArr = ppriceEle.getText().split(" ");
+			String ppriceStr = ppriceArr[1].replace(",", ""); 
+			System.out.println(ppriceStr);
+			try {
+				pprice = Integer.parseInt(ppriceStr);
+			} catch (Exception exp) {
 			}
 			
 			// 혜택

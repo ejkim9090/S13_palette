@@ -12,7 +12,6 @@ INSERT INTO CATEGORY VALUES (12, '단어장/수첩', 1, 10);
 INSERT INTO CATEGORY VALUES (13, '메모지', 1, 10);
 INSERT INTO CATEGORY VALUES (14, '다이어리', 1, 10);
 INSERT INTO CATEGORY VALUES (15, '스케줄러/플래너', 1, 10);
-INSERT INTO CATEGORY VALUES (16, '캘린더', 1, 10);
 
 INSERT INTO CATEGORY VALUES (21, '필기구', 1, 20);
 INSERT INTO CATEGORY VALUES (22, '필통', 1, 20);
@@ -26,8 +25,7 @@ INSERT INTO CATEGORY VALUES (28, '카드/편지지', 1, 20);
 INSERT INTO CATEGORY VALUES (31, 'FUN/TOY', 1, 30);
 INSERT INTO CATEGORY VALUES (32, 'DIY 취미', 1, 30);
 INSERT INTO CATEGORY VALUES (33, 'PARTY', 1, 30);
-INSERT INTO CATEGORY VALUES (34, '인형', 1, 30);
-INSERT INTO CATEGORY VALUES (35, '피규어', 1, 30);
+INSERT INTO CATEGORY VALUES (34, '피규어', 1, 30);
 
 INSERT INTO CATEGORY VALUES (41, '키친용품', 1, 40);
 INSERT INTO CATEGORY VALUES (42, '텀블러', 1, 40);
@@ -40,8 +38,7 @@ INSERT INTO CATEGORY VALUES (47, '인테리어소품', 1, 40);
 INSERT INTO CATEGORY VALUES (51, '담요/방석', 1, 50);
 INSERT INTO CATEGORY VALUES (52, '욕실용품', 1, 50);
 INSERT INTO CATEGORY VALUES (53, '청소/정리용품', 1, 50);
-INSERT INTO CATEGORY VALUES (54, '개인소품', 1, 50);
-
+INSERT INTO CATEGORY VALUES (54, '칫솔 케이스/살균기', 1, 50);
 
 COMMIT;
 ----------------------------------------------------------------------------------------------------------------
@@ -55,9 +52,11 @@ DESC REVIEW_IMAGE;
 DESC REVIEW_LIKE;
 
 SELECT * FROM PRODUCT;
+select * from product where cid='54';
+delete from product where cid='54';
 delete from product;
 SELECT * FROM MEMBER;
-SELECT * FROM CATEGORY;
+SELECT * FROM CATEGORY order by cid asc;
 
 INSERT INTO MEMBER VALUES ('CKSUN', 'CKSUN', '최경선', 'b@b.com', '서울시', '아파트', 0, 1997, 03, 28, 7, SYSDATE);
 
