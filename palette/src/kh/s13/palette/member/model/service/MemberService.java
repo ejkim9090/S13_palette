@@ -60,4 +60,15 @@ public class MemberService {
 		System.out.println(">> MemberService selectOne return :" + vo);
 		return vo;
 	}
+//	selectOne - login
+	public MemberVo login(String mid, String mpw){
+		System.out.println(">> MemberService login param mid :" + mid);
+		System.out.println(">> MemberService login param mpw :" + mpw);
+		MemberVo vo = null;
+		Connection conn = JdbcTemplate.getConnection();
+		vo = dao.login(conn, mid, mpw);
+		JdbcTemplate.close(conn);
+		System.out.println(">> MemberService login return :" + vo);
+		return vo;
+	}
 }

@@ -165,4 +165,35 @@ public class MemberDao {
 		System.out.println(">>>> MemberDao selectOne return : " + vo);
 		return vo;
 	}
+//	selectOne - login
+	public MemberVo login(Connection conn, String mid, String mpw){
+		System.out.println(">>>> MemberDao login param mid : " + mid);
+		System.out.println(">>>> MemberDao login param mpw : " + mpw);
+		MemberVo vo = null;
+		
+		// 로그인할때 session에 저장할 필요가 있는 항목만. ( * 쓰지 않음. 속도 저하의 원인)
+		String sql = "select mid, mname from member where mid=? and mpw=?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			pstmt.setString(2, mpw);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				vo = new MemberVo();
+				
+				// 로그인할때 session에 저장할 필요가 있는 항목만
+				vo.setMid(rs.getString("mid"));
+				vo.setMname(rs.getString("mname"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(pstmt);
+		}
+		System.out.println(">>>> MemberDao login return : " + vo);
+		return vo;
+	}
 }
