@@ -53,25 +53,127 @@ DESC REVIEW_LIKE;
 
 SELECT * FROM PRODUCT;
 select * from product where cid='54';
-delete from product where cid='54';
+delete from product where pprice=0;
 delete from product;
 SELECT * FROM MEMBER;
 SELECT * FROM CATEGORY order by cid asc;
 
-INSERT INTO MEMBER VALUES ('CKSUN', 'CKSUN', '최경선', 'b@b.com', '서울시', '아파트', 0, 1997, 03, 28, 7, SYSDATE);
+INSERT INTO MEMBER VALUES ('cksun', 'cksun', '최경선', 'b@b.com', '서울시', '아파트', 0, 1997, 03, 28, 7, SYSDATE);
 
 INSERT INTO PRODUCT VALUES ('A12345678901', 11, '&', '&', '&', 1000, '하나(외환)카드 결제 시 최대 8개월 무이자', '2,500원 (30,000원 이상 무료배송)', '&');
 
 INSERT INTO REVIEW VALUES ((SELECT NVL(MAX(RNO),0)+1 FROM REVIEW), 'A12345678901', 'CKSUN', 'CONTENT', SYSDATE);
 
--- 후기 목록 보기
-SELECT * FROM REVIEW 
-    WHERE PID='A12345678901'
-    ORDER BY RNO DESC;
+--------------------------------------------------------------------------------
+
+-- <마이페이지>
+
+-- 찜한 상품 목록
+SELECT P.PIMG1, P.PNAME, P.PPRICE -- 상품이미지, 상품명, 상품가격
+    FROM PRODUCT_WISH W JOIN PRODUCT P ON W.PID = P.PID
+    WHERE W.MID = '회원아이디'
+;
+-- 찜한 상품 삭제
+DELETE 
+    FROM PRODUCT_WISH
+    WHERE MID = '회원아이디' AND PID = '상품아이디'
+;
+
+-- 후기 목록
+SELECT P.PIMG1, P.PNAME, R.RCONTENT, R.RDATE -- 상품이미지, 상품명, 후기내용, 글등록시간
+    FROM REVIEW R JOIN PRODUCT P ON R.PID = P.PID
+    WHERE R.MID = '회원아이디'
+    ORDER BY R.RNO DESC  -- 최근이 먼저
+; 
+-- 후기 목록 - 사진
+SELECT RFILEPATH
+    FROM REVIEW_IMAGE
+    WHERE RNO = 후기번호
+;
+-- 후기 삭제
+DELETE 
+    FROM REVIEW
+    WHERE RNO = 후기번호
+;    
+
+-- <카테고리페이지>
+
+-- 카테고리 대분류 전체보기
+SELECT P.PIMG1, P.PNAME, P.PPRICE -- 상품이미지, 상품명, 가격
+    FROM PRODUCT P JOIN CATEGORY C ON P.CID = C.CID
+    WHERE P.CPID = 부모카테고리아이디
+; 
+    
+-- 카테고리 소분류
+SELECT PIMG1, PNAME, PPRICE -- 상품이미지, 상품명, 가격
+    FROM PRODUCT
+    WHERE CID = 카테고리아이디
+; 
+
+-- 필터 (배송)
+SELECT PIMG1, PNAME, PPRICE
+    FROM PRODUCT
+    WHERE PDELIVERY = '무료배송'
+;
+SELECT PIMG1, PNAME, PPRICE
+    FROM PRODUCT
+    WHERE PDELIVERY NOT = '무료배송'
+;
+-- 필터 (가격)
+SELECT PIMG1, PNAME, PPRICE
+    FROM PRODUCT
+    WHERE PPRICE <= 10000
+;
+SELECT PIMG1, PNAME, PPRICE
+    FROM PRODUCT
+    WHERE PPRICE BETWEEN 10000 AND 30000
+;
+SELECT PIMG1, PNAME, PPRICE
+    FROM PRODUCT
+    WHERE PPRICE BETWEEN 30000 AND 50000
+;
+SELECT PIMG1, PNAME, PPRICE
+    FROM PRODUCT
+    WHERE PPRICE >= 50000
+;
+
+-- 낮은가격순 / 높은가격순 정렬
+SELECT PIMG1, PNAME, PPRICE
+    FROM PRODUCT
+    ORDER BY PPRICE ASC -- WHERE CID = 카테고리아이디  같은 옵션 있을수있음
+;
+SELECT PIMG1, PNAME, PPRICE
+    FROM PRODUCT
+    ORDER BY PPRICE DESC
+;
+
+-- <상품상세페이지>
+
+-- 후기 작성
 
 
-
-
+-- 후기 목록
+SELECT M.MNAME, P.PNAME, R.RCONTENT, R.RDATE -- 회원이름, 상품명, 후기내용, 글등록시간
+    FROM REVIEW R JOIN PRODUCT P ON R.PID = P.PID
+                  JOIN MEMBER M ON R.MID = M.MID
+    WHERE R.PID = '상품아이디'
+    ORDER BY R.RNO DESC  -- 최근이 먼저
+; 
+-- 후기 목록 - 사진
+SELECT RFILEPATH
+    FROM REVIEW_IMAGE
+    WHERE RNO = 후기번호
+;
+-- 후기 삭제
+DELETE 
+    FROM REVIEW
+    WHERE RNO = 후기번호
+;
+-- 사진 더보기
+SELECT RFILEPATH
+    FROM REVIEW_IMAGE
+    WHERE PID = '상품아이디'
+;
 
 
 
