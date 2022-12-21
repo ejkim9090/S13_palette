@@ -86,6 +86,38 @@ public class ReviewImageDao {
 		return volist;
 	}
 	
+//	selectList - overloading
+	public List<ReviewImageVo> selectList(Connection conn, int rno){
+		List<ReviewImageVo> volist = null;
+		
+		String sql = "select * from review_image where rno=?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rno);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				volist = new ArrayList<ReviewImageVo>();
+				do {
+					ReviewImageVo vo = new ReviewImageVo();
+					
+					vo.setRfilepath(rs.getString("rfilepath"));
+					vo.setRno(rs.getInt("rno"));
+					
+					volist.add(vo);
+				} while(rs.next());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(pstmt);
+		}
+		System.out.println(">>>> ReviewImageDao selectList return : " + volist);
+		return volist;
+	}
+	
 //	selectOne : 하나 상세조회
 	public ReviewImageVo selectOne(Connection conn, String rfilepath /*여기에는 주로 기본키가 들어감*/){
 		System.out.println(">>>> ReviewImageDao selectOne param rfilepath : " + rfilepath);

@@ -40,6 +40,15 @@ public class ReviewImageService {
 		System.out.println(">> ReviewImageService selectList return :" + volist);
 		return volist;
 	}
+//	selectList - overloading
+	public List<ReviewImageVo> selectList(int rno){
+		List<ReviewImageVo> volist = null;
+		Connection conn = JdbcTemplate.getConnection();
+		volist = dao.selectList(conn, rno);
+		JdbcTemplate.close(conn);
+		System.out.println(">> ReviewImageService selectList return :" + volist);
+		return volist;
+	}
 //	selectOne
 	public ReviewImageVo selectOne(String rfilepath /*여기에는 주로 기본키가 들어감*/){
 		System.out.println(">> ReviewImageService selectOne param rfilepath :" + rfilepath);

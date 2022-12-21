@@ -39,7 +39,7 @@ public class ReviewDao {
 	}
 	
 //	update
-	public int update(Connection conn, ReviewVo vo, String rno /*여기에는 주로 기본키가 들어감*/) {
+	public int update(Connection conn, ReviewVo vo, int rno /*여기에는 주로 기본키가 들어감*/) {
 		System.out.println(">>>> ReviewDao update param vo : " + vo);
 		System.out.println(">>>> ReviewDao update param rno : " + rno);
 		int result = 0;
@@ -49,7 +49,7 @@ public class ReviewDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getRcontent());
-			pstmt.setString(2, rno);
+			pstmt.setInt(2, rno);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -61,7 +61,7 @@ public class ReviewDao {
 	}
 	
 //	delete
-	public int delete(Connection conn, String rno /*여기에는 주로 기본키가 들어감*/) {
+	public int delete(Connection conn, int rno /*여기에는 주로 기본키가 들어감*/) {
 		System.out.println(">>>> ReviewDao delete param rno : " + rno);
 		int result = 0;
 		
@@ -69,7 +69,7 @@ public class ReviewDao {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, rno);
+			pstmt.setInt(1, rno);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -112,9 +112,42 @@ public class ReviewDao {
 		System.out.println(">>>> ReviewDao selectList return : " + volist);
 		return volist;
 	}
+//	selectList - 내가 작성한 후기
+	public List<ReviewVo> selectList(Connection conn, String mid){
+		List<ReviewVo> volist = null;
+		
+		String sql = "select * from review where mid=?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				volist = new ArrayList<ReviewVo>();
+				do {
+					ReviewVo vo = new ReviewVo();
+					vo.setRno(rs.getInt("rno"));
+					vo.setPid(rs.getString("pid"));
+					vo.setMid(rs.getString("mid"));
+					vo.setRcontent(rs.getString("rcontent"));
+					vo.setRdate(rs.getTimestamp("rdate"));
+					
+					volist.add(vo);
+				} while(rs.next());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(pstmt);
+		}
+		System.out.println(">>>> ReviewDao selectList return : " + volist);
+		return volist;
+	}
 	
 //	selectOne : 하나 상세조회
-	public ReviewVo selectOne(Connection conn, String rno /*여기에는 주로 기본키가 들어감*/){
+	public ReviewVo selectOne(Connection conn, int rno /*여기에는 주로 기본키가 들어감*/){
 		System.out.println(">>>> ReviewDao selectOne param rno : " + rno);
 		ReviewVo vo = null;
 		
@@ -123,7 +156,7 @@ public class ReviewDao {
 		ResultSet rs = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, rno);
+			pstmt.setInt(1, rno);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				vo = new ReviewVo();
