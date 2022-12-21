@@ -118,6 +118,43 @@ public class ProductDao {
 		return volist;
 	}
 	
+//	selectList - 카테고리
+	public List<ProductVo> selectList(Connection conn, int cid){
+		List<ProductVo> volist = null;
+		
+		String sql = "select * from product where cid=?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cid);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				volist = new ArrayList<ProductVo>();
+				do {
+					ProductVo vo = new ProductVo();
+					vo.setPid(rs.getString("pid"));
+					vo.setCid(rs.getInt("cid"));
+					vo.setPname(rs.getString("pname"));
+					vo.setPimage1(rs.getString("pimage1"));
+					vo.setPimage2(rs.getString("pimage2"));
+					vo.setPprice(rs.getInt("pprice"));
+					vo.setPbenefit(rs.getString("pbenefit"));
+					vo.setPdelivery(rs.getString("pdelivery"));
+					
+					volist.add(vo);
+				} while(rs.next());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(pstmt);
+		}
+		System.out.println(">>>> ProductDao selectList return : " + volist);
+		return volist;
+	}
+	
 //	selectOne : 하나 상세조회
 	public ProductVo selectOne(Connection conn, String pid /*여기에는 주로 기본키가 들어감*/){
 		System.out.println(">>>> ProductDao selectOne param pid : " + pid);

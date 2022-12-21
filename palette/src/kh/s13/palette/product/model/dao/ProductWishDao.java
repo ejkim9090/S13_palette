@@ -87,6 +87,37 @@ public class ProductWishDao {
 		return volist;
 	}
 	
+//	selectList - overloading 내가 찜한 상품
+	public List<ProductWishVo> selectList(Connection conn, String mid){
+		List<ProductWishVo> volist = null;
+		
+		String sql = "select * from product_wish where mid=?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				volist = new ArrayList<ProductWishVo>();
+				do {
+					ProductWishVo vo = new ProductWishVo();
+					vo.setMid(rs.getString("mid"));
+					vo.setPid(rs.getString("pid"));
+					
+					volist.add(vo);
+				} while(rs.next());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(pstmt);
+		}
+		System.out.println(">>>> ProductWishDao selectList return : " + volist);
+		return volist;
+	}
+	
 //	selectOne : 하나 상세조회
 	public ProductWishVo selectOne(Connection conn, String mid, String pid /*여기에는 주로 기본키가 들어감*/){
 		System.out.println(">>>> ProductWishDao selectOne param mid : " + mid);

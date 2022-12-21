@@ -50,6 +50,15 @@ public class ProductService {
 		System.out.println(">> ProductService selectList return :" + volist);
 		return volist;
 	}
+//	selectList - 카테고리
+	public List<ProductVo> selectList(int cid){
+		List<ProductVo> volist = null;
+		Connection conn = JdbcTemplate.getConnection();
+		volist = dao.selectList(conn, cid);
+		JdbcTemplate.close(conn);
+		System.out.println(">> ProductService selectList return :" + volist);
+		return volist;
+	}
 //	selectOne
 	public ProductVo selectOne(String pid /*여기에는 주로 기본키가 들어감*/){
 		System.out.println(">> ProductService selectOne param pid :" + pid);
