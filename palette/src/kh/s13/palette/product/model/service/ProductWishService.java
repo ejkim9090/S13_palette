@@ -40,6 +40,15 @@ public class ProductWishService {
 		System.out.println(">> ProductWishService selectList return :" + volist);
 		return volist;
 	}
+//	selectList - overloading 내가 찜한 상품
+	public List<ProductWishVo> selectList(String mid){
+		List<ProductWishVo> volist = null;
+		Connection conn = JdbcTemplate.getConnection();
+		volist = dao.selectList(conn, mid);
+		JdbcTemplate.close(conn);
+		System.out.println(">> ProductWishService selectList return :" + volist);
+		return volist;
+	}
 //	selectOne
 	public ProductWishVo selectOne(String mid, String pid /*여기에는 주로 기본키가 들어감*/){
 		System.out.println(">> ProductWishService selectOne param mid :" + mid);
