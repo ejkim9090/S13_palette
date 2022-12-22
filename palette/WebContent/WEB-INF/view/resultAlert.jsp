@@ -16,6 +16,9 @@
 	} else if("${func}" == "wishDelete"){
 		alert("${msg}");
 		location.href = "<%= request.getContextPath()%>/mypage/wish";
+	} else if("${func}" == "reviewInsert"){
+		alert("${msg}");
+		location.href = "<%= request.getContextPath()%>/product?pid=${pid}";
 	} 
 
 </script>

@@ -17,16 +17,15 @@ public class ReviewDao {
 		System.out.println(">>>> ReviewDao insert param : " + vo);
 		int result = 0;
 		
-		String sql = "insert into review values(?,?,?,?,?)"; // ""안에 ; 는 쓰면 안됨
+		String sql = "insert into review (rno, pid, mid, rcontent)"
+				+ "values ((select NVL(max(rno), 0)+1 from review),?,?,?)"; // ""안에 ; 는 쓰면 안됨
 		PreparedStatement pstmt = null;
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, vo.getRno());
-			pstmt.setString(2, vo.getPid());
-			pstmt.setString(3, vo.getMid());
-			pstmt.setString(4, vo.getRcontent());
-			pstmt.setTimestamp(5, vo.getRdate());
+			pstmt.setString(1, vo.getPid());
+			pstmt.setString(2, vo.getMid());
+			pstmt.setString(3, vo.getRcontent());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
