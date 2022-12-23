@@ -35,6 +35,9 @@ public class JoinDoController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
 		String mid = request.getParameter("mid");
 		String mpw = request.getParameter("mpw");
 		String mname = request.getParameter("mname");
@@ -73,10 +76,14 @@ public class JoinDoController extends HttpServlet {
 		
 		if(result > 0) { 
 			System.out.println("회원가입 성공");
-			response.sendRedirect(request.getContextPath()+"/login");
+			request.setAttribute("func", "memberInsert");
+			request.setAttribute("msg", "회원가입에 성공하였습니다.");
+			request.getRequestDispatcher("/WEB-INF/view/resultAlert.jsp").forward(request, response);
 		} else {
 			System.out.println("회원가입 실패");
-			response.sendRedirect(request.getContextPath()+"/join");
+			request.setAttribute("func", "memberInsertFail");
+			request.setAttribute("msg", "회원가입에 실패하였습니다.");
+			request.getRequestDispatcher("/WEB-INF/view/resultAlert.jsp").forward(request, response);
 		} 
 	}
 

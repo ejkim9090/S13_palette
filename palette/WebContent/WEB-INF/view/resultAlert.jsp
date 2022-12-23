@@ -19,7 +19,13 @@
 	} else if("${func}" == "reviewInsert"){
 		alert("${msg}");
 		location.href = "<%= request.getContextPath()%>/product?pid=${pid}";
-	} 
+	} else if("${func}" == "memberInsert"){
+		alert("${msg}");
+		location.href = "<%= request.getContextPath()%>/login";
+	} else if("${func}" == "memberInsertFail"){
+		alert("${msg}");
+		location.href = "<%= request.getContextPath()%>/join";
+	}
 
 </script>
 </body>
