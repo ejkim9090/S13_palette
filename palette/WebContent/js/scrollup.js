@@ -153,7 +153,7 @@ function nav_fix() {
         h_f_2.children[1].style.left = "325px";
         h_f_2.children[1].style.width = "400px";
         h_f_2.children[1].style.height = "48px";
-        h_f_2.children[1].style.border = "1px solid rgb(95, 0, 128)";
+        h_f_2.children[1].style.border = "1px solid rgb(219, 115, 150)";
         
         // .h_f_2 #search input
         // 추가 속성

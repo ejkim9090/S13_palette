@@ -39,7 +39,7 @@
                    <div id="main_logo" onclick="location.href='${pageContext.request.contextPath }/main';">
                        <img src="./images/palette_logo.PNG" alt="main_logo">
                    </div>
-                   <div id="search">
+                   <div id="search" style="border: 1px solid rgb(219, 115, 150);">
                        <input type="text" placeholder="">
                        <button type="button"><img src="${pageContext.request.contextPath }/images/search_logo.svg"></button>
                    </div>
