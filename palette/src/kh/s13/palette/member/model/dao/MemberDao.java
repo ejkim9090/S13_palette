@@ -29,7 +29,7 @@ public class MemberDao {
 			pstmt.setString(4, vo.getMemail());
 			pstmt.setString(5, vo.getMaddr1());
 			pstmt.setString(6, vo.getMaddr2());
-			pstmt.setInt(7, vo.getMgender());
+			pstmt.setString(7, vo.getMgender());
 			pstmt.setInt(8, vo.getMbyear());
 			pstmt.setInt(9, vo.getMbmonth());
 			pstmt.setInt(10, vo.getMbdate());
@@ -108,7 +108,7 @@ public class MemberDao {
 					vo.setMemail(rs.getString("memail"));
 					vo.setMaddr1(rs.getString("maddr1"));
 					vo.setMaddr2(rs.getString("maddr2"));
-					vo.setMgender(rs.getInt("mpwd"));
+					vo.setMgender(rs.getString("mpwd"));
 					vo.setMbyear(rs.getInt("mbyear"));
 					vo.setMbmonth(rs.getInt("mbmonth"));
 					vo.setMbdate(rs.getInt("mbdate"));
@@ -149,7 +149,7 @@ public class MemberDao {
 				vo.setMemail(rs.getString("memail"));
 				vo.setMaddr1(rs.getString("maddr1"));
 				vo.setMaddr2(rs.getString("maddr2"));
-				vo.setMgender(rs.getInt("mpwd"));
+				vo.setMgender(rs.getString("mpwd"));
 				vo.setMbyear(rs.getInt("mbyear"));
 				vo.setMbmonth(rs.getInt("mbmonth"));
 				vo.setMbdate(rs.getInt("mbdate"));

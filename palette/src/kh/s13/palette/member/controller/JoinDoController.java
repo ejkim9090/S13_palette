@@ -44,15 +44,14 @@ public class JoinDoController extends HttpServlet {
 		String memail = request.getParameter("memail");
 		String maddr1 = request.getParameter("maddr1");
 		String maddr2 = request.getParameter("maddr2");
-		int mgender = 0;
+		String mgender = request.getParameter("mgender");
 		int mbyear = 0;
 		int mbmonth = 0;
 		int mbdate = 0;
 		int mconsent = 0;
 		try {
-			mgender = Integer.parseInt(request.getParameter("mgender"));
 			mbyear = Integer.parseInt(request.getParameter("mbyear"));
-			mbmonth = Integer.parseInt(request.getParameter("mpw"));
+			mbmonth = Integer.parseInt(request.getParameter("mbmonth"));
 			mbdate = Integer.parseInt(request.getParameter("mbdate"));
 			mconsent = Integer.parseInt(request.getParameter("mconsent"));
 		} catch (Exception e) {

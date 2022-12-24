@@ -10,13 +10,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans:wght@100&display=swap" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/css/reset.css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/css/header_footer.css" rel="stylesheet">
-    <link href="<%=request.getContextPath()%>/css/scrollup.css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/css/join.css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/css/radio_check_action.css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/css/checkbox_check_action.css" rel="stylesheet">
 
     <script src="<%=request.getContextPath()%>/js/jquery-3.6.1.js"></script>
-    <script src="<%=request.getContextPath()%>/js/scrollup.js"></script>
     <script src="<%=request.getContextPath()%>/js/header.js"></script>
     <script src="<%=request.getContextPath()%>/js/join.js"></script>
     
@@ -110,9 +108,9 @@
                                         <td><label>성별</label></td>
                                         <td>
                                             <div id="radio_button_parent">
-                                                <label class="radio_button"><input type="radio" name="mgender" value=0><span>남자</span></label>
-                                                <label class="radio_button"><input type="radio" name="mgender" value=1><span>여자</span></label>
-                                                <label class="radio_button"><input type="radio" name="mgender" checked><span>선택 안함</span></label>
+                                                <label class="radio_button"><input type="radio" name="mgender" value="M"><span>남자</span></label>
+                                                <label class="radio_button"><input type="radio" name="mgender" value="F"><span>여자</span></label>
+                                                <label class="radio_button"><input type="radio" name="mgender" value="0" checked><span>선택 안함</span></label>
                                             </div>
                                         </td>
                                     </tr>
@@ -150,7 +148,7 @@
                                     </div>
                                     <div>
                                         <div>
-                                            <label><input type="checkbox" name="mconsent" value=1 class="agree_check"><span>개인정보 수집&#8729;이용 동의</span></label><span class="user_select">(선택)</span>
+                                            <label><input type="checkbox" name="mconsent" value="1" class="agree_check"><span>개인정보 수집&#8729;이용 동의</span></label><span class="user_select">(선택)</span>
                                         </div>
                                     </div>
                                     <div id="sms_agreement">
@@ -158,8 +156,8 @@
                                             <label onclick="sms_all()"><input type="checkbox" name="" class="agree_check" id="sms_all"><span>무료배송, 할인쿠폰 등 혜택/정보 수신 동의</span></label><span class="user_select">(선택)</span>
                                         </div>
                                         <div>
-                                            <label><input type="checkbox" name="mconsent" value=2 class="agree_check sms_each"><span>SMS</span></label>
-                                            <label><input type="checkbox" name="mconsent" value=3 class="agree_check sms_each"><span>이메일</span></label>
+                                            <label><input type="checkbox" name="mconsent" value="2" class="agree_check sms_each"><span>SMS</span></label>
+                                            <label><input type="checkbox" name="mconsent" value="3" class="agree_check sms_each"><span>이메일</span></label>
                                         </div>
                                     </div>
                                     <div>
@@ -171,7 +169,7 @@
     
                             </div>
                             <div id="submit_area">
-                                <button type="submit">
+                                <button type="submit" id="submit">
                                     <span>가입하기</span>
                                 </button>
                             </div>
@@ -187,6 +185,8 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 $(function(){
+	
+	// 카카오 주소찾기 api
     $("#search_loc").click(function(){ //주소검색버튼을 클릭하면
         //카카오 지도 발생
         new daum.Postcode({
@@ -196,6 +196,28 @@ $(function(){
             }
         }).open();
     });
+    
+    // checkbox 체크된 값 더하기 // TODO
+    $("#submit").click(function(){
+    	var checkValue = 0;
+    	
+    	$("input[name='mconsent']:checked").each(function(){
+    		console.log($(this).val());
+    		checkValue += Number($(this).val());
+        })
+    	//합계를 출력
+    	$("input[name='mconsent']").val(checkValue); // mconsent의 value에 합계 입력
+    });
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 });
 </script>
 </html>
