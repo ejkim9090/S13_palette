@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kh.s13.palette.member.model.vo.MemberVo;
 import kh.s13.palette.product.model.service.ProductWishService;
+import kh.s13.palette.product.model.vo.MyProductWishVo;
 import kh.s13.palette.product.model.vo.ProductWishVo;
 
 /**
@@ -35,7 +36,7 @@ public class MypageWishController extends HttpServlet {
 		String mid = ((MemberVo)request.getSession().getAttribute("loginSsInfo")).getMid();
 		
 		ProductWishService service = new ProductWishService();
-		List<ProductWishVo> volist = service.selectList(mid);
+		List<MyProductWishVo> volist = service.selectList(mid);
 	
 		request.setAttribute("wishlist", volist); // wishlist라는 String에 volist를 대입해줌 -> jsp파일에서 volist를 호출하기 위해 aaa 사용 가능
 

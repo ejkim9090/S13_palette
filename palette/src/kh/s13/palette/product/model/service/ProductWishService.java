@@ -5,6 +5,7 @@ import java.util.List;
 
 import kh.s13.palette.common.jdbc.JdbcTemplate;
 import kh.s13.palette.product.model.dao.ProductWishDao;
+import kh.s13.palette.product.model.vo.MyProductWishVo;
 import kh.s13.palette.product.model.vo.ProductWishVo;
 
 public class ProductWishService {
@@ -41,8 +42,8 @@ public class ProductWishService {
 		return volist;
 	}
 //	selectList - overloading 내가 찜한 상품
-	public List<ProductWishVo> selectList(String mid){
-		List<ProductWishVo> volist = null;
+	public List<MyProductWishVo> selectList(String mid){
+		List<MyProductWishVo> volist = null;
 		Connection conn = JdbcTemplate.getConnection();
 		volist = dao.selectList(conn, mid);
 		JdbcTemplate.close(conn);

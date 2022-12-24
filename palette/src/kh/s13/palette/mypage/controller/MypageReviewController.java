@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kh.s13.palette.member.model.vo.MemberVo;
 import kh.s13.palette.review.model.service.ReviewService;
+import kh.s13.palette.review.model.vo.MyReviewVo;
 import kh.s13.palette.review.model.vo.ReviewVo;
 
 /**
@@ -42,7 +43,7 @@ public class MypageReviewController extends HttpServlet {
 		
 		
 		ReviewService service = new ReviewService();
-		List<ReviewVo> volist = service.selectList(mid);
+		List<MyReviewVo> volist = service.selectMyList(mid);
 		
 		request.setAttribute("reviewList", volist);
 		

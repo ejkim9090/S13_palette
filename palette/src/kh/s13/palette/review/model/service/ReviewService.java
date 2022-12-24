@@ -6,6 +6,8 @@ import java.util.List;
 import kh.s13.palette.common.jdbc.JdbcTemplate;
 import kh.s13.palette.review.model.dao.ReviewDao;
 import kh.s13.palette.review.model.dao.ReviewImageDao;
+import kh.s13.palette.review.model.vo.MyReviewVo;
+import kh.s13.palette.review.model.vo.ProductReviewVo;
 import kh.s13.palette.review.model.vo.ReviewImageVo;
 import kh.s13.palette.review.model.vo.ReviewVo;
 
@@ -54,12 +56,12 @@ private ReviewImageDao dao2 = new ReviewImageDao();
 		return volist;
 	}
 //	selectList - 내가 작성한 후기
-	public List<ReviewVo> selectList(String mid){
-		List<ReviewVo> volist = null;
+	public List<MyReviewVo> selectMyList(String mid){
+		List<MyReviewVo> volist = null;
 		Connection conn = JdbcTemplate.getConnection();
 		
 		// 해당되는 rno의 reviewImage만 가져오게하기
-		volist = dao.selectList(conn, mid);
+		volist = dao.selectMyList(conn, mid);
 		if(volist != null) {
 			for(int i=0; i < volist.size(); i++) {
 				int rno = volist.get(i).getRno();
@@ -68,7 +70,25 @@ private ReviewImageDao dao2 = new ReviewImageDao();
 			}
 		}
 		JdbcTemplate.close(conn);
-		System.out.println(">> ReviewService selectList return :" + volist);
+		System.out.println(">> ReviewService selectMyList return :" + volist);
+		return volist;
+	}
+//	selectList - 상품 후기
+	public List<ProductReviewVo> selectPList(String pid){
+		List<ProductReviewVo> volist = null;
+		Connection conn = JdbcTemplate.getConnection();
+		
+		// 해당되는 rno의 reviewImage만 가져오게하기
+		volist = dao.selectPList(conn, pid);
+		if(volist != null) {
+			for(int i=0; i < volist.size(); i++) {
+				int rno = volist.get(i).getRno();
+				List<ReviewImageVo> rimagelist = dao2.selectList(conn, rno);
+				volist.get(i).setRimagelist(rimagelist);
+			}
+		}
+		JdbcTemplate.close(conn);
+		System.out.println(">> ReviewService selectPList return :" + volist);
 		return volist;
 	}
 //	selectOne

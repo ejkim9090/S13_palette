@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kh.s13.palette.common.jdbc.JdbcTemplate;
+import kh.s13.palette.product.model.vo.MyProductWishVo;
 import kh.s13.palette.product.model.vo.ProductWishVo;
 
 public class ProductWishDao {
@@ -88,10 +89,12 @@ public class ProductWishDao {
 	}
 	
 //	selectList - overloading 내가 찜한 상품
-	public List<ProductWishVo> selectList(Connection conn, String mid){
-		List<ProductWishVo> volist = null;
+	public List<MyProductWishVo> selectList(Connection conn, String mid){
+		List<MyProductWishVo> volist = null;
 		
-		String sql = "select * from product_wish where mid=?";
+		String sql = "SELECT P.PIMG1, P.PNAME, P.PPRICE " // 상품이미지, 상품명, 상품가격
+				+ "    FROM PRODUCT_WISH W JOIN PRODUCT P ON W.PID = P.PID"
+				+ "    WHERE W.MID = ?";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
@@ -99,11 +102,12 @@ public class ProductWishDao {
 			pstmt.setString(1, mid);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				volist = new ArrayList<ProductWishVo>();
+				volist = new ArrayList<MyProductWishVo>();
 				do {
-					ProductWishVo vo = new ProductWishVo();
-					vo.setMid(rs.getString("mid"));
-					vo.setPid(rs.getString("pid"));
+					MyProductWishVo vo = new MyProductWishVo();
+					vo.setPimg1(rs.getString("pimg1"));
+					vo.setPname(rs.getString("pname"));
+					vo.setPprice(rs.getString("pprice"));
 					
 					volist.add(vo);
 				} while(rs.next());

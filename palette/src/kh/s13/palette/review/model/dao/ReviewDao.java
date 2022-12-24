@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kh.s13.palette.common.jdbc.JdbcTemplate;
+import kh.s13.palette.review.model.vo.MyReviewVo;
+import kh.s13.palette.review.model.vo.ProductReviewVo;
 import kh.s13.palette.review.model.vo.ReviewVo;
 
 public class ReviewDao {
@@ -111,11 +113,14 @@ public class ReviewDao {
 		System.out.println(">>>> ReviewDao selectList return : " + volist);
 		return volist;
 	}
-//	selectList - 내가 작성한 후기
-	public List<ReviewVo> selectList(Connection conn, String mid){
-		List<ReviewVo> volist = null;
+//	selectList - 내가 작성한 후기목록
+	public List<MyReviewVo> selectMyList(Connection conn, String mid){
+		List<MyReviewVo> volist = null;
 		
-		String sql = "select * from review where mid=?";
+		String sql = "SELECT R.RNO, P.PIMG1, P.PNAME, R.RCONTENT, TO_CHAR(R.RDATE, 'YYYY.MM.DD') RDATE " // 후기번호, 상품이미지, 상품명, 후기내용, 글등록시간
+				+ "    FROM REVIEW R JOIN PRODUCT P ON R.PID = P.PID"
+				+ "    WHERE R.MID = ?"
+				+ "    ORDER BY R.RNO DESC";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
@@ -123,14 +128,14 @@ public class ReviewDao {
 			pstmt.setString(1, mid);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				volist = new ArrayList<ReviewVo>();
+				volist = new ArrayList<MyReviewVo>();
 				do {
-					ReviewVo vo = new ReviewVo();
+					MyReviewVo vo = new MyReviewVo();
 					vo.setRno(rs.getInt("rno"));
-					vo.setPid(rs.getString("pid"));
-					vo.setMid(rs.getString("mid"));
+					vo.setPimg1(rs.getString("pimg1"));
+					vo.setPname(rs.getString("pname"));
 					vo.setRcontent(rs.getString("rcontent"));
-					vo.setRdate(rs.getTimestamp("rdate"));
+					vo.setRdate(rs.getString("rdate"));
 					
 					volist.add(vo);
 				} while(rs.next());
@@ -141,7 +146,46 @@ public class ReviewDao {
 			JdbcTemplate.close(rs);
 			JdbcTemplate.close(pstmt);
 		}
-		System.out.println(">>>> ReviewDao selectList return : " + volist);
+		System.out.println(">>>> ReviewDao selectMyList return : " + volist);
+		return volist;
+	}
+	
+//	selectList - 상품페이지 후기목록
+	public List<ProductReviewVo> selectPList(Connection conn, String pid){
+		List<ProductReviewVo> volist = null;
+		
+		String sql = "SELECT R.RNO, M.MNAME, P.PNAME, R.RCONTENT, TO_CHAR(R.RDATE, 'YYYY.MM.DD') RDATE" // 후기번호, 회원이름, 상품명, 후기내용, 글등록시간
+				+ "    FROM REVIEW R JOIN PRODUCT P ON R.PID = P.PID"
+				+ "                  JOIN MEMBER M ON R.MID = M.MID"
+				+ "    WHERE R.PID = ?"
+				+ "    ORDER BY R.RNO DESC";
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, pid);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				volist = new ArrayList<ProductReviewVo>();
+				do {
+					ProductReviewVo vo = new ProductReviewVo();
+					vo.setRno(rs.getInt("rno"));
+					vo.setMname(rs.getString("mname"));
+					vo.setPname(rs.getString("pname"));
+					vo.setRcontent(rs.getString("rcontent"));
+					vo.setRdate(rs.getString("rdate"));
+					
+					volist.add(vo);
+				} while(rs.next());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(pstmt);
+		}
+		System.out.println(">>>> ReviewDao selectPList return : " + volist);
 		return volist;
 	}
 	

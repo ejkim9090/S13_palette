@@ -119,15 +119,21 @@ public class ProductDao {
 	}
 	
 //	selectList - 카테고리
-	public List<ProductVo> selectList(Connection conn, int cid){
+	public List<ProductVo> selectList(Connection conn, int cid, String pdelivery, int pprice){
 		List<ProductVo> volist = null;
 		
-		String sql = "select * from product where cid=?";
+		String sql = "select * "
+				+ "	from product "
+				+ "where cid=? and pdelivery=? and pprice between ? and ? " // TODO
+				+ "order by pname asc"; 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, cid);
+			pstmt.setString(2, pdelivery);
+			pstmt.setInt(3, pprice);
+			pstmt.setInt(4, pprice); // TODO
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				volist = new ArrayList<ProductVo>();
