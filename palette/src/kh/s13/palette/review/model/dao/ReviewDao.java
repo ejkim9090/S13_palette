@@ -134,7 +134,7 @@ public class ReviewDao {
 					vo.setRno(rs.getInt("rno"));
 					vo.setPimg1(rs.getString("pimg1"));
 					vo.setPname(rs.getString("pname"));
-					vo.setRcontent(rs.getString("rcontent"));
+					vo.setRcontent(rs.getString("rcontent").replaceAll("%%", "<br>"));
 					vo.setRdate(rs.getString("rdate"));
 					
 					volist.add(vo);
@@ -173,7 +173,7 @@ public class ReviewDao {
 					vo.setRno(rs.getInt("rno"));
 					vo.setMname(rs.getString("mname"));
 					vo.setPname(rs.getString("pname"));
-					vo.setRcontent(rs.getString("rcontent"));
+					vo.setRcontent(rs.getString("rcontent").replaceAll("%%", "<br>"));
 					vo.setRdate(rs.getString("rdate"));
 					
 					volist.add(vo);
