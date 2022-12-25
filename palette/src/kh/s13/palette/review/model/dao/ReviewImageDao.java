@@ -54,6 +54,26 @@ public class ReviewImageDao {
 		System.out.println(">>>> ReviewImageDao delete return : " + result);
 		return result;
 	}
+//	delete - overloading 후기번호에 해당하는사진 다 삭제
+	public int delete(Connection conn, int rno) {
+		System.out.println(">>>> ReviewImageDao delete param rno : " + rno);
+		int result = 0;
+		
+		String sql = "delete from review_image where rno=?";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rno);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(pstmt);
+		}
+		System.out.println(">>>> ReviewImageDao delete return : " + result);
+		return result;
+	}
 	
 //	selectList : 목록조회 (리턴 모양이 중요!)
 	public List<ReviewImageVo> selectList(Connection conn){
@@ -90,7 +110,7 @@ public class ReviewImageDao {
 	public List<ReviewImageVo> selectList(Connection conn, int rno){
 		List<ReviewImageVo> volist = null;
 		
-		String sql = "select * from review_image where rno=?";
+		String sql = "select RFILEPATH from review_image where rno=?";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
@@ -101,9 +121,7 @@ public class ReviewImageDao {
 				volist = new ArrayList<ReviewImageVo>();
 				do {
 					ReviewImageVo vo = new ReviewImageVo();
-					
 					vo.setRfilepath(rs.getString("rfilepath"));
-					vo.setRno(rs.getInt("rno"));
 					
 					volist.add(vo);
 				} while(rs.next());

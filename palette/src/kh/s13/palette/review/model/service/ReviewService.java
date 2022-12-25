@@ -1,6 +1,7 @@
 package kh.s13.palette.review.model.service;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 
 import kh.s13.palette.common.jdbc.JdbcTemplate;
@@ -56,17 +57,23 @@ private ReviewImageDao dao2 = new ReviewImageDao();
 		return volist;
 	}
 //	selectList - 내가 작성한 후기
-	public List<MyReviewVo> selectMyList(String mid){
+	public List<MyReviewVo> selectMyList(String mid, int startRnum, int endRnum){
 		List<MyReviewVo> volist = null;
 		Connection conn = JdbcTemplate.getConnection();
 		
 		// 해당되는 rno의 reviewImage만 가져오게하기
-		volist = dao.selectMyList(conn, mid);
+		volist = dao.selectMyList(conn, mid, startRnum, endRnum);
 		if(volist != null) {
-			for(int i=0; i < volist.size(); i++) {
+			for(int i = 0; i < volist.size(); i++) {
 				int rno = volist.get(i).getRno();
-				List<ReviewImageVo> rimagelist = dao2.selectList(conn, rno);
-				volist.get(i).setRimagelist(rimagelist);
+				List<ReviewImageVo> rimglist = dao2.selectList(conn, rno); 
+				if(rimglist != null) {
+					List<String> rfilepath = new ArrayList<String>();
+					for(int j = 0; j < rimglist.size(); j++) {
+						rfilepath.add(rimglist.get(j).getRfilepath());
+					}
+					volist.get(i).setRfilepath(rfilepath);
+				}
 			}
 		}
 		JdbcTemplate.close(conn);
@@ -81,10 +88,16 @@ private ReviewImageDao dao2 = new ReviewImageDao();
 		// 해당되는 rno의 reviewImage만 가져오게하기
 		volist = dao.selectPList(conn, pid);
 		if(volist != null) {
-			for(int i=0; i < volist.size(); i++) {
+			for(int i = 0; i < volist.size(); i++) {
 				int rno = volist.get(i).getRno();
-				List<ReviewImageVo> rimagelist = dao2.selectList(conn, rno);
-				volist.get(i).setRimagelist(rimagelist);
+				List<ReviewImageVo> rimglist = dao2.selectList(conn, rno); 
+				if(rimglist != null) {
+					List<String> rfilepath = new ArrayList<String>();
+					for(int j = 0; j < rimglist.size(); j++) {
+						rfilepath.add(rimglist.get(j).getRfilepath());
+					}
+					volist.get(i).setRfilepath(rfilepath);
+				}
 			}
 		}
 		JdbcTemplate.close(conn);
@@ -100,5 +113,15 @@ private ReviewImageDao dao2 = new ReviewImageDao();
 		JdbcTemplate.close(conn);
 		System.out.println(">> ReviewService selectOne return :" + vo);
 		return vo;
+	}
+// 후기 총 개수 
+	public int selectTotalCnt() {
+		int result = 0;
+		Connection conn = JdbcTemplate.getConnection();
+		
+		result = dao.selectTotalCnt(conn);
+		
+		JdbcTemplate.close(conn);
+		return result;
 	}
 }

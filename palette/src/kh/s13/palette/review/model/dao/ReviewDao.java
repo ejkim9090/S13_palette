@@ -113,25 +113,31 @@ public class ReviewDao {
 		System.out.println(">>>> ReviewDao selectList return : " + volist);
 		return volist;
 	}
-//	selectList - 내가 작성한 후기목록
-	public List<MyReviewVo> selectMyList(Connection conn, String mid){
+//	selectList - 내가 작성한 후기목록 페이징
+	public List<MyReviewVo> selectMyList(Connection conn, String mid, int startRnum, int endRnum){
 		List<MyReviewVo> volist = null;
 		
-		String sql = "SELECT R.RNO, P.PIMG1, P.PNAME, R.RCONTENT, TO_CHAR(R.RDATE, 'YYYY.MM.DD') RDATE " // 후기번호, 상품이미지, 상품명, 후기내용, 글등록시간
-				+ "    FROM REVIEW R JOIN PRODUCT P ON R.PID = P.PID"
-				+ "    WHERE R.MID = ?"
-				+ "    ORDER BY R.RNO DESC";
+		String sql = "select * "
+				+ "	   	from (select t1.*, rownum r"
+				+ "	   	from (SELECT R.RNO, P.PID, P.PIMG1, P.PNAME, R.RCONTENT, TO_CHAR(R.RDATE, 'YYYY.MM.DD') RDATE" // 후기번호, 상품아이디, 상품이미지, 상품명, 후기내용, 글등록시간
+				+ "    	FROM REVIEW R JOIN PRODUCT P ON R.PID = P.PID"
+				+ "    	WHERE R.MID = ?"
+				+ "    	ORDER BY R.RNO DESC) t1 ) t2 "
+				+ "		where r between ? and ?";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mid);
+			pstmt.setInt(2, startRnum);
+			pstmt.setInt(3, endRnum);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				volist = new ArrayList<MyReviewVo>();
 				do {
 					MyReviewVo vo = new MyReviewVo();
 					vo.setRno(rs.getInt("rno"));
+					vo.setPid(rs.getString("pid"));
 					vo.setPimg1(rs.getString("pimg1"));
 					vo.setPname(rs.getString("pname"));
 					vo.setRcontent(rs.getString("rcontent").replaceAll("%%", "<br>"));
@@ -218,5 +224,26 @@ public class ReviewDao {
 		}
 		System.out.println(">>>> ReviewDao selectOne return : " + vo);
 		return vo;
+	}
+// selectTotalCnt : 후기 총 개수
+	public int selectTotalCnt(Connection conn) {
+		int result = 0;
+		
+		String sql = "select count(*) from review";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt(1); // 1 : 첫번째 컬럼 (여기선 컬럼이 하나)
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(pstmt);
+		}
+		return result;
 	}
 }
