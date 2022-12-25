@@ -17,7 +17,7 @@ import kh.s13.palette.product.model.vo.ProductWishVo;
 /**
  * Servlet implementation class MypageWishController
  */
-@WebServlet("/mypage/wish")
+@WebServlet("/mypage_wish")
 public class MypageWishController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

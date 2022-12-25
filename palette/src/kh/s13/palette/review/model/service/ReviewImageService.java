@@ -22,11 +22,21 @@ public class ReviewImageService {
 		return result;
 	}
 //	delete
-	public int delete(String rfilepath /*여기에는 주로 기본키가 들어감*/) {
+	public int delete(String rfilepath) {
 		System.out.println(">> ReviewImageService delete param rfilepath :" + rfilepath);
 		int result = 0;
 		Connection conn = JdbcTemplate.getConnection();
 		result = dao.delete(conn, rfilepath);
+		JdbcTemplate.close(conn);
+		System.out.println(">> ReviewImageService delete return :" + result);
+		return result;
+	}
+//	delete - overloading 후기번호에 해당하는사진 다 삭제
+	public int delete(int rno) {
+		System.out.println(">> ReviewImageService delete param rno :" + rno);
+		int result = 0;
+		Connection conn = JdbcTemplate.getConnection();
+		result = dao.delete(conn, rno);
 		JdbcTemplate.close(conn);
 		System.out.println(">> ReviewImageService delete return :" + result);
 		return result;

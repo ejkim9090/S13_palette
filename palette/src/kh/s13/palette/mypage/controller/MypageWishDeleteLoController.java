@@ -10,20 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kh.s13.palette.member.model.vo.MemberVo;
-import kh.s13.palette.review.model.service.ReviewService;
-import kh.s13.palette.review.model.vo.ReviewVo;
+import kh.s13.palette.product.model.service.ProductWishService;
 
 /**
  * Servlet implementation class MypageReviewDeleteDoController
  */
-@WebServlet("/mypage/review/delete.do")
-public class MypageReviewDeleteDoController extends HttpServlet {
+@WebServlet("/mypage_wish/delete.do")
+public class MypageWishDeleteLoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MypageReviewDeleteDoController() {
+    public MypageWishDeleteLoController() {
         super();
     }
 
@@ -33,27 +32,20 @@ public class MypageReviewDeleteDoController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// 작성한 후기 삭제
+		// 찜 삭제
+		String mid = request.getParameter("mid"); 
+		String pid = request.getParameter("pid"); 
 		
-		String rnoStr = request.getParameter("rno"); // 후기 번호
-		int rno = 0;
-		try {
-			rno = Integer.parseInt(rnoStr);
-		}catch (Exception e) {
-		}
-		
-		ReviewService service = new ReviewService();
-		int result = service.delete(rno);
+		ProductWishService service = new ProductWishService();
+		int result = service.delete(mid, pid);
 		
 		if (result > 0) {
-			request.setAttribute("rno", rno);
-			request.setAttribute("func", "reviewDelete");
-			request.setAttribute("msg", "후기 삭제 성공");
+			request.setAttribute("func", "wishDelete");
+			request.setAttribute("msg", "찜 삭제 성공");
 			request.getRequestDispatcher("./WEB-INF/view/resultAlert.jsp").forward(request, response);
 		} else {
-			request.setAttribute("rno", rno);
-			request.setAttribute("func", "reviewDelete");
-			request.setAttribute("msg", "후기 삭제 실패");
+			request.setAttribute("func", "wishDelete");
+			request.setAttribute("msg", "찜 삭제 실패");
 			request.getRequestDispatcher("./WEB-INF/view/resultAlert.jsp").forward(request, response);
 		}
 	}
