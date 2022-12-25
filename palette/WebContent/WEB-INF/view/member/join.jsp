@@ -15,6 +15,7 @@
     <link href="<%=request.getContextPath()%>/css/checkbox_check_action.css" rel="stylesheet">
 
     <script src="<%=request.getContextPath()%>/js/jquery-3.6.1.js"></script>
+    <script src="<%=request.getContextPath()%>/js/scrollup.js"></script>
     <script src="<%=request.getContextPath()%>/js/header.js"></script>
     <script src="<%=request.getContextPath()%>/js/join.js"></script>
     

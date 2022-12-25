@@ -10,12 +10,9 @@
 </head>
 <body>
 <script>
-	if("${func}" == "reviewDelete"){
+	if("${func}" == "wishDelete"){
 		alert("${msg}");
-		location.href = "<%= request.getContextPath()%>/mypage/review";
-	} else if("${func}" == "wishDelete"){
-		alert("${msg}");
-		location.href = "<%= request.getContextPath()%>/mypage/wish";
+		location.href = "<%= request.getContextPath()%>/mypage_wish";
 	} else if("${func}" == "reviewInsert"){
 		alert("${msg}");
 		location.href = "<%= request.getContextPath()%>/product?pid=${pid}";
