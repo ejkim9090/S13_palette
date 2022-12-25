@@ -11,12 +11,10 @@
     <link href="<%=request.getContextPath()%>/css/reset.css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/css/header_footer.css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/css/scrollup.css" rel="stylesheet">
-    <link href="<%=request.getContextPath()%>/css/main.css" rel="stylesheet">
     <!-- TODO 여기에 해당 파일의 css -->
     <script src="<%=request.getContextPath()%>/js/jquery-3.6.1.js"></script>
-    <script src="<%=request.getContextPath()%>/js/scrollup.js"></script>
     <script src="<%=request.getContextPath()%>/js/header.js"></script>
-    <script src="<%=request.getContextPath()%>/js/main.js"></script>
+    <script src="<%=request.getContextPath()%>/js/scrollup.js"></script>
     <!-- TODO 여기에 해당 파일의 js -->
     <!-- 전체공통 -->
     <style>
