@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-      <div id="header">
+	   <div id="header">
            <div class="h_first">
                <div class="h_f_1">
                    <div>
@@ -14,7 +14,7 @@
 	                        <div>|</div>
                    		</c:when>
                    		<c:otherwise>
-                            <a href="${pageContext.request.contextPath }/mypage/wish">
+                            <a href="${pageContext.request.contextPath }/mypage_wish">
                                 ${loginSsInfo.mname} 님
                             </a>
 							<div>|</div>
@@ -37,14 +37,14 @@
                </div>
                <div class="h_f_2">
                    <div id="main_logo" onclick="location.href='${pageContext.request.contextPath }/main';">
-                       <img src="./images/palette_logo.PNG" alt="main_logo">
+                       <img src="${pageContext.request.contextPath }/images/palette_logo.png" alt="main_logo">
                    </div>
                    <div id="search" style="border: 1px solid rgb(219, 115, 150);">
                        <input type="text" placeholder="">
                        <button type="button"><img src="${pageContext.request.contextPath }/images/search_logo.svg"></button>
                    </div>
                    <div id="buttons">
-                       <button type="button" onclick="location.href='${pageContext.request.contextPath }/mypage/wish';"></button>
+                       <button type="button" onclick="location.href='${pageContext.request.contextPath }/mypage_wish';"></button>
                        <button type="button"></button>
                    </div>
                </div>
