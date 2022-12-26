@@ -50,6 +50,15 @@ public class CategoryService {
 		System.out.println(">> CategoryService selectList return :" + volist);
 		return volist;
 	}
+//	selectList (리턴 모양이 중요!)
+	public List<CategoryVo> selectList(int cpid){
+		List<CategoryVo> volist = null;
+		Connection conn = JdbcTemplate.getConnection();
+		volist = dao.selectList(conn, cpid);
+		JdbcTemplate.close(conn);
+		System.out.println(">> CategoryService selectList return :" + volist);
+		return volist;
+	}
 //	selectOne
 	public CategoryVo selectOne(String cid /*여기에는 주로 기본키가 들어감*/){
 		System.out.println(">> CategoryService selectOne param cid :" + cid);

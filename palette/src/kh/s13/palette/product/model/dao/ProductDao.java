@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kh.s13.palette.common.jdbc.JdbcTemplate;
+import kh.s13.palette.product.model.vo.CategoryProductVo;
 import kh.s13.palette.product.model.vo.ProductVo;
 
 public class ProductDao {
@@ -119,34 +120,60 @@ public class ProductDao {
 	}
 	
 //	selectList - 카테고리
-	public List<ProductVo> selectList(Connection conn, int cid, String pdelivery, int pprice){
-		List<ProductVo> volist = null;
+	public List<CategoryProductVo> selectList(Connection conn, int cid, String pdelivery, int startprice, int endprice){
+		List<CategoryProductVo> volist = null;
 		
-		String sql = "select * "
-				+ "	from product "
-				+ "where cid=? and pdelivery=? and pprice between ? and ? " // TODO
-				+ "order by pname asc"; 
+		String sql = "	SELECT P.PID, C.CNAME, COUNT(*) OVER(PARTITION BY 1) CNT, P.PIMG1, P.PNAME, P.PPRICE " // 카테고리이름, 개수, 상품이미지, 상품명, 가격
+				+ "	    FROM PRODUCT P JOIN CATEGORY C ON P.CID = C.CID"
+				+ "	    WHERE P.CID = ?"
+				+ "	    ORDER BY P.PNAME ASC";
+		
+		String sqlDelivery = "	SELECT P.PID, C.CNAME, COUNT(*) OVER(PARTITION BY 1) CNT, P.PIMG1, P.PNAME, P.PPRICE "
+				+ "	    FROM PRODUCT P JOIN CATEGORY C ON P.CID = C.CID"
+				+ "	    WHERE P.CID = ? AND P.PDELIVERY = '무료배송'"
+				+ "	    ORDER BY P.PNAME ASC";
+		
+		String sqlPrice = "	SELECT P.PID, C.CNAME, COUNT(*) OVER(PARTITION BY 1) CNT, P.PIMG1, P.PNAME, P.PPRICE "
+				+ "	    FROM PRODUCT P JOIN CATEGORY C ON P.CID = C.CID"
+				+ "	    WHERE P.CID = ? AND P.PPRICE BETWEEN ? AND ? "
+				+ "	    ORDER BY P.PNAME ASC";
+		
+		String sqlDeliveryPrice = "	SELECT P.PID, C.CNAME, COUNT(*) OVER(PARTITION BY 1) CNT, P.PIMG1, P.PNAME, P.PPRICE "
+				+ "	    FROM PRODUCT P JOIN CATEGORY C ON P.CID = C.CID"
+				+ "	    WHERE P.CID = ? AND P.PDELIVERY = '무료배송' AND P.PPRICE BETWEEN ? AND ?"
+				+ "	    ORDER BY P.PNAME ASC";
+		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, cid);
-			pstmt.setString(2, pdelivery);
-			pstmt.setInt(3, pprice);
-			pstmt.setInt(4, pprice); // TODO
+			if(pdelivery == null && startprice == 0 && endprice == 0) { // 아무것도 체크 X
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, cid);
+			} else if(startprice == 0 && endprice == 0) { // 배송만 체크
+				pstmt = conn.prepareStatement(sqlDelivery);
+				pstmt.setInt(1, cid);
+			} else if(pdelivery == null) { // 가격만 체크
+				pstmt = conn.prepareStatement(sqlPrice);
+				pstmt.setInt(1, cid);
+				pstmt.setInt(2, startprice);
+				pstmt.setInt(3, endprice);
+			} else { // 모두 체크
+				pstmt = conn.prepareStatement(sqlDeliveryPrice);
+				pstmt.setInt(1, cid);
+				pstmt.setInt(2, startprice);
+				pstmt.setInt(3, endprice);
+			}
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				volist = new ArrayList<ProductVo>();
+				volist = new ArrayList<CategoryProductVo>();
 				do {
-					ProductVo vo = new ProductVo();
+					CategoryProductVo vo = new CategoryProductVo();
 					vo.setPid(rs.getString("pid"));
-					vo.setCid(rs.getInt("cid"));
+					vo.setCname(rs.getString("cname"));
+					vo.setCnt(rs.getInt("cnt"));
+					vo.setPimg1(rs.getString("pimg1"));
 					vo.setPname(rs.getString("pname"));
-					vo.setPimage1(rs.getString("pimage1"));
-					vo.setPimage2(rs.getString("pimage2"));
 					vo.setPprice(rs.getInt("pprice"));
-					vo.setPbenefit(rs.getString("pbenefit"));
-					vo.setPdelivery(rs.getString("pdelivery"));
 					
 					volist.add(vo);
 				} while(rs.next());

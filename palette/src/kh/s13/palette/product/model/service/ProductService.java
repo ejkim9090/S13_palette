@@ -5,6 +5,7 @@ import java.util.List;
 
 import kh.s13.palette.common.jdbc.JdbcTemplate;
 import kh.s13.palette.product.model.dao.ProductDao;
+import kh.s13.palette.product.model.vo.CategoryProductVo;
 import kh.s13.palette.product.model.vo.ProductVo;
 
 public class ProductService {
@@ -51,10 +52,10 @@ public class ProductService {
 		return volist;
 	}
 //	selectList - 카테고리
-	public List<ProductVo> selectList(int cid){
-		List<ProductVo> volist = null;
+	public List<CategoryProductVo> selectList(int cid, String pdelivery, int startprice, int endprice){
+		List<CategoryProductVo> volist = null;
 		Connection conn = JdbcTemplate.getConnection();
-		volist = dao.selectList(conn, cid);
+		volist = dao.selectList(conn, cid, pdelivery, startprice, endprice);
 		JdbcTemplate.close(conn);
 		System.out.println(">> ProductService selectList return :" + volist);
 		return volist;
