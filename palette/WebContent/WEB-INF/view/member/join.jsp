@@ -139,12 +139,12 @@
                                     </div>
                                     <div>
                                         <div>
-                                            <label><input type="checkbox" name="" class="agree_check" required><span>이용약관 동의</span></label><span class="user_select">(필수)</span>
+                                            <label><input type="checkbox" class="agree_check" required><span>이용약관 동의</span></label><span class="user_select">(필수)</span>
                                         </div>
                                     </div>
                                     <div>
                                         <div>
-                                            <label><input type="checkbox" name="" class="agree_check" required><span>개인정보 수집&#8729;이용 동의</span></label><span class="user_select">(필수)</span>
+                                            <label><input type="checkbox" class="agree_check" required><span>개인정보 수집&#8729;이용 동의</span></label><span class="user_select">(필수)</span>
                                         </div>
                                     </div>
                                     <div>
@@ -154,22 +154,23 @@
                                     </div>
                                     <div id="sms_agreement">
                                         <div>
-                                            <label onclick="sms_all()"><input type="checkbox" name="" class="agree_check" id="sms_all"><span>무료배송, 할인쿠폰 등 혜택/정보 수신 동의</span></label><span class="user_select">(선택)</span>
+                                            <label onclick="sms_all()"><input type="checkbox" class="agree_check" id="sms_all"><span>무료배송, 할인쿠폰 등 혜택/정보 수신 동의</span></label><span class="user_select">(선택)</span>
                                         </div>
                                         <div>
                                             <label><input type="checkbox" name="mconsent" value="2" class="agree_check sms_each"><span>SMS</span></label>
-                                            <label><input type="checkbox" name="mconsent" value="3" class="agree_check sms_each"><span>이메일</span></label>
+                                            <label><input type="checkbox" name="mconsent" value="4" class="agree_check sms_each"><span>이메일</span></label>
                                         </div>
                                     </div>
                                     <div>
                                         <div>
-                                            <label><input type="checkbox" name="" class="agree_check" required><span>본인은 14세 이상입니다.</span></label><span class="user_select">(필수)</span>
+                                            <label><input type="checkbox" class="agree_check" required><span>본인은 14세 이상입니다.</span></label><span class="user_select">(필수)</span>
                                         </div>
                                     </div>
                                 </div>
     
                             </div>
                             <div id="submit_area">
+                            	<input type="hidden" name="mconsentTotal" id="mconsentTotal" value="0">
                                 <button type="submit" id="submit">
                                     <span>가입하기</span>
                                 </button>
@@ -200,6 +201,7 @@ $(function(){
     
     // checkbox 체크된 값 더하기 // TODO
     $("#submit").click(function(){
+    	
     	var checkValue = 0;
     	
     	$("input[name='mconsent']:checked").each(function(){
@@ -207,13 +209,8 @@ $(function(){
     		checkValue += Number($(this).val());
         })
     	//합계를 출력
-    	$("input[name='mconsent']").val(checkValue); // mconsent의 value에 합계 입력
+    	$("#mconsentTotal").val(checkValue); // mconsent의 value에 합계 입력
     });
-    
-    
-    
-    
-    
     
     
     

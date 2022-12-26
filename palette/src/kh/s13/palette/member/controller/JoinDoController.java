@@ -49,12 +49,18 @@ public class JoinDoController extends HttpServlet {
 		int mbmonth = 0;
 		int mbdate = 0;
 		int mconsent = 0;
+		System.out.println("mconsentTotal: "+ request.getParameter("mconsentTotal"));
 		try {
-			mbyear = Integer.parseInt(request.getParameter("mbyear"));
-			mbmonth = Integer.parseInt(request.getParameter("mbmonth"));
-			mbdate = Integer.parseInt(request.getParameter("mbdate"));
-			mconsent = Integer.parseInt(request.getParameter("mconsent"));
+			mconsent = Integer.parseInt(request.getParameter("mconsentTotal"));
+			
+			if(request.getParameter("mbyear") != null && !request.getParameter("mbyear").equals(""))
+				mbyear = Integer.parseInt(request.getParameter("mbyear"));
+			if(request.getParameter("mbmonth") != null && !request.getParameter("mbmonth").equals(""))
+				mbmonth = Integer.parseInt(request.getParameter("mbmonth"));
+			if(request.getParameter("mbdate") != null && !request.getParameter("mbdate").equals(""))
+				mbdate = Integer.parseInt(request.getParameter("mbdate"));
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
 		MemberVo vo = new MemberVo(); 

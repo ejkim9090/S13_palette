@@ -110,6 +110,36 @@ public class CategoryDao {
 		System.out.println(">>>> CategoryDao selectList return : " + volist);
 		return volist;
 	}
+//	selectList - overriding 소분류 조회
+	public List<CategoryVo> selectList(Connection conn, int cpid){
+		List<CategoryVo> volist = null;
+		
+		String sql = "select cid, cname from category where cpid=?"; // 카테고리아이디, 카테고리이름
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cpid);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				volist = new ArrayList<CategoryVo>();
+				do {
+					CategoryVo vo = new CategoryVo();
+					vo.setCid(rs.getInt("cid"));
+					vo.setCname(rs.getString("cname"));
+					
+					volist.add(vo);
+				} while(rs.next());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(pstmt);
+		}
+		System.out.println(">>>> CategoryDao selectList return : " + volist);
+		return volist;
+	}
 	
 //	selectOne : 하나 상세조회
 	public CategoryVo selectOne(Connection conn, String cid /*여기에는 주로 기본키가 들어감*/){

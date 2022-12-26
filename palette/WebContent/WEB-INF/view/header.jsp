@@ -69,7 +69,7 @@
                                            <li onclick = "location.href='${pageContext.request.contextPath }/category?cid=15';"><div><span>스케줄러/플래너</span></div></li>
                                        </ul>
                                    </li>
-                                   <li class="s_c_list_li" onclick = "location.href='${pageContext.request.contextPath }/category.html';">
+                                   <li class="s_c_list_li">
                                        <div onclick = "location.href='${pageContext.request.contextPath }/category?cid=20';">
                                            <span>문구</span>
                                        </div>
@@ -84,7 +84,7 @@
                                            <li onclick = "location.href='${pageContext.request.contextPath }/category?cid=28';"><div><span>카드/편지지</span></div></li>
                                        </ul>
                                    </li>
-                                   <li class="s_c_list_li" onclick = "location.href='${pageContext.request.contextPath }/category.html';">
+                                   <li class="s_c_list_li">
                                        <div onclick = "location.href='${pageContext.request.contextPath }/category?cid=30';">
                                            <span>취미</span>
                                        </div>
@@ -95,7 +95,7 @@
                                            <li onclick = "location.href='${pageContext.request.contextPath }/category?cid=34';"><div><span>피규어</span></div></li>
                                        </ul>
                                    </li>
-                                   <li class="s_c_list_li" onclick = "location.href='${pageContext.request.contextPath }/category.html';">
+                                   <li class="s_c_list_li">
                                        <div onclick = "location.href='${pageContext.request.contextPath }/category?cid=40';">
                                            <span>키친/홈데코</span>
                                        </div>
@@ -109,7 +109,7 @@
                                            <li onclick = "location.href='${pageContext.request.contextPath }/category?cid=47';"><div><span>인테리어소품</span></div></li>
                                        </ul>
                                    </li>
-                                   <li class="s_c_list_li" onclick = "location.href='${pageContext.request.contextPath }/category.html';">
+                                   <li class="s_c_list_li">
                                        <div onclick = "location.href='${pageContext.request.contextPath }/category?cid=50';">
                                            <span>패브릭/생활</span>
                                        </div>
