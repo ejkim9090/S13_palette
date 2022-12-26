@@ -114,12 +114,12 @@ private ReviewImageDao dao2 = new ReviewImageDao();
 		System.out.println(">> ReviewService selectOne return :" + vo);
 		return vo;
 	}
-// 후기 총 개수 
-	public int selectTotalCnt() {
+// 나의 후기 총 개수 
+	public int selectTotalCnt(String mid) {
 		int result = 0;
 		Connection conn = JdbcTemplate.getConnection();
 		
-		result = dao.selectTotalCnt(conn);
+		result = dao.selectTotalCnt(conn, mid);
 		
 		JdbcTemplate.close(conn);
 		return result;

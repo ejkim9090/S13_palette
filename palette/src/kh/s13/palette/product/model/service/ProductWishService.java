@@ -42,10 +42,10 @@ public class ProductWishService {
 		return volist;
 	}
 //	selectList - overloading 내가 찜한 상품
-	public List<MyProductWishVo> selectList(String mid){
+	public List<MyProductWishVo> selectList(String mid, int startRnum, int endRnum){
 		List<MyProductWishVo> volist = null;
 		Connection conn = JdbcTemplate.getConnection();
-		volist = dao.selectList(conn, mid);
+		volist = dao.selectList(conn, mid, startRnum, endRnum);
 		JdbcTemplate.close(conn);
 		System.out.println(">> ProductWishService selectList return :" + volist);
 		return volist;
@@ -59,5 +59,15 @@ public class ProductWishService {
 		JdbcTemplate.close(conn);
 		System.out.println(">> ProductWishService selectOne return :" + vo);
 		return vo;
+	}
+// 찜 총 개수 
+	public int selectTotalCnt(String mid) {
+		int result = 0;
+		Connection conn = JdbcTemplate.getConnection();
+		
+		result = dao.selectTotalCnt(conn, mid);
+		
+		JdbcTemplate.close(conn);
+		return result;
 	}
 }

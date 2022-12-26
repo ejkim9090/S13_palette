@@ -10,10 +10,7 @@
 </head>
 <body>
 <script>
-	if("${func}" == "wishDelete"){
-		alert("${msg}");
-		location.href = "<%= request.getContextPath()%>/mypage_wish";
-	} else if("${func}" == "reviewInsert"){
+	if("${func}" == "reviewInsert"){
 		alert("${msg}");
 		location.href = "<%= request.getContextPath()%>/product?pid=${pid}";
 	} else if("${func}" == "memberInsert"){

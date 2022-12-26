@@ -92,45 +92,52 @@
 	</c:when>
 	<c:otherwise>                        	
 					<div class="wish_wrapper" style="position: relative;">
-						<div style="overflow: visible; width: 0px;">
-							<div>
-								<div aria-label="grid" aria-readonly="true" class="ReactVirtualized__Grid ReactVirtualized__List" role="grid" tabindex="0" style="box-sizing: border-box; direction: ltr; height: auto; position: relative; width: 780px; will-change: transform; overflow: hidden;">
-									<div class="ReactVirtualized__Grid__innerScrollContainer" role="rowgroup" style="width: auto; height: 384px; max-width: 780px; max-height: 384px; overflow: hidden; position: relative;">
 										
     	<c:forEach items="${wishlist}" var="wishlist">
 										
-										<div class="wish" style="height: 128px; left: 0px; position: absolute; top: 0px; width: 100%;">
-											<a href="/product?pid=${wishlist.pid }" class="wish_img">
-												<span width="60" height="78">
-												<span style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;">
-												<img alt="" src="<%=request.getContextPath()%>/${wishlist.pimg1}" decoding="async" data-nimg="fill" sizes="100vw"
-														style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"></span></span></a>
-											<div class="wish_info">
-												<div>
-													<div class="wish_name">
-														<a href="/product?pid=${wishlist.pid }">${wishlist.pname }</a>
-													</div>
-													<div class="wish_price">
-														<span>${wishlist.pprice }</span>
-													</div>
-												</div>
-												<div class="wish_btn">
-													<button type="button" width="104" height="36" radius="4" onclick="location.href='mypage_wish/delete.do';">
-														<span>삭제</span>
-													</button>
-												</div>
-											</div>
-										</div>
-		</c:forEach>                        
+						<div class="wish" style="left: 0px; width: 100%;">
+						
+							<a href="<%=request.getContextPath()%>/product?pid=${wishlist.pid }" class="wish_img">
+								<span width="60" height="78">
+								<span style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;">
+								<img src="<%=request.getContextPath()%>/${wishlist.pimg1}" decoding="async" data-nimg="fill" sizes="100vw"
+										style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"></span></span></a>
+							<div class="wish_info">
+								<div>
+									<input type="hidden" name="pid" id="pid" value="${wishlist.pid }">
+									<div class="wish_name">
+										<a href="<%=request.getContextPath()%>/product?pid=${wishlist.pid }">${wishlist.pname }</a>
 									</div>
+									<div class="wish_price">
+										<span>${wishlist.pprice }원</span>
+									</div>
+								</div>
+								<div class="wish_btn">
+									<button type="button" id="delete" width="104" height="36" radius="4">
+										<span>삭제</span>
+									</button>
 								</div>
 							</div>
 						</div>
-						<div class="resize-triggers">
-							<div class="expand-trigger"></div>
-							<div class="contract-trigger"></div>
-						</div>
+		</c:forEach>                        
 					</div>
+					
+					<div class="button_wrapper">
+                        <div class="button">
+		<c:if test="${currentPage ne 1}">
+                            <button type="button" class="button_previous" onclick="location.href='mypage_wish?pagenum=${currentPage-1 }'">
+                                <div class="button_text">이전</div>
+                            </button>
+		</c:if>     
+
+		<c:if test="${currentPage < pageCnt}">
+                            <button type="button" class="button_next" onclick="location.href='mypage_wish?pagenum=${currentPage+1 }'">
+                                <div class="button_text">다음</div>
+                            </button>
+		</c:if>                            
+                        </div>
+                    </div>
+                    
     </c:otherwise>
 </c:choose>                        
                 </div>
@@ -143,4 +150,33 @@
 		<%@ include file="/WEB-INF/view/footer.jsp"%>    
     </div>
 </body>
+<script>
+$(function(){
+	
+	$("#delete").on("click", function(){
+	    
+	    $.ajax({
+      		url : "<%=request.getContextPath()%>/mypage_wish_delete.lo",
+      		type : "post",
+      		data: {pid : $("#pid").val()}, // url로 전달'할' 데이터. Object 타입으로 전달됨
+      		success: function(data){ // (data) : url로부터 전달'받은' 데이터
+      					if(data == 1) {
+							alert("찜 삭제 성공")
+						} else {
+							alert("찜 삭제 실패")
+						}
+      					location.reload(); // f5 새로고침 효과
+      				 },
+      		error : function(request, status, error){
+      					console.log(request);	
+      					console.log(status);	
+      					console.log(error);	
+      					alert("code:"+request.status+"\n"
+      							+"message"+request.responseText+"\n"
+      							+"error"+error);
+      				}
+      	});  
+	});
+});
+</script>
 </html>

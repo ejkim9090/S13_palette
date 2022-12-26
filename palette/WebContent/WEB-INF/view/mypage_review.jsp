@@ -96,14 +96,14 @@
 										
 						<div class="wish" style="left: 0px; width: 100%;">
 						
-							<a href="/product?pid=${reviewlist.pid }" class="wish_img">
+							<a href="<%=request.getContextPath()%>/product?pid=${reviewlist.pid }" class="wish_img">
 								<span width="60" height="78">
 								<span style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;">
 								<img src="<%=request.getContextPath()%>/${reviewlist.pimg1}" decoding="async" data-nimg="fill" sizes="100vw" style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"></span></span></a>
 							<div class="wish_info">
 								<div>
 									<div class="wish_name">
-										<a href="/product?pid=${reviewlist.pid }">${reviewlist.pname }</a>
+										<a href="<%=request.getContextPath()%>/product?pid=${reviewlist.pid }">${reviewlist.pname }</a>
 									</div>
 									<input type="hidden" name="rno" id="rno" value="${reviewlist.rno }">
 									<div class="review_content">
@@ -160,7 +160,6 @@
 $(function(){
 	
 	$("#delete").on("click", function(){
-		console.log("확인");
 	    
 	    $.ajax({
       		url : "<%=request.getContextPath()%>/mypage_review_delete.lo",
@@ -183,7 +182,7 @@ $(function(){
       							+"error"+error);
       				}
       	});  
-	}
+	});
 });
 </script>
 </html>

@@ -89,22 +89,28 @@ public class ProductWishDao {
 	}
 	
 //	selectList - overloading 내가 찜한 상품
-	public List<MyProductWishVo> selectList(Connection conn, String mid){
+	public List<MyProductWishVo> selectList(Connection conn, String mid, int startRnum, int endRnum){
 		List<MyProductWishVo> volist = null;
 		
-		String sql = "SELECT P.PIMG1, P.PNAME, P.PPRICE " // 상품이미지, 상품명, 상품가격
-				+ "    FROM PRODUCT_WISH W JOIN PRODUCT P ON W.PID = P.PID"
-				+ "    WHERE W.MID = ?";
+		String sql = "select * "
+				+ "		from (select t1.*, rownum r"
+				+ "		from (SELECT P.PID, P.PIMG1, P.PNAME, TO_CHAR(P.PPRICE, '999,999,999') PPRICE " // 상품아이디, 상품이미지, 상품명, 상품가격
+				+ "    	FROM PRODUCT_WISH W JOIN PRODUCT P ON W.PID = P.PID"
+				+ "    	WHERE W.MID = ?) t1 ) t2 "
+				+ "		where r between ? and ?";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mid);
+			pstmt.setInt(2, startRnum);
+			pstmt.setInt(3, endRnum);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				volist = new ArrayList<MyProductWishVo>();
 				do {
 					MyProductWishVo vo = new MyProductWishVo();
+					vo.setPid(rs.getString("pid"));
 					vo.setPimg1(rs.getString("pimg1"));
 					vo.setPname(rs.getString("pname"));
 					vo.setPprice(rs.getString("pprice"));
@@ -150,5 +156,27 @@ public class ProductWishDao {
 		}
 		System.out.println(">>>> ProductWishDao selectOne return : " + vo);
 		return vo;
+	}
+// selectTotalCnt : 나의 찜 총 개수
+	public int selectTotalCnt(Connection conn, String mid) {
+		int result = 0;
+		
+		String sql = "select count(*) from product_wish where mid=?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt(1); // 1 : 첫번째 컬럼 (여기선 컬럼이 하나)
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(pstmt);
+		}
+		return result;
 	}
 }

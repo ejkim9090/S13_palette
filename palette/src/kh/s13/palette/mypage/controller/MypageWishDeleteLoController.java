@@ -1,6 +1,7 @@
 package kh.s13.palette.mypage.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -15,7 +16,7 @@ import kh.s13.palette.product.model.service.ProductWishService;
 /**
  * Servlet implementation class MypageReviewDeleteDoController
  */
-@WebServlet("/mypage_wish/delete.do")
+@WebServlet("/mypage_wish_delete.lo")
 public class MypageWishDeleteLoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -33,21 +34,18 @@ public class MypageWishDeleteLoController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// 찜 삭제
-		String mid = request.getParameter("mid"); 
+		PrintWriter out = response.getWriter();
+		
+		String mid = ((MemberVo)request.getSession().getAttribute("loginSsInfo")).getMid();
 		String pid = request.getParameter("pid"); 
 		
 		ProductWishService service = new ProductWishService();
 		int result = service.delete(mid, pid);
 		
-		if (result > 0) {
-			request.setAttribute("func", "wishDelete");
-			request.setAttribute("msg", "찜 삭제 성공");
-			request.getRequestDispatcher("./WEB-INF/view/resultAlert.jsp").forward(request, response);
-		} else {
-			request.setAttribute("func", "wishDelete");
-			request.setAttribute("msg", "찜 삭제 실패");
-			request.getRequestDispatcher("./WEB-INF/view/resultAlert.jsp").forward(request, response);
-		}
+		System.out.println(result);
+		out.println(result);
+		out.flush();
+		out.close(); 
 	}
 
 }

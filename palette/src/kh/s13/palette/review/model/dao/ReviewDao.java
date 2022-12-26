@@ -225,15 +225,16 @@ public class ReviewDao {
 		System.out.println(">>>> ReviewDao selectOne return : " + vo);
 		return vo;
 	}
-// selectTotalCnt : 후기 총 개수
-	public int selectTotalCnt(Connection conn) {
+// selectTotalCnt : 나의 후기 총 개수
+	public int selectTotalCnt(Connection conn, String mid) {
 		int result = 0;
 		
-		String sql = "select count(*) from review";
+		String sql = "select count(*) from review where mid=?";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				result = rs.getInt(1); // 1 : 첫번째 컬럼 (여기선 컬럼이 하나)

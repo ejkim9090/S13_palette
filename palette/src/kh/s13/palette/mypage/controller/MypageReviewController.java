@@ -47,7 +47,9 @@ public class MypageReviewController extends HttpServlet {
 		int currentPage = 1; // 현재페이지. 기본 1. 눌리면 바뀜
 				
 		try {
-			cnt = service.selectTotalCnt();
+			String mid = ((MemberVo)request.getSession().getAttribute("loginSsInfo")).getMid();
+
+			cnt = service.selectTotalCnt(mid); // 나의 후기 총 개수
 			
 			if(cnt < 1) { // 게시글 없는 경우. -> 아래 게시글 selectList 할 필요 없음.
 				return;
@@ -63,14 +65,7 @@ public class MypageReviewController extends HttpServlet {
 			if(endRnum > cnt ) {
 				endRnum = cnt;
 			}
-			
-			String mid = ((MemberVo)request.getSession().getAttribute("loginSsInfo")).getMid();
-			String rnoStr = request.getParameter("rno");
-			int rno = 0;
-			try {
-				rno = Integer.parseInt(rnoStr);
-			}catch (Exception e) {
-			}
+
 			
 			// 해당되는 rno의 reviewImage만 가져오게하는 작업은 ReviewService에서
 			
