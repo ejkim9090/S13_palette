@@ -42,7 +42,7 @@
                 <div id="container">
 
                     <!-- 상단 소분류 -->
-                    <h3 class="cat_header_title">대분류명</h3>
+                    <h3 class="cat_header_title">${parent.cname }</h3>
 
                     <ul class="cat_header_list">
                     
@@ -161,28 +161,19 @@
 
                             <!-- 상품목록 -->
                             <div class="contents_pictures1">
-<c:forEach items="${productlist}" var="product">
+<c:forEach items="${productlist}" var="vo">
                             	
                                 <div class="contents_pricture1_div">
                                     <div class="contents_pricture1_div2">
-                                        <img src="<%=request.getContextPath()%>/${product.pimg1}" onclick="location.href='<%=request.getContextPath()%>/product?pid=${product.pid }';" alt="상품 이미지" loading="lazy">
-                                        <div class="contents_shopping_basket">
-                                            <button type="button" class="shopping_icon" onClick="location.href='shopping_basket_guest.html'"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDUiIGhlaWdodD0iNDUiIHZpZXdCb3g9IjAgMCA0NSA0NSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGNpcmNsZSBmaWxsPSIjMkEwMDM4IiBvcGFjaXR5PSIuNSIgY3g9IjIyLjUiIGN5PSIyMi41IiByPSIyMi41Ii8+CiAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTEuMDMgMTQuMzgpIiBzdHJva2U9IiNGRkYiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPgogICAgICAgICAgICA8cGF0aCBzdHJva2Utd2lkdGg9IjEuNCIgZD0ibTIwLjQ2IDIuOTEtMi4xNyA5LjIzSDUuODdMMy43MSAyLjkxeiIvPgogICAgICAgICAgICA8Y2lyY2xlIHN0cm9rZS13aWR0aD0iMS4yIiBjeD0iMTYuMzUiIGN5PSIxNi44NiIgcj0iMS43Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgc3Ryb2tlLXdpZHRoPSIxLjIiIGN4PSI3LjgyIiBjeT0iMTYuODYiIHI9IjEuNyIvPgogICAgICAgICAgICA8cGF0aCBzdHJva2Utd2lkdGg9IjEuNCIgZD0iTTAgMGgzLjAybDEuNDEgNS45OCIvPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+Cg==" alt="장바구니 아이콘"></button>
-                                        </div>
+                                        <img src="<%=request.getContextPath()%>/${vo.pimg1}" onclick="location.href='<%=request.getContextPath()%>/product?pid=${vo.pid }';" alt="상품 이미지" loading="lazy">
                                     </div>
-                                    <div class="contents_pricture1_explantion" onClick="location.href='<%=request.getContextPath()%>/product?pid=${product.pid }';">
-                                        <sapn class="Saetbyeol_Shipping_span">
-                                            <sapn class="Saetbyeol_Shipping">샛별배송</sapn>
-                                        </sapn>
-                                        <sapn class="contents_1">[최현석의 쵸이닷] 새우 봉골레 파스타</sapn>
+                                    <div class="contents_pricture1_explantion" onClick="location.href='<%=request.getContextPath()%>/product?pid=${vo.pid }';">
+                                        <span class="contents_1">${vo.pname }</span>
                                         <div class="contents_1_price_div">
                                             <div></div>
-                                            <span class="contents_1_price">${product.pprice } 원</span>
+                                            <span class="contents_1_price">${vo.pprice } 원</span>
                                         </div>
-                                        <p class="contents1_explation">이탈리안 레스토랑의 봉골레</p>
                                     </div>
-                                    <div class="kurly_only_div"></div>
-                                    <span class="kurly_only_span">Kurly Only</span>
                                 </div>
 </c:forEach>                               
                             </div>

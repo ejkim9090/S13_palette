@@ -22,7 +22,7 @@ public class CategoryService {
 		return result;
 	}
 //	update
-	public int update(CategoryVo vo, String cid /*여기에는 주로 기본키가 들어감*/) {
+	public int update(CategoryVo vo, int cid /*여기에는 주로 기본키가 들어감*/) {
 		System.out.println(">> CategoryService update param cid :" + cid);
 		int result = 0;
 		Connection conn = JdbcTemplate.getConnection();
@@ -32,7 +32,7 @@ public class CategoryService {
 		return result;
 	}
 //	delete
-	public int delete(String cid /*여기에는 주로 기본키가 들어감*/) {
+	public int delete(int cid /*여기에는 주로 기본키가 들어감*/) {
 		System.out.println(">> CategoryService delete param cid :" + cid);
 		int result = 0;
 		Connection conn = JdbcTemplate.getConnection();
@@ -60,13 +60,23 @@ public class CategoryService {
 		return volist;
 	}
 //	selectOne
-	public CategoryVo selectOne(String cid /*여기에는 주로 기본키가 들어감*/){
+	public CategoryVo selectOne(int cid /*여기에는 주로 기본키가 들어감*/){
 		System.out.println(">> CategoryService selectOne param cid :" + cid);
 		CategoryVo vo = null;
 		Connection conn = JdbcTemplate.getConnection();
 		vo = dao.selectOne(conn, cid);
 		JdbcTemplate.close(conn);
 		System.out.println(">> CategoryService selectOne return :" + vo);
+		return vo;
+	}
+//	selectParent : 부모카테고리아이디
+	public CategoryVo selectParent(int cid){
+		System.out.println(">> CategoryService selectParent param cid :" + cid);
+		CategoryVo vo = null;
+		Connection conn = JdbcTemplate.getConnection();
+		vo = dao.selectParent(conn, cid);
+		JdbcTemplate.close(conn);
+		System.out.println(">> CategoryService selectParent return :" + vo);
 		return vo;
 	}
 }

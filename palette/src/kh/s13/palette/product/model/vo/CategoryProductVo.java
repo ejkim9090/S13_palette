@@ -16,17 +16,14 @@ public class CategoryProductVo {
 	private int cnt;
 	private String pimg1;
 	private String pname;
-	private int pprice;
+	private String pprice;
 	
 	
 	
 	public CategoryProductVo() {
 		super();
 	}
-
-
-
-	public CategoryProductVo(String pid, String cname, int cnt, String pimg1, String pname, int pprice) {
+	public CategoryProductVo(String pid, String cname, int cnt, String pimg1, String pname, String pprice) {
 		super();
 		this.pid = pid;
 		this.cname = cname;
@@ -35,87 +32,46 @@ public class CategoryProductVo {
 		this.pname = pname;
 		this.pprice = pprice;
 	}
-
-
-
 	@Override
 	public String toString() {
 		return "CategoryProductVo [pid=" + pid + ", cname=" + cname + ", cnt=" + cnt + ", pimg1=" + pimg1 + ", pname="
 				+ pname + ", pprice=" + pprice + "]";
 	}
-
-
-
 	public String getPid() {
 		return pid;
 	}
-
-
-
 	public void setPid(String pid) {
 		this.pid = pid;
 	}
-
-
-
 	public String getCname() {
 		return cname;
 	}
-
-
-
 	public void setCname(String cname) {
 		this.cname = cname;
 	}
-
-
-
 	public int getCnt() {
 		return cnt;
 	}
-
-
-
 	public void setCnt(int cnt) {
 		this.cnt = cnt;
 	}
-
-
-
 	public String getPimg1() {
 		return pimg1;
 	}
-
-
-
 	public void setPimg1(String pimg1) {
 		this.pimg1 = pimg1;
 	}
-
-
-
 	public String getPname() {
 		return pname;
 	}
-
-
-
 	public void setPname(String pname) {
 		this.pname = pname;
 	}
-
-
-
-	public int getPprice() {
+	public String getPprice() {
 		return pprice;
 	}
-
-
-
-	public void setPprice(int pprice) {
+	public void setPprice(String pprice) {
 		this.pprice = pprice;
 	}
-	
-	
-	
+
 }

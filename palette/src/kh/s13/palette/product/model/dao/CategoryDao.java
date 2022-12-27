@@ -38,7 +38,7 @@ public class CategoryDao {
 	}
 	
 //	update
-	public int update(Connection conn, CategoryVo vo, String cid /*여기에는 주로 기본키가 들어감*/) {
+	public int update(Connection conn, CategoryVo vo, int cid /*여기에는 주로 기본키가 들어감*/) {
 		System.out.println(">>>> CategoryDao update param vo : " + vo);
 		System.out.println(">>>> CategoryDao update param mid : " + cid);
 		int result = 0;
@@ -48,7 +48,7 @@ public class CategoryDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getCname());
-			pstmt.setString(2, cid);
+			pstmt.setInt(2, cid);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -60,7 +60,7 @@ public class CategoryDao {
 	}
 	
 //	delete
-	public int delete(Connection conn, String cid /*여기에는 주로 기본키가 들어감*/) {
+	public int delete(Connection conn, int cid /*여기에는 주로 기본키가 들어감*/) {
 		System.out.println(">>>> CategoryDao delete param cid : " + cid);
 		int result = 0;
 		
@@ -68,7 +68,7 @@ public class CategoryDao {
 		PreparedStatement pstmt = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, cid);
+			pstmt.setInt(1, cid);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -142,7 +142,7 @@ public class CategoryDao {
 	}
 	
 //	selectOne : 하나 상세조회
-	public CategoryVo selectOne(Connection conn, String cid /*여기에는 주로 기본키가 들어감*/){
+	public CategoryVo selectOne(Connection conn, int cid /*여기에는 주로 기본키가 들어감*/){
 		System.out.println(">>>> CategoryDao selectOne param cid : " + cid);
 		CategoryVo vo = null;
 		
@@ -151,7 +151,7 @@ public class CategoryDao {
 		ResultSet rs = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, cid);
+			pstmt.setInt(1, cid);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				vo = new CategoryVo();
@@ -168,6 +168,35 @@ public class CategoryDao {
 			JdbcTemplate.close(pstmt);
 		}
 		System.out.println(">>>> CategoryDao selectOne return : " + vo);
+		return vo;
+	}
+//	selectParent : 부모카테고리
+	public CategoryVo selectParent(Connection conn, int cid){
+		System.out.println(">>>> CategoryDao selectParent param cid : " + cid);
+		CategoryVo vo = null;
+		
+		String sql = "select * from category where cid = (select cpid from category where cid = ?)";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cid);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				vo = new CategoryVo();
+				
+				vo.setCid(rs.getInt("cid"));
+				vo.setCname(rs.getString("cname"));
+				vo.setCdepth(rs.getInt("cdepth"));
+				vo.setCpid(rs.getInt("cpid"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(pstmt);
+		}
+		System.out.println(">>>> CategoryDao selectParent return : " + vo);
 		return vo;
 	}
 }

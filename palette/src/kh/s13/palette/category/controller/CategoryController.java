@@ -74,8 +74,11 @@ System.out.println("### endpriceStr: " + endpriceStr);
 		System.out.println(volist);
 		
 		int cpid = cid/10 * 10; // 대분류아이디
-		///대분류 명을 읽어와서 setAttribute
 		request.setAttribute("cpid", cpid);
+		// 대분류명 setAttribute
+		CategoryVo parent = service2.selectParent(cid);
+		request.setAttribute("parent", parent);
+		
 		List<CategoryVo> volist2 = service2.selectList(cpid);
 		System.out.println(volist2);
 		

@@ -389,7 +389,7 @@ a{
     position: relative;
     background-color: rgb(245, 245, 245);
     width: 249px;
-    height: 320px;
+    height: 249px;
 }
 
 .contents_pricture1_div2 > img{
@@ -469,13 +469,15 @@ a{
 
 .contents_pricture1_div2 img{
     border: 0;
-    vertical-align: top;
+    vertical-align: middle;
+    width: 100%;
+    height: auto;
 }
 
 .contents_pricture1_div{
     display: flex;
     flex-direction: column;
-    height: 538px;
+    height: 430px;
     color: rgb(51, 51, 51);
     cursor: pointer;
 }
