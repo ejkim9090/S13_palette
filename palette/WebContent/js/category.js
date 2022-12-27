@@ -1,14 +1,15 @@
 // category_header box 노드 영역 색 변경
 // click 사용
 console.log("확인하기");
-$(function() {
-    $('.cat_header_link').click(function() {
-        $('.cat_header_link').css("color", "black");
-        $(this).css("color", "rgb(95, 0, 128)");
+/*$(function() {
+    $('.cat_header_link').each(function() {
+        //$('.cat_header_link').css("color", "black"); --> 이 방법대로 하면 클릭하면 controller를 들려서 페이지가 다시 로드되니까 원상복구됨. 안먹히는 방법
+        //$(this).css("color", "rgb(95, 0, 128)");
+        $('.cat_header_link').removeClass("active");
+        $(this).addClass("active");
         console.log(확인);
     });
-
-});
+});*/
 
 
 // test

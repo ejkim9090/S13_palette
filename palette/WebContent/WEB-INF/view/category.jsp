@@ -47,7 +47,14 @@
                     <ul class="cat_header_list">
                     
 <c:forEach items="${categorylist}" var="vo">
+	<c:choose>
+		<c:when test="${vo.cid == currentCid}">
+                        <li class="cat_header_item"><a class="cat_header_link active" href="<%=request.getContextPath()%>/category?cid=${vo.cid}">${vo.cname }</a></li>
+		</c:when>
+		<c:otherwise>
                         <li class="cat_header_item"><a class="cat_header_link" href="<%=request.getContextPath()%>/category?cid=${vo.cid}">${vo.cname }</a></li>
+		</c:otherwise>
+	</c:choose>
 </c:forEach>
 
                     </ul>
@@ -101,21 +108,20 @@
                 
                                     <!-- 가격 리스트 -->
                                     <ul class="filter_price_list" style="max-height: 100vh; opacity: 1;">
-                
                                         <li class="list">
-                                        	<label class="radio_button"><input type="radio" name="pprice" value="" checked><span>전체</span></label>
+                                        	<label class="radio_button"><input type="radio" name="pprice" value="0" <%if(request.getAttribute("currentpprice").equals("0")){%>checked<%}else{} %>><span>전체</span></label>
                                         </li>	
                                        	<li class="list">
-                                        	<label class="radio_button"><input type="radio" name="pprice" value=""><span>10,000원 이하</span></label>
+                                        	<label class="radio_button"><input type="radio" name="pprice" value="1" <%if(request.getAttribute("currentpprice").equals("1")){%>checked<%}else{} %>><span>10,000원 이하</span></label>
                                         </li>
                                         <li class="list">
-                                            <label class="radio_button"><input type="radio" name="pprice" value=""><span>10,000원 ~ 30,000원</span></label>
+                                            <label class="radio_button"><input type="radio" name="pprice" value="2" <%if(request.getAttribute("currentpprice").equals("2")){%>checked<%}else{} %>><span>10,000원 ~ 30,000원</span></label>
                                         </li>
                                         <li class="list">
-                                            <label class="radio_button"><input type="radio" name="pprice" value=""><span>30,000원 ~ 50,000원</span></label>
+                                            <label class="radio_button"><input type="radio" name="pprice" value="3" <%if(request.getAttribute("currentpprice").equals("3")){%>checked<%}else{} %>><span>30,000원 ~ 50,000원</span></label>
                                         </li>
                                         <li class="list">
-                                            <label class="radio_button"><input type="radio" name="pprice" value=""><span>50,000원 이상</span></label>
+                                            <label class="radio_button"><input type="radio" name="pprice" value="4" <%if(request.getAttribute("currentpprice").equals("4")){%>checked<%}else{} %>><span>50,000원 이상</span></label>
                                         </li>
                 
                                     </ul>
