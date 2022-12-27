@@ -49,21 +49,41 @@ System.out.println("### cid: " + cid);
 		// 배송옵션
 		String pdelivery = request.getParameter("pdelivery");
 		// 가격옵션
-		String startpriceStr = request.getParameter("startprice");
-		String endpriceStr = request.getParameter("endprice");
-System.out.println("### pdelivery: " + pdelivery);
-System.out.println("### startpriceStr: " + startpriceStr);
-System.out.println("### endpriceStr: " + endpriceStr);
+		String pprice = request.getParameter("pprice");
 		int startprice = 0;
 		int endprice = 0;
-		if(startpriceStr != null && endpriceStr != null) {
-			try {
-				startprice = Integer.parseInt(startpriceStr);
-				endprice = Integer.parseInt(endpriceStr);
-			}catch (Exception e) {
-				e.printStackTrace();
-			}
+		if(pprice == null || pprice.equals("")) {
+			pprice = "0";
 		}
+		switch(pprice) {
+		case "1":
+			startprice = 0;
+			endprice = 10000;
+			break;
+		case "2":
+			startprice = 10000;
+			endprice = 30000;
+			break;
+		case "3":
+			startprice = 30000;
+			endprice = 50000;
+			break;
+		case "4":
+			startprice = 50000;
+			endprice = 99999999;
+			break;
+		case "0":
+		default:
+			startprice = 0;
+			endprice = 99999999;
+			break;
+		}
+
+System.out.println("### pdelivery: " + pdelivery);
+System.out.println("### startpriceStr: " + startprice);
+System.out.println("### endpriceStr: " + endprice);
+
+
 		// 낮은가격순/높은가격순 정렬
 		// TODO
 		
@@ -83,16 +103,20 @@ System.out.println("### endpriceStr: " + endpriceStr);
 		System.out.println(volist2);
 		
 		
-//		if(pdelivery != null && !pdelivery.equals("")) {
-//			request.setAttribute("pdelivery", pdelivery);
-//		}
-//		if(startprice != 0 && endprice != 0) {
-//			request.setAttribute("startprice", startprice);
-//			request.setAttribute("endprice", endprice);
-//		}
+		
+		if(pdelivery != null && !pdelivery.equals("")) {
+			request.setAttribute("pdelivery", pdelivery);
+		}
+		if(startprice != 0 && endprice != 0) {
+			request.setAttribute("startprice", startprice);
+			request.setAttribute("endprice", endprice);
+		}
 		request.setAttribute("productlist", volist);
 		if(volist2 != null)
 			request.setAttribute("categorylist", volist2);
+
+		request.setAttribute("currentPprice", pprice);
+		request.setAttribute("currentCid", cid);
 		
 		String viewPath = "/WEB-INF/view/category.jsp";
 		request.getRequestDispatcher(viewPath).forward(request, response);
