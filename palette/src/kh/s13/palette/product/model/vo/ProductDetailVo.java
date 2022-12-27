@@ -41,7 +41,7 @@ public class ProductDetailVo {
 	@Override
 	public String toString() {
 		return "ProductVo [pid=" + pid + ", cid=" + cid + ", pname=" + pname + ", pimg1=" + pimg1 + ", pimg2=" + pimg2
-				+ ", pprice=" + pprice + ", pbenefit=" + pbenefit + ", pdelivery=" + pdelivery + ", pdetail=" + pdetail
+				+ ", pprice=" + pprice + ", pbenefit=" + pbenefit + ", pdelivery=" + pdelivery + ", pdetail=길어서따로확인"
 				+ "]";
 	}
 

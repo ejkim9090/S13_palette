@@ -124,22 +124,22 @@ public class ProductDao {
 	public List<CategoryProductVo> selectList(Connection conn, int cid, String pdelivery, int startprice, int endprice){
 		List<CategoryProductVo> volist = null;
 		
-		String sql = "	SELECT P.PID, C.CNAME, COUNT(*) OVER(PARTITION BY 1) CNT, P.PIMG1, P.PNAME, TO_CHAR(P.PPRICE, '999,999,999') PPRICE " // 카테고리이름, 개수, 상품이미지, 상품명, 가격
+		String sql = "	SELECT P.PID, C.CNAME, P.PIMG1, P.PNAME, TO_CHAR(P.PPRICE, '999,999,999') PPRICE " // 카테고리이름, 상품이미지, 상품명, 가격
 				+ "	    FROM PRODUCT P JOIN CATEGORY C ON P.CID = C.CID"
 				+ "	    WHERE P.CID = ?"
 				+ "	    ORDER BY P.PNAME ASC";
 		
-		String sqlDelivery = "	SELECT P.PID, C.CNAME, COUNT(*) OVER(PARTITION BY 1) CNT, P.PIMG1, P.PNAME, TO_CHAR(P.PPRICE, '999,999,999') PPRICE "
+		String sqlDelivery = "	SELECT P.PID, C.CNAME, P.PIMG1, P.PNAME, TO_CHAR(P.PPRICE, '999,999,999') PPRICE "
 				+ "	    FROM PRODUCT P JOIN CATEGORY C ON P.CID = C.CID"
 				+ "	    WHERE P.CID = ? AND P.PDELIVERY = '무료배송'"
 				+ "	    ORDER BY P.PNAME ASC";
 		
-		String sqlPrice = "	SELECT P.PID, C.CNAME, COUNT(*) OVER(PARTITION BY 1) CNT, P.PIMG1, P.PNAME, TO_CHAR(P.PPRICE, '999,999,999') PPRICE "
+		String sqlPrice = "	SELECT P.PID, C.CNAME, P.PIMG1, P.PNAME, TO_CHAR(P.PPRICE, '999,999,999') PPRICE "
 				+ "	    FROM PRODUCT P JOIN CATEGORY C ON P.CID = C.CID"
 				+ "	    WHERE P.CID = ? AND P.PPRICE BETWEEN ? AND ? "
 				+ "	    ORDER BY P.PNAME ASC";
 		
-		String sqlDeliveryPrice = "	SELECT P.PID, C.CNAME, COUNT(*) OVER(PARTITION BY 1) CNT, P.PIMG1, P.PNAME, TO_CHAR(P.PPRICE, '999,999,999') PPRICE "
+		String sqlDeliveryPrice = "	SELECT P.PID, C.CNAME, P.PIMG1, P.PNAME, TO_CHAR(P.PPRICE, '999,999,999') PPRICE "
 				+ "	    FROM PRODUCT P JOIN CATEGORY C ON P.CID = C.CID"
 				+ "	    WHERE P.CID = ? AND P.PDELIVERY = '무료배송' AND P.PPRICE BETWEEN ? AND ?"
 				+ "	    ORDER BY P.PNAME ASC";
@@ -171,7 +171,6 @@ public class ProductDao {
 					CategoryProductVo vo = new CategoryProductVo();
 					vo.setPid(rs.getString("pid"));
 					vo.setCname(rs.getString("cname"));
-					vo.setCnt(rs.getInt("cnt"));
 					vo.setPimg1(rs.getString("pimg1"));
 					vo.setPname(rs.getString("pname"));
 					vo.setPprice(rs.getString("pprice"));
@@ -214,6 +213,7 @@ public class ProductDao {
 				vo.setPprice(rs.getString("pprice"));
 				vo.setPbenefit(rs.getString("pbenefit"));
 				vo.setPdelivery(rs.getString("pdelivery"));
+				vo.setPdetail(rs.getString("pdetail"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
