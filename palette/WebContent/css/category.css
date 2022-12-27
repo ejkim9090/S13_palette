@@ -291,10 +291,6 @@
 }
 
 #contents_list{
-    margin-bottom: 8px;
-}
-
-.contents_list{
     display: flex;
     -webkit-box-align: center;
     align-items: center;
@@ -329,7 +325,14 @@
     font-size: 14px;
     color: rgb(153, 153, 153);
 }
-
+.content_list:last-child::before {
+    content: "";
+    display: flex;
+    width: 1px;
+    height: 10px;
+    margin-right: 8px;
+    background-color: rgb(226, 226, 226);
+}
 .content_recommend{
     letter-spacing: -0.3px;
     cursor: pointer;

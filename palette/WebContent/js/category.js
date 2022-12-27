@@ -5,8 +5,8 @@ $(function() {
     $('.cat_header_link').click(function() {
         $('.cat_header_link').css("color", "black");
         $(this).css("color", "rgb(95, 0, 128)");
-        
-    })
+        console.log(확인);
+    });
 
 });
 

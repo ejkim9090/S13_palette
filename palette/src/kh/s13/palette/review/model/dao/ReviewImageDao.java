@@ -136,6 +136,40 @@ public class ReviewImageDao {
 		return volist;
 	}
 	
+//	selectList - overloading 상품상세페이지 사진 더보기
+	public List<ReviewImageVo> selectList(Connection conn, String pid){
+		List<ReviewImageVo> volist = null;
+		
+		String sql = "SELECT * "
+				+ "    FROM REVIEW_IMAGE I JOIN REVIEW R ON I.RNO = R.RNO"
+				+ "    WHERE R.PID = ?"
+				+ "	   ORDER BY R.RDATE DESC";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, pid);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				volist = new ArrayList<ReviewImageVo>();
+				do {
+					ReviewImageVo vo = new ReviewImageVo();
+					vo.setRno(rs.getInt("rno"));
+					vo.setRfilepath(rs.getString("rfilepath"));
+					
+					volist.add(vo);
+				} while(rs.next());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(pstmt);
+		}
+		System.out.println(">>>> ReviewImageDao selectList return : " + volist);
+		return volist;
+	}
+	
 //	selectOne : 하나 상세조회
 	public ReviewImageVo selectOne(Connection conn, String rfilepath /*여기에는 주로 기본키가 들어감*/){
 		System.out.println(">>>> ReviewImageDao selectOne param rfilepath : " + rfilepath);

@@ -6,6 +6,7 @@ import java.util.List;
 import kh.s13.palette.common.jdbc.JdbcTemplate;
 import kh.s13.palette.product.model.dao.ProductDao;
 import kh.s13.palette.product.model.vo.CategoryProductVo;
+import kh.s13.palette.product.model.vo.ProductDetailVo;
 import kh.s13.palette.product.model.vo.ProductVo;
 
 public class ProductService {
@@ -61,9 +62,9 @@ public class ProductService {
 		return volist;
 	}
 //	selectOne
-	public ProductVo selectOne(String pid /*여기에는 주로 기본키가 들어감*/){
+	public ProductDetailVo selectOne(String pid /*여기에는 주로 기본키가 들어감*/){
 		System.out.println(">> ProductService selectOne param pid :" + pid);
-		ProductVo vo = null;
+		ProductDetailVo vo = null;
 		Connection conn = JdbcTemplate.getConnection();
 		vo = dao.selectOne(conn, pid);
 		JdbcTemplate.close(conn);

@@ -131,7 +131,7 @@ public class ProductWishDao {
 //	selectOne : 하나 상세조회
 	public ProductWishVo selectOne(Connection conn, String mid, String pid /*여기에는 주로 기본키가 들어감*/){
 		System.out.println(">>>> ProductWishDao selectOne param mid : " + mid);
-		System.out.println(">>>> ProductWishDao delete param pid : " + pid);
+		System.out.println(">>>> ProductWishDao selectOne param pid : " + pid);
 		ProductWishVo vo = null;
 		
 		String sql = "select * from product_wish where mid=? and pid=?";

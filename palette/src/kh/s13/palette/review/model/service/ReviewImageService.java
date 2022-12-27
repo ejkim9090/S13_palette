@@ -50,11 +50,20 @@ public class ReviewImageService {
 		System.out.println(">> ReviewImageService selectList return :" + volist);
 		return volist;
 	}
-//	selectList - overloading
+//	selectList - overloading 
 	public List<ReviewImageVo> selectList(int rno){
 		List<ReviewImageVo> volist = null;
 		Connection conn = JdbcTemplate.getConnection();
 		volist = dao.selectList(conn, rno);
+		JdbcTemplate.close(conn);
+		System.out.println(">> ReviewImageService selectList return :" + volist);
+		return volist;
+	}
+//	selectList - overloading 상품상세페이지 사진 더보기
+	public List<ReviewImageVo> selectList(String pid){
+		List<ReviewImageVo> volist = null;
+		Connection conn = JdbcTemplate.getConnection();
+		volist = dao.selectList(conn, pid);
 		JdbcTemplate.close(conn);
 		System.out.println(">> ReviewImageService selectList return :" + volist);
 		return volist;

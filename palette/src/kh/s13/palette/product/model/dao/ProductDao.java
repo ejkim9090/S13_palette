@@ -9,6 +9,7 @@ import java.util.List;
 
 import kh.s13.palette.common.jdbc.JdbcTemplate;
 import kh.s13.palette.product.model.vo.CategoryProductVo;
+import kh.s13.palette.product.model.vo.ProductDetailVo;
 import kh.s13.palette.product.model.vo.ProductVo;
 
 public class ProductDao {
@@ -123,22 +124,22 @@ public class ProductDao {
 	public List<CategoryProductVo> selectList(Connection conn, int cid, String pdelivery, int startprice, int endprice){
 		List<CategoryProductVo> volist = null;
 		
-		String sql = "	SELECT P.PID, C.CNAME, COUNT(*) OVER(PARTITION BY 1) CNT, P.PIMG1, P.PNAME, P.PPRICE " // 카테고리이름, 개수, 상품이미지, 상품명, 가격
+		String sql = "	SELECT P.PID, C.CNAME, COUNT(*) OVER(PARTITION BY 1) CNT, P.PIMG1, P.PNAME, TO_CHAR(P.PPRICE, '999,999,999') PPRICE " // 카테고리이름, 개수, 상품이미지, 상품명, 가격
 				+ "	    FROM PRODUCT P JOIN CATEGORY C ON P.CID = C.CID"
 				+ "	    WHERE P.CID = ?"
 				+ "	    ORDER BY P.PNAME ASC";
 		
-		String sqlDelivery = "	SELECT P.PID, C.CNAME, COUNT(*) OVER(PARTITION BY 1) CNT, P.PIMG1, P.PNAME, P.PPRICE "
+		String sqlDelivery = "	SELECT P.PID, C.CNAME, COUNT(*) OVER(PARTITION BY 1) CNT, P.PIMG1, P.PNAME, TO_CHAR(P.PPRICE, '999,999,999') PPRICE "
 				+ "	    FROM PRODUCT P JOIN CATEGORY C ON P.CID = C.CID"
 				+ "	    WHERE P.CID = ? AND P.PDELIVERY = '무료배송'"
 				+ "	    ORDER BY P.PNAME ASC";
 		
-		String sqlPrice = "	SELECT P.PID, C.CNAME, COUNT(*) OVER(PARTITION BY 1) CNT, P.PIMG1, P.PNAME, P.PPRICE "
+		String sqlPrice = "	SELECT P.PID, C.CNAME, COUNT(*) OVER(PARTITION BY 1) CNT, P.PIMG1, P.PNAME, TO_CHAR(P.PPRICE, '999,999,999') PPRICE "
 				+ "	    FROM PRODUCT P JOIN CATEGORY C ON P.CID = C.CID"
 				+ "	    WHERE P.CID = ? AND P.PPRICE BETWEEN ? AND ? "
 				+ "	    ORDER BY P.PNAME ASC";
 		
-		String sqlDeliveryPrice = "	SELECT P.PID, C.CNAME, COUNT(*) OVER(PARTITION BY 1) CNT, P.PIMG1, P.PNAME, P.PPRICE "
+		String sqlDeliveryPrice = "	SELECT P.PID, C.CNAME, COUNT(*) OVER(PARTITION BY 1) CNT, P.PIMG1, P.PNAME, TO_CHAR(P.PPRICE, '999,999,999') PPRICE "
 				+ "	    FROM PRODUCT P JOIN CATEGORY C ON P.CID = C.CID"
 				+ "	    WHERE P.CID = ? AND P.PDELIVERY = '무료배송' AND P.PPRICE BETWEEN ? AND ?"
 				+ "	    ORDER BY P.PNAME ASC";
@@ -173,7 +174,7 @@ public class ProductDao {
 					vo.setCnt(rs.getInt("cnt"));
 					vo.setPimg1(rs.getString("pimg1"));
 					vo.setPname(rs.getString("pname"));
-					vo.setPprice(rs.getInt("pprice"));
+					vo.setPprice(rs.getString("pprice"));
 					
 					volist.add(vo);
 				} while(rs.next());
@@ -188,12 +189,14 @@ public class ProductDao {
 		return volist;
 	}
 	
-//	selectOne : 하나 상세조회
-	public ProductVo selectOne(Connection conn, String pid /*여기에는 주로 기본키가 들어감*/){
+//	selectOne : 상품상세페이지 상세조회
+	public ProductDetailVo selectOne(Connection conn, String pid){
 		System.out.println(">>>> ProductDao selectOne param pid : " + pid);
-		ProductVo vo = null;
+		ProductDetailVo vo = null;
 		
-		String sql = "select * from product where pid=?";
+		String sql = "SELECT PID, CID, PNAME, PIMG1, PIMG2, TO_CHAR(PPRICE, '999,999,999') PPRICE, PBENEFIT, PDELIVERY, PDETAIL"
+				+ "    FROM PRODUCT"
+				+ "    WHERE PID = ?";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
@@ -201,14 +204,14 @@ public class ProductDao {
 			pstmt.setString(1, pid);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				vo = new ProductVo();
+				vo = new ProductDetailVo();
 				
 				vo.setPid(rs.getString("pid"));
 				vo.setCid(rs.getInt("cid"));
 				vo.setPname(rs.getString("pname"));
-				vo.setPimage1(rs.getString("pimage1"));
-				vo.setPimage2(rs.getString("pimage2"));
-				vo.setPprice(rs.getInt("pprice"));
+				vo.setPimg1(rs.getString("pimg1"));
+				vo.setPimg2(rs.getString("pimg2"));
+				vo.setPprice(rs.getString("pprice"));
 				vo.setPbenefit(rs.getString("pbenefit"));
 				vo.setPdelivery(rs.getString("pdelivery"));
 			}
