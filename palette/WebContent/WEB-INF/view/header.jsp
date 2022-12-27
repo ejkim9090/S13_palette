@@ -58,7 +58,7 @@
                            <div>
                                <ul id="s_c_list">
                                    <li class="s_c_list_li">
-                                       <div onclick = "location.href='${pageContext.request.contextPath }/category?cid=10';">
+                                       <div>
                                            <span>노트/다이어리</span>
                                        </div>
                                        <ul>
@@ -70,7 +70,7 @@
                                        </ul>
                                    </li>
                                    <li class="s_c_list_li">
-                                       <div onclick = "location.href='${pageContext.request.contextPath }/category?cid=20';">
+                                       <div>
                                            <span>문구</span>
                                        </div>
                                        <ul>
@@ -85,7 +85,7 @@
                                        </ul>
                                    </li>
                                    <li class="s_c_list_li">
-                                       <div onclick = "location.href='${pageContext.request.contextPath }/category?cid=30';">
+                                       <div>
                                            <span>취미</span>
                                        </div>
                                        <ul>
@@ -96,7 +96,7 @@
                                        </ul>
                                    </li>
                                    <li class="s_c_list_li">
-                                       <div onclick = "location.href='${pageContext.request.contextPath }/category?cid=40';">
+                                       <div>
                                            <span>키친/홈데코</span>
                                        </div>
                                        <ul>
@@ -110,7 +110,7 @@
                                        </ul>
                                    </li>
                                    <li class="s_c_list_li">
-                                       <div onclick = "location.href='${pageContext.request.contextPath }/category?cid=50';">
+                                       <div>
                                            <span>패브릭/생활</span>
                                        </div>
                                        <ul>

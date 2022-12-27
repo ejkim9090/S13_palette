@@ -92,30 +92,30 @@
 	<c:otherwise>                        	
 					<div class="wish_wrapper" style="position: relative;">
 										
-    	<c:forEach items="${reviewlist}" var="reviewlist">
+    	<c:forEach items="${reviewlist}" var="vo">
 										
 						<div class="wish" style="left: 0px; width: 100%;">
 						
-							<a href="<%=request.getContextPath()%>/product?pid=${reviewlist.pid }" class="wish_img">
+							<a href="<%=request.getContextPath()%>/product?pid=${vo.pid }" class="wish_img">
 								<span width="60" height="78">
 								<span style="box-sizing: border-box; display: block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; inset: 0px;">
-								<img src="<%=request.getContextPath()%>/${reviewlist.pimg1}" decoding="async" data-nimg="fill" sizes="100vw" style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"></span></span></a>
+								<img src="<%=request.getContextPath()%>/${vo.pimg1}" decoding="async" data-nimg="fill" sizes="100vw" style="position: absolute; inset: 0px; box-sizing: border-box; padding: 0px; border: none; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"></span></span></a>
 							<div class="wish_info">
 								<div>
 									<div class="wish_name">
-										<a href="<%=request.getContextPath()%>/product?pid=${reviewlist.pid }">${reviewlist.pname }</a>
+										<a href="<%=request.getContextPath()%>/product?pid=${vo.pid }">${vo.pname }</a>
 									</div>
-									<input type="hidden" name="rno" id="rno" value="${reviewlist.rno }">
+									<input type="hidden" name="rno" id="rno" value="${vo.rno }">
 									<div class="review_content">
-										<span>${reviewlist.rcontent }</span>
+										<span>${vo.rcontent }</span>
 									</div>
 									<div class="review_img">
-			<c:forEach items="${reviewlist.rfilepath}" var="rfilepath">
-										<span><img src="<%=request.getContextPath()%>/${rfilepath}"></span>
+			<c:forEach items="${vo.rfilepath}" var="filepath">
+										<span><img src="<%=request.getContextPath()%>/${filepath}"></span>
 			</c:forEach>										
 									</div>
 									<div class="review_date">
-										<span>${reviewlist.rdate }</span>
+										<span>${vo.rdate }</span>
 									</div>
 								</div>
 								<div class="wish_btn">

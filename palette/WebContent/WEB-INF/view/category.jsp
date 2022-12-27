@@ -46,8 +46,6 @@
 
                     <ul class="cat_header_list">
                     
-                        <li class="cat_header_item"><a class="cat_header_link" href="<%=request.getContextPath()%>/category?cid=${cpid}">전체보기</a></li>
-                        
 <c:forEach items="${categorylist}" var="vo">
                         <li class="cat_header_item"><a class="cat_header_link" href="<%=request.getContextPath()%>/category?cid=${vo.cid}">${vo.cname }</a></li>
 </c:forEach>
@@ -144,19 +142,6 @@
                                     </li>
                     
                                 </ul>
-                            </div>
-
-                            <!-- 상품목록 위에 선택한 옵션 표시 -->
-                            <div class="opt_selected_wrap">
-                                <div class="opt_selected">
-                                    <span>가브로</span>
-                                    <a href='javascript:void(0);' class="opt_cancel">
-                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M5.55566 5.55566L14.4446 14.4446" stroke="#ccc"></path>
-                                            <path d="M14.4443 5.55566L5.55545 14.4446" stroke="#ccc"></path>
-                                        </svg>
-                                    </a>
-                                </div>
                             </div>
 
                             <!-- 상품목록 -->
