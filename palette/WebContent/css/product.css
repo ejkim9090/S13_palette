@@ -1042,8 +1042,8 @@ a {
 }
 
 .review_ul_li{
+	font-size: 14px;
     position: relative;
-    padding-left: 11px;
     font-weight: 400;
     color: rgb(153, 153, 153);
 }
@@ -1055,6 +1055,18 @@ a {
 
 /* 상품후기 바로 밑 사진 */
 /* 1번째 사진 ~ 8번 사진까지 */
+.review_photo img:first-child {
+	width: 124px;
+    height: 124px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+.review_photo img:nth-child(8) {
+	width: 124px;
+    height: 124px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
 .review_photo img {
 	width: 124px;
     height: 124px;
@@ -1179,7 +1191,32 @@ a {
     font-size: 12px;
     color: rgb(153, 153, 153);
 }
+/* 구분선 */
+.user_review_div {
+	border-bottom: 1px solid #333;
+	padding-bottom: 15px;
+}
 
+/* 후기 없을 때 */
+.review_empty {
+    position: relative;
+    width: 100%;
+    padding-top: 119px;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.review_empty p {
+    margin-top: 15px;
+    margin-bottom: 28px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    color: rgb(181, 181, 181);
+}
 /* 공지 */
 .notice{
     padding: 21px 20px 20px;
