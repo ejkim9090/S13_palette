@@ -330,6 +330,16 @@
     font-size: 14px;
     color: rgb(153, 153, 153);
 }
+.content_list.active{
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+    margin-left: 8px;
+    font-size: 14px;
+    color: rgb(51,51,51);
+}
 .content_list:last-child::before {
     content: "";
     display: flex;

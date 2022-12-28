@@ -53,10 +53,10 @@ public class ProductService {
 		return volist;
 	}
 //	selectList - 카테고리
-	public List<CategoryProductVo> selectList(int cid, String pdelivery, int startprice, int endprice){
+	public List<CategoryProductVo> selectList(int cid, String pdelivery, int startprice, int endprice, String sort){
 		List<CategoryProductVo> volist = null;
 		Connection conn = JdbcTemplate.getConnection();
-		volist = dao.selectList(conn, cid, pdelivery, startprice, endprice);
+		volist = dao.selectList(conn, cid, pdelivery, startprice, endprice, sort);
 		JdbcTemplate.close(conn);
 		System.out.println(">> ProductService selectList return :" + volist);
 		return volist;

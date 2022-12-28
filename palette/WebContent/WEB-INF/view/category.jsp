@@ -92,13 +92,13 @@
                                         <li class="list">
 <c:choose>
 	<c:when test="${empty currentPdelivery}">                                        
-											<label onclick="location.href='<%=request.getContextPath()%>/category?cid=${currentCid}&pdelivery=1&pprice=${currentPprice }'">
+											<label onclick="location.href='<%=request.getContextPath()%>/category?cid=${currentCid}&pdelivery=1&pprice=${currentPprice }&sort=${currentSort }'">
 												<input type="checkbox" name="pdelivery" class="agree_check" value="">
 												<span>무료배송</span>
 											</label>
 	</c:when>
 	<c:otherwise>
-											<label onclick="location.href='<%=request.getContextPath()%>/category?cid=${currentCid}&pdelivery=&pprice=${currentPprice }'">
+											<label onclick="location.href='<%=request.getContextPath()%>/category?cid=${currentCid}&pdelivery=&pprice=${currentPprice }&sort=${currentSort }'">
 												<input type="checkbox" name="pdelivery" class="agree_check" value="1" checked>
 												<span>무료배송</span>
 											</label>
@@ -122,31 +122,31 @@
                                     <!-- 가격 리스트 -->
                                     <ul class="filter_price_list" style="max-height: 100vh; opacity: 1;">
                                         <li class="list">
-                                        	<label class="radio_button" onclick="location.href='<%=request.getContextPath()%>/category?cid=${currentCid}&pdelivery=${currentPdelivery }&pprice=0'">
+                                        	<label class="radio_button" onclick="location.href='<%=request.getContextPath()%>/category?cid=${currentCid}&pdelivery=${currentPdelivery }&pprice=0&sort=${currentSort }'">
                                         		<input type="radio" name="pprice" value="0" <%if(request.getAttribute("currentPprice").equals("0")){%>checked<%}else{} %>>
                                         		<span>전체</span>
                                         	</label>
                                         </li>	
                                        	<li class="list">
-                                        	<label class="radio_button" onclick="location.href='<%=request.getContextPath()%>/category?cid=${currentCid}&pdelivery=${currentPdelivery }&pprice=1'">
+                                        	<label class="radio_button" onclick="location.href='<%=request.getContextPath()%>/category?cid=${currentCid}&pdelivery=${currentPdelivery }&pprice=1&sort=${currentSort }'">
 	                                        	<input type="radio" name="pprice" value="1" <%if(request.getAttribute("currentPprice").equals("1")){%>checked<%}else{} %>>
 	                                        	<span>10,000원 이하</span>
                                         	</label>
                                         </li>
                                         <li class="list">
-                                            <label class="radio_button" onclick="location.href='<%=request.getContextPath()%>/category?cid=${currentCid}&pdelivery=${currentPdelivery }&pprice=2'">
+                                            <label class="radio_button" onclick="location.href='<%=request.getContextPath()%>/category?cid=${currentCid}&pdelivery=${currentPdelivery }&pprice=2&sort=${currentSort }'">
                                             	<input type="radio" name="pprice" value="2" <%if(request.getAttribute("currentPprice").equals("2")){%>checked<%}else{} %>>
                                             	<span>10,000원 ~ 30,000원</span>
                                             </label>
                                         </li>
                                         <li class="list">
-                                            <label class="radio_button" onclick="location.href='<%=request.getContextPath()%>/category?cid=${currentCid}&pdelivery=${currentPdelivery }&pprice=3'">
+                                            <label class="radio_button" onclick="location.href='<%=request.getContextPath()%>/category?cid=${currentCid}&pdelivery=${currentPdelivery }&pprice=3&sort=${currentSort }'">
                                             	<input type="radio" name="pprice" value="3" <%if(request.getAttribute("currentPprice").equals("3")){%>checked<%}else{} %>>
                                             	<span>30,000원 ~ 50,000원</span>
                                             </label>
                                         </li>
                                         <li class="list">
-                                            <label class="radio_button" onclick="location.href='<%=request.getContextPath()%>/category?cid=${currentCid}&pdelivery=${currentPdelivery }&pprice=4'">
+                                            <label class="radio_button" onclick="location.href='<%=request.getContextPath()%>/category?cid=${currentCid}&pdelivery=${currentPdelivery }&pprice=4&sort=${currentSort }'">
                                             	<input type="radio" name="pprice" value="4" <%if(request.getAttribute("currentPprice").equals("4")){%>checked<%}else{} %>>
                                             	<span>50,000원 이상</span>
                                             </label>
@@ -164,16 +164,35 @@
                             
                                 <!-- 총 상품 수 -->
                                 <div class="contents_total">총 ${fn:length(productlist) }건</div>
-                                
-                                <!-- 추천순 ~ 높은 가격순  -->
+                         
+                                <!-- 높은가격순, 낮은가격순 -->
                                 <ul class="contents_list_option">
-
+<c:choose>
+	<c:when test="${empty currentSort }">
                                     <li class="content_list">
-                                        <a href="#" class="content_high_price">높은가격순</a>
+                                        <a href="<%=request.getContextPath()%>/category?cid=${currentCid}&pdelivery=${currentPdelivery }&pprice=${currentPprice}&sort=1" class="content_low_price">낮은가격순</a>
                                     </li>
                                     <li class="content_list">
-                                        <a href="#" class="content_low_price">낮은가격순</a>
+                                        <a href="<%=request.getContextPath()%>/category?cid=${currentCid}&pdelivery=${currentPdelivery }&pprice=${currentPprice}&sort=2" class="content_high_price">높은가격순</a>
                                     </li>
+	</c:when>
+	<c:when test="${currentSort == '1' }">
+                                    <li class="content_list active">
+                                        <a href="<%=request.getContextPath()%>/category?cid=${currentCid}&pdelivery=${currentPdelivery }&pprice=${currentPprice}&sort=1" class="content_low_price">낮은가격순</a>
+                                    </li>
+                                    <li class="content_list">
+                                        <a href="<%=request.getContextPath()%>/category?cid=${currentCid}&pdelivery=${currentPdelivery }&pprice=${currentPprice}&sort=2" class="content_high_price">높은가격순</a>
+                                    </li>
+	</c:when>
+	<c:when test="${currentSort == '2' }">
+                                    <li class="content_list">
+                                        <a href="<%=request.getContextPath()%>/category?cid=${currentCid}&pdelivery=${currentPdelivery }&pprice=${currentPprice}&sort=1" class="content_low_price">낮은가격순</a>
+                                    </li>
+                                    <li class="content_list active">
+                                        <a href="<%=request.getContextPath()%>/category?cid=${currentCid}&pdelivery=${currentPdelivery }&pprice=${currentPprice}&sort=2" class="content_high_price">높은가격순</a>
+                                    </li>
+	</c:when>
+</c:choose>
                     
                                 </ul>
                             </div>

@@ -49,7 +49,7 @@ System.out.println("### cid: " + cid);
 		// 배송옵션
 		String pdelivery = request.getParameter("pdelivery");
 		if(pdelivery == null || pdelivery.equals("")) {
-			pdelivery = null;
+			pdelivery = "";
 		}
 		// 가격옵션
 		String pprice = request.getParameter("pprice");
@@ -81,19 +81,21 @@ System.out.println("### cid: " + cid);
 			endprice = 99999999;
 			break;
 		}
-
-System.out.println("### pdelivery: " + pdelivery);
-System.out.println("### startpriceStr: " + startprice);
-System.out.println("### endpriceStr: " + endprice);
-
-
-		// 낮은가격순/높은가격순 정렬
-		// TODO
+		// 낮은가격순/높은가격순
+		String sort = request.getParameter("sort");
+		if(sort == null || sort.equals("")) {
+			sort = "";
+		}
+		System.out.println("### pdelivery: " + pdelivery);
+		System.out.println("### startpriceStr: " + startprice);
+		System.out.println("### endpriceStr: " + endprice);
+		System.out.println("### sort: " + sort);
+		
 		
 		ProductService service = new ProductService();
 		CategoryService service2 = new CategoryService();
 		
-		List<CategoryProductVo> volist = service.selectList(cid, pdelivery, startprice, endprice);
+		List<CategoryProductVo> volist = service.selectList(cid, pdelivery, startprice, endprice, sort);
 		System.out.println(volist);
 		
 		int cpid = cid/10 * 10; // 대분류아이디
@@ -111,12 +113,11 @@ System.out.println("### endpriceStr: " + endprice);
 		if(volist2 != null)
 			request.setAttribute("categorylist", volist2);
 
-		// 현재 체크된 pdelivery, pprice, cid값 따로 저장 -> jsp에서 parameter값으로 사용
-		if(pdelivery != null && !pdelivery.equals("")) {
-			request.setAttribute("currentPdelivery", pdelivery);
-		}
+		// 현재 체크된 pdelivery, pprice, cid, sort 값 따로 저장 -> jsp에서 parameter값으로 사용
+		request.setAttribute("currentPdelivery", pdelivery);
 		request.setAttribute("currentPprice", pprice);
 		request.setAttribute("currentCid", cid);
+		request.setAttribute("currentSort", sort);
 		
 		
 		String viewPath = "/WEB-INF/view/category.jsp";
