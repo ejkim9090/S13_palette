@@ -90,7 +90,20 @@
                                     <!-- 배송 리스트 -->
                                     <ul class="filter_event_list" style="max-height: 100vh; opacity: 1;">
                                         <li class="list">
-											<label><input type="checkbox" name="pdelivery" class="agree_check" value="무료배송" required><span>무료배송</span></label>
+<c:choose>
+	<c:when test="${empty currentPdelivery}">                                        
+											<label onclick="location.href='<%=request.getContextPath()%>/category?cid=${currentCid}&pdelivery=1&pprice=${currentPprice }'">
+												<input type="checkbox" name="pdelivery" class="agree_check" value="">
+												<span>무료배송</span>
+											</label>
+	</c:when>
+	<c:otherwise>
+											<label onclick="location.href='<%=request.getContextPath()%>/category?cid=${currentCid}&pdelivery=&pprice=${currentPprice }'">
+												<input type="checkbox" name="pdelivery" class="agree_check" value="1" checked>
+												<span>무료배송</span>
+											</label>
+	</c:otherwise>										
+</c:choose>											
                                         </li>
                                     </ul>
                                 </div>
@@ -109,31 +122,31 @@
                                     <!-- 가격 리스트 -->
                                     <ul class="filter_price_list" style="max-height: 100vh; opacity: 1;">
                                         <li class="list">
-                                        	<label class="radio_button" onclick="location.href='<%=request.getContextPath()%>/category?cid=${currentCid}&pprice=0'">
+                                        	<label class="radio_button" onclick="location.href='<%=request.getContextPath()%>/category?cid=${currentCid}&pdelivery=${currentPdelivery }&pprice=0'">
                                         		<input type="radio" name="pprice" value="0" <%if(request.getAttribute("currentPprice").equals("0")){%>checked<%}else{} %>>
                                         		<span>전체</span>
                                         	</label>
                                         </li>	
                                        	<li class="list">
-                                        	<label class="radio_button" onclick="location.href='<%=request.getContextPath()%>/category?cid=${currentCid}&pprice=1'">
+                                        	<label class="radio_button" onclick="location.href='<%=request.getContextPath()%>/category?cid=${currentCid}&pdelivery=${currentPdelivery }&pprice=1'">
 	                                        	<input type="radio" name="pprice" value="1" <%if(request.getAttribute("currentPprice").equals("1")){%>checked<%}else{} %>>
 	                                        	<span>10,000원 이하</span>
                                         	</label>
                                         </li>
                                         <li class="list">
-                                            <label class="radio_button" onclick="location.href='<%=request.getContextPath()%>/category?cid=${currentCid}&pprice=2'">
+                                            <label class="radio_button" onclick="location.href='<%=request.getContextPath()%>/category?cid=${currentCid}&pdelivery=${currentPdelivery }&pprice=2'">
                                             	<input type="radio" name="pprice" value="2" <%if(request.getAttribute("currentPprice").equals("2")){%>checked<%}else{} %>>
                                             	<span>10,000원 ~ 30,000원</span>
                                             </label>
                                         </li>
                                         <li class="list">
-                                            <label class="radio_button" onclick="location.href='<%=request.getContextPath()%>/category?cid=${currentCid}&pprice=3'">
+                                            <label class="radio_button" onclick="location.href='<%=request.getContextPath()%>/category?cid=${currentCid}&pdelivery=${currentPdelivery }&pprice=3'">
                                             	<input type="radio" name="pprice" value="3" <%if(request.getAttribute("currentPprice").equals("3")){%>checked<%}else{} %>>
                                             	<span>30,000원 ~ 50,000원</span>
                                             </label>
                                         </li>
                                         <li class="list">
-                                            <label class="radio_button" onclick="location.href='<%=request.getContextPath()%>/category?cid=${currentCid}&pprice=4'">
+                                            <label class="radio_button" onclick="location.href='<%=request.getContextPath()%>/category?cid=${currentCid}&pdelivery=${currentPdelivery }&pprice=4'">
                                             	<input type="radio" name="pprice" value="4" <%if(request.getAttribute("currentPprice").equals("4")){%>checked<%}else{} %>>
                                             	<span>50,000원 이상</span>
                                             </label>

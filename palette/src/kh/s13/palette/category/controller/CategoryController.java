@@ -48,6 +48,9 @@ public class CategoryController extends HttpServlet {
 System.out.println("### cid: " + cid);
 		// 배송옵션
 		String pdelivery = request.getParameter("pdelivery");
+		if(pdelivery == null || pdelivery.equals("")) {
+			pdelivery = null;
+		}
 		// 가격옵션
 		String pprice = request.getParameter("pprice");
 		int startprice = 0;
@@ -104,19 +107,17 @@ System.out.println("### endpriceStr: " + endprice);
 		
 		
 		
-		if(pdelivery != null && !pdelivery.equals("")) {
-			request.setAttribute("pdelivery", pdelivery);
-		}
-		if(startprice != 0 && endprice != 0) {
-			request.setAttribute("startprice", startprice);
-			request.setAttribute("endprice", endprice);
-		}
 		request.setAttribute("productlist", volist);
 		if(volist2 != null)
 			request.setAttribute("categorylist", volist2);
 
+		// 현재 체크된 pdelivery, pprice, cid값 따로 저장 -> jsp에서 parameter값으로 사용
+		if(pdelivery != null && !pdelivery.equals("")) {
+			request.setAttribute("currentPdelivery", pdelivery);
+		}
 		request.setAttribute("currentPprice", pprice);
 		request.setAttribute("currentCid", cid);
+		
 		
 		String viewPath = "/WEB-INF/view/category.jsp";
 		request.getRequestDispatcher(viewPath).forward(request, response);

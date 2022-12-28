@@ -44,10 +44,12 @@
 .cat_header_link {
     letter-spacing: -1px;
     cursor: pointer;
+    font-size: 14px;
 }
 .cat_header_link.active {
     font-weight: 700;
     color: rgb(95, 0, 128);
+    font-size: 14px;
 }
 .cat_header_item > a:hover {
     letter-spacing: -1px;
