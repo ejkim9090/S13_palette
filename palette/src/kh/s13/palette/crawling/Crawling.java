@@ -123,8 +123,8 @@ public class Crawling {
 //---------------------------------------------------------------------------------------------
 			
 			// product 테이블에 데이터 insert
-			String pimage1 = "./resources/images/"+fileName1+".jpg";
-			String pimage2 = "./resources/images/"+fileName2+".jpg";
+			String pimage1 = "/resources/images/"+fileName1+".jpg";
+			String pimage2 = "/resources/images/"+fileName2+".jpg";
 			System.out.println(pimage1);
 			System.out.println(pimage2);
 			vo = new ProductVo(pid, cid, pname, pimage1, pimage2, 

@@ -12,7 +12,7 @@
 <script>
 	if("${func}" == "reviewInsert"){
 		alert("${msg}");
-		location.href = "<%= request.getContextPath()%>/product?pid=${pid}";
+		location.href = "<%= request.getContextPath()%>/product?pid=${pid}#review";
 	} else if("${func}" == "memberInsert"){
 		alert("${msg}");
 		location.href = "<%= request.getContextPath()%>/login";

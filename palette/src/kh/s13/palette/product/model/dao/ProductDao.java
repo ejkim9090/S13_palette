@@ -121,49 +121,41 @@ public class ProductDao {
 	}
 	
 //	selectList - 카테고리
-	public List<CategoryProductVo> selectList(Connection conn, int cid, String pdelivery, int startprice, int endprice){
+	public List<CategoryProductVo> selectList(Connection conn, int cid, String pdelivery, int startprice, int endprice, String sort){
 		List<CategoryProductVo> volist = null;
 		
 		String sql = "	SELECT P.PID, C.CNAME, P.PIMG1, P.PNAME, TO_CHAR(P.PPRICE, '999,999,999') PPRICE " // 카테고리이름, 상품이미지, 상품명, 가격
 				+ "	    FROM PRODUCT P JOIN CATEGORY C ON P.CID = C.CID"
-				+ "	    WHERE P.CID = ?"
-				+ "	    ORDER BY P.PNAME ASC";
+				+ "	    WHERE P.CID = ?";
 		
-		String sqlDelivery = "	SELECT P.PID, C.CNAME, P.PIMG1, P.PNAME, TO_CHAR(P.PPRICE, '999,999,999') PPRICE "
-				+ "	    FROM PRODUCT P JOIN CATEGORY C ON P.CID = C.CID"
-				+ "	    WHERE P.CID = ? AND P.PDELIVERY = '무료배송'"
-				+ "	    ORDER BY P.PNAME ASC";
+		// 배송 체크
+		if(pdelivery != null && !pdelivery.equals("")) { 
+			sql += "		AND P.PDELIVERY = '무료배송'";
+		}
+		// 가격 체크
+		if(!(startprice == 0 && endprice == 99999999)) { 
+			sql += "		AND P.PPRICE BETWEEN " + startprice + "AND " + endprice;
+		} 
+		// 정렬
+		switch(sort) {
+		case "1": // 낮은가격순
+			sql += "		ORDER BY P.PPRICE ASC";
+			break;
+		case "2": // 높은가격순
+			sql += "		ORDER BY P.PPRICE DESC";
+			break;
+		default: // 기본
+			sql += "		ORDER BY P.PNAME ASC";
+			break;
+		}
 		
-		String sqlPrice = "	SELECT P.PID, C.CNAME, P.PIMG1, P.PNAME, TO_CHAR(P.PPRICE, '999,999,999') PPRICE "
-				+ "	    FROM PRODUCT P JOIN CATEGORY C ON P.CID = C.CID"
-				+ "	    WHERE P.CID = ? AND P.PPRICE BETWEEN ? AND ? "
-				+ "	    ORDER BY P.PNAME ASC";
-		
-		String sqlDeliveryPrice = "	SELECT P.PID, C.CNAME, P.PIMG1, P.PNAME, TO_CHAR(P.PPRICE, '999,999,999') PPRICE "
-				+ "	    FROM PRODUCT P JOIN CATEGORY C ON P.CID = C.CID"
-				+ "	    WHERE P.CID = ? AND P.PDELIVERY = '무료배송' AND P.PPRICE BETWEEN ? AND ?"
-				+ "	    ORDER BY P.PNAME ASC";
-		
+		System.out.println(sql);
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			if(pdelivery == null && startprice == 0 && endprice == 0) { // 아무것도 체크 X
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, cid);
-			} else if(startprice == 0 && endprice == 0) { // 배송만 체크
-				pstmt = conn.prepareStatement(sqlDelivery);
-				pstmt.setInt(1, cid);
-			} else if(pdelivery == null) { // 가격만 체크
-				pstmt = conn.prepareStatement(sqlPrice);
-				pstmt.setInt(1, cid);
-				pstmt.setInt(2, startprice);
-				pstmt.setInt(3, endprice);
-			} else { // 모두 체크
-				pstmt = conn.prepareStatement(sqlDeliveryPrice);
-				pstmt.setInt(1, cid);
-				pstmt.setInt(2, startprice);
-				pstmt.setInt(3, endprice);
-			}
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, cid);
+			
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				volist = new ArrayList<CategoryProductVo>();
