@@ -59,14 +59,13 @@ public class ProductReviewInsertLoController extends HttpServlet {
 		String pid = request.getParameter("pid");
 		// 로그인이 안되어있을때 후기 작성하려 한다면, 로그인 후 하도록 유도
 		MemberVo loginSsInfo = (MemberVo) request.getSession().getAttribute("loginSsInfo");
-//		String mid;
-//		if (loginSsInfo == null) { // 로그인 안한 상태
-//			response.sendRedirect(request.getContextPath() + "/login");
-//			return; // 밑의 코드 수행 안하게끔
-//		} else { // 로그인 한 상태
-//			mid = loginSsInfo.getMid();
-//		}
-		String mid = "user1";
+		String mid;
+		if (loginSsInfo == null) { // 로그인 안한 상태
+			response.sendRedirect(request.getContextPath() + "/login");
+			return; // 밑의 코드 수행 안하게끔
+		} else { // 로그인 한 상태
+			mid = loginSsInfo.getMid();
+		}
 		String rcontent = "";
 		List<String> rfilepathlist = new ArrayList<String>(); 
 		
@@ -136,19 +135,6 @@ public class ProductReviewInsertLoController extends HttpServlet {
 			
 			int result = service.insert(vo, rfilepathlist); // 여기서 이미지도 함께 저장
 			System.out.println("저장될 리뷰:" +vo.toString());
-			
-//			if (result > 0) { // 작성 성공시
-//				request.setAttribute("func", "reviewInsert");
-//				request.setAttribute("msg", "후기 등록에 성공했습니다.");
-//				request.setAttribute("pid", pid);
-//				request.getRequestDispatcher("/WEB-INF/view/resultAlert.jsp").forward(request, response);
-//				
-//			} else { // 작성 실패시
-//				request.setAttribute("func", "reviewInsert");
-//				request.setAttribute("msg", "후기 등록에 실패했습니다.");
-//				request.setAttribute("pid", pid);
-//				request.getRequestDispatcher("/WEB-INF/view/resultAlert.jsp").forward(request, response);
-//			}
 			
 			System.out.println(result);
 			out.println(result);

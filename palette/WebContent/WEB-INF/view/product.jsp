@@ -609,7 +609,7 @@
 </body>
 <script>
 function ajaxUpload(e){
-	e.preventDefault();
+	e.preventDefault(); // form 안에 submit 역할을 하는 버튼을 누르면 창이 새로고침하여 실행되는데, 새로 실행하지 않게 하고싶을 경우 (submit은 작동됨)
 	
 	var form = document.getElementById('reviewForm');
 	form.method = 'post';

@@ -10,10 +10,7 @@
 </head>
 <body>
 <script>
-	if("${func}" == "reviewInsert"){
-		alert("${msg}");
-		location.href = "<%= request.getContextPath()%>/product?pid=${pid}#review";
-	} else if("${func}" == "memberInsert"){
+	if("${func}" == "memberInsert"){
 		alert("${msg}");
 		location.href = "<%= request.getContextPath()%>/login";
 	} else if("${func}" == "memberInsertFail"){
