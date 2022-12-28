@@ -141,7 +141,7 @@
                                 <a href="#product_info" class="active"><span>상품설명</span></a>
                             </div>
                             <div class="prod_tab">
-                                <a href="#review"><span>후기</span><span class="number">(9,999+)</span></a>
+                                <a href="#review"><span>후기</span><span class="number">(${fn:length(reviewlist) })</span></a>
                             </div>
                             <div class="prod_tab">
                                 <a href="#inquiry"><span>문의</span></a>
@@ -177,7 +177,7 @@
                             	<!-- 후기작성 팝업창 -->
                                 <div id="popup" role="presentation" style="position: fixed; z-index: 1300; inset: 0px; display: none;">
                                 
-                                <form name="review" action="product/review/insert.do" method="post" enctype="multipart/form-data">
+                                <form name="review" method="post" enctype="multipart/form-data" id="reviewForm">
                                 	
                                     <div class="MuiBackdrop_root" aria-hidden="true" style="opacity: 1; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"></div>
                                     <div tabindex="0" data-test="sentinelStart"></div>
@@ -244,7 +244,7 @@
                                                         <button type="button" onclick="close_pop()">
                                                             <span>취소</span>
                                                         </button>
-                                                        <button type="submit">
+                                                        <button onclick="ajaxUpload(event)">
                                                             <span>등록</span>
                                                         </button>
                                                     </div>
@@ -259,15 +259,23 @@
                                 <div>
                                     <h2 class="product_review">상품 후기</h2><br>
                                 </div>
+                                <div>
+                                    <ul class="review_ul">
+                                        <li class="review_ul_li"><b>·</b> 후기 작성은 배송완료일로부터 30일 이내 가능합니다.</li>
+                                        <li class="review_ul_li"><b>·</b> 작성하신 후기는 확인 후 적립금이 지급됩니다. (영업일 기준 평균 1~2일 소요)</li>
+                                    </ul>
+                                </div>
                     
                                 <!-- 사진 더보기 -->
 <c:choose>
-	<c:when test="${empty reviewlist}">
+	<c:when test="${empty rimagelist}">
+								<div class="review_photo">
+								</div>
 	</c:when>
 	
 	<c:otherwise>
                                 <div class="review_photo">
-	<c:forEach items="${rimagelist}" var="vo" begin="1" end="8">  
+	<c:forEach items="${rimagelist}" var="vo" begin="0" end="7">  
 									<img src="<%=request.getContextPath()%>/${vo.rfilepath}">
 	</c:forEach>
                                     <!-- +더보기 링크 -->
@@ -599,4 +607,44 @@
 		<%@ include file="/WEB-INF/view/footer.jsp"%>  
     </div>
 </body>
+<script>
+function ajaxUpload(e){
+	e.preventDefault();
+	
+	var form = document.getElementById('reviewForm');
+	form.method = 'post';
+	form.enctype = 'multipart/form-data';
+	var fileData = new FormData(form);
+	
+    $.ajax({
+  		url : "<%=request.getContextPath()%>/product_review_insert.lo",
+  		type : "post",
+  		enctype: 'multipart/form-data',
+  	    cache: false,
+  		data: fileData, // url로 전달'할' 데이터
+  		async: false,
+  	    contentType : false,
+  	    processData : false, 
+  	    dataType: 'json',
+  		success: function(data){ // (data) : url로부터 전달'받은' 데이터
+			if(data > 0) {
+				alert("후기 등록 성공")
+			} else {
+				alert("후기 등록 실패")
+			}
+			$('#reviewForm')[0].reset(); // 폼내용 삭제
+			close_pop(); // 폼 닫기
+			location.reload(); // 새로고침 f5
+		},
+		error : function(request, status, error){
+					console.log(request);	
+					console.log(status);	
+					console.log(error);	
+					alert("code:"+request.status+"\n"
+							+"message"+request.responseText+"\n"
+							+"error"+error);
+		}
+	});  
+};
+</script>
 </html>
