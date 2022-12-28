@@ -18,11 +18,11 @@ private ReviewDao dao = new ReviewDao();
 private ReviewImageDao dao2 = new ReviewImageDao();
 
 //	insert
-	public int insert(ReviewVo vo) {
+	public int insert(ReviewVo vo, List<String> rfilepathlist) {
 		System.out.println(">> ReviewService insert param vo :" + vo);
 		int result = 0;
 		Connection conn = JdbcTemplate.getConnection();
-		result = dao.insert(conn, vo);
+		result = dao.insert(conn, vo, rfilepathlist);
 		System.out.println(">> ReviewService insert return :" + result);
 		JdbcTemplate.close(conn); // 리턴하기 전에 닫아줌
 		return result;

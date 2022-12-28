@@ -10,17 +10,27 @@ import java.util.List;
 import kh.s13.palette.common.jdbc.JdbcTemplate;
 import kh.s13.palette.review.model.vo.MyReviewVo;
 import kh.s13.palette.review.model.vo.ProductReviewVo;
+import kh.s13.palette.review.model.vo.ReviewImageVo;
 import kh.s13.palette.review.model.vo.ReviewVo;
 
 public class ReviewDao {
 
 //	insert
-	public int insert(Connection conn, ReviewVo vo) {
+	public int insert(Connection conn, ReviewVo vo, List<String> rfilepathlist) {
 		System.out.println(">>>> ReviewDao insert param : " + vo);
 		int result = 0;
 		
-		String sql = "insert into review (rno, pid, mid, rcontent)"
-				+ "values ((select NVL(max(rno), 0)+1 from review),?,?,?)"; // ""안에 ; 는 쓰면 안됨
+		String sql = "insert all"
+				+ " into review (rno, pid, mid, rcontent) values (maxrno, ?, ?, ?)";
+		if(rfilepathlist != null) {
+			for(String rfilepath : rfilepathlist ) {
+		sql		+= " into review_image values (maxrno, '"+rfilepath+"')";
+			}
+		}
+		
+		sql		+= " select NVL(max(rno), 0)+1 as maxrno from review"; // ""안에 ; 는 쓰면 안됨
+		
+		System.out.println("review sql:"+ sql);
 		PreparedStatement pstmt = null;
 		
 		try {
