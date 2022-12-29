@@ -43,12 +43,14 @@ public class ProductController extends HttpServlet {
 		// 상품상세페이지
 		String pid = request.getParameter("pid");
 		
-		// 찜 여부 TODO
 		String mid = "";
-		try {
-			mid = ((MemberVo)request.getSession().getAttribute("loginSsInfo")).getMid();
-		}catch(Exception e) {
-		}
+//		try {
+//			mid = ((MemberVo)request.getSession().getAttribute("loginSsInfo")).getMid();
+//		}catch(Exception e) {
+//		}
+		mid = "user1"; // 테스트용
+		
+		// 나의 찜 상태
 		ProductWishService service = new ProductWishService();
 		ProductWishVo vo = service.selectOne(mid, pid);
 		
@@ -64,13 +66,12 @@ public class ProductController extends HttpServlet {
 		ReviewImageService service4 = new ReviewImageService();
 		List<ReviewImageVo> rimagelist = service4.selectList(pid);
 	
-		
-		
-		
+	
+		request.setAttribute("mid", mid);
 		if(vo != null) {
 			request.setAttribute("wish", "yes");
 		}else {
-			request.setAttribute("wish", null);
+			request.setAttribute("wish", "no");
 		}
 		request.setAttribute("product", productVo);
 		request.setAttribute("reviewlist", reviewlist);

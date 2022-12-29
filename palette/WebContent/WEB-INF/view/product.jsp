@@ -109,17 +109,27 @@
                                 </div>
                                 <!--버튼 영역-->
                                 <div class="prod_button_area">
+<c:choose>
+	<c:when test="${empty mid }">                               
+                                	<button class="button_wish_logout" type="button" width="56" height="56" radius="3" onclick="location.href='<%=request.getContextPath()%>/login'">
+                                		<span class="ico_wish_logout">
+                                            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxwYXRoIGQ9Ik0yNS44MDcgNy44NjNhNS43NzcgNS43NzcgMCAwIDAtOC4xNzIgMEwxNiA5LjQ5N2wtMS42MzUtMS42MzRhNS43NzkgNS43NzkgMCAxIDAtOC4xNzMgOC4xNzJsMS42MzQgMS42MzQgNy40NjYgNy40NjdhMSAxIDAgMCAwIDEuNDE1IDBzMCAwIDAgMGw3LjQ2Ni03LjQ2N2gwbDEuNjM0LTEuNjM0YTUuNzc3IDUuNzc3IDAgMCAwIDAtOC4xNzJ6IiBzdHJva2U9IiM1RjAwODAiIHN0cm9rZS13aWR0aD0iMS42IiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K">
+                                        </span>
+                                    </button>
+	</c:when>
+	<c:otherwise>
+                                	<input type="hidden" id="wish_check" value="${wish }">
                                 	<button class="button_wish" type="button" width="56" height="56" radius="3">
                                 		<span class="ico_wish">
                                             <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxwYXRoIGQ9Ik0yNS44MDcgNy44NjNhNS43NzcgNS43NzcgMCAwIDAtOC4xNzIgMEwxNiA5LjQ5N2wtMS42MzUtMS42MzRhNS43NzkgNS43NzkgMCAxIDAtOC4xNzMgOC4xNzJsMS42MzQgMS42MzQgNy40NjYgNy40NjdhMSAxIDAgMCAwIDEuNDE1IDBzMCAwIDAgMGw3LjQ2Ni03LjQ2N2gwbDEuNjM0LTEuNjM0YTUuNzc3IDUuNzc3IDAgMCAwIDAtOC4xNzJ6IiBzdHJva2U9IiM1RjAwODAiIHN0cm9rZS13aWR0aD0iMS42IiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K"
-                                                alt="" id="wish_img">
+                                                id="wish_img">
                                         </span>
                                     </button>
-                                    <button class="button_notice"
-                                        type="button" disabled="" width="56" height="56" radius="3">
+	</c:otherwise>     
+</c:choose>                        
+                                    <button class="button_notice" type="button" disabled="" width="56" height="56" radius="3">
                                         <span class="ico_notice">
-                                        	<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxnIHN0cm9rZT0iI0NDQyIgc3Ryb2tlLXdpZHRoPSIxLjYiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZD0iTTEyLjY2NiAyM2EzLjMzMyAzLjMzMyAwIDEgMCA2LjY2NiAwIi8+CiAgICAgICAgPHBhdGggZD0iTTI1Ljk5OCAyMi43MzhINmwuMDEzLS4wM2MuMDc2LS4xMzUuNDcxLS43MDQgMS4xODYtMS43MDlsLjc1LTEuMDV2LTYuNjM1YzAtNC40ODUgMy40MzgtOC4xNCA3Ljc0MS04LjMwOEwxNiA1YzQuNDQ2IDAgOC4wNSAzLjcyMiA4LjA1IDguMzE0djYuNjM0bDEuNzA3IDIuNDExYy4xNzMuMjUzLjI1NC4zOC4yNDIuMzh6IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KICAgIDwvZz4KPC9zdmc+Cg=="
-                                                alt="" class="css-0">
+                                        	<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxnIHN0cm9rZT0iI0NDQyIgc3Ryb2tlLXdpZHRoPSIxLjYiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZD0iTTEyLjY2NiAyM2EzLjMzMyAzLjMzMyAwIDEgMCA2LjY2NiAwIi8+CiAgICAgICAgPHBhdGggZD0iTTI1Ljk5OCAyMi43MzhINmwuMDEzLS4wM2MuMDc2LS4xMzUuNDcxLS43MDQgMS4xODYtMS43MDlsLjc1LTEuMDV2LTYuNjM1YzAtNC40ODUgMy40MzgtOC4xNCA3Ljc0MS04LjMwOEwxNiA1YzQuNDQ2IDAgOC4wNSAzLjcyMiA4LjA1IDguMzE0djYuNjM0bDEuNzA3IDIuNDExYy4xNzMuMjUzLjI1NC4zOC4yNDIuMzh6IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KICAgIDwvZz4KPC9zdmc+Cg==" alt="" class="css-0">
                                         </span>
                                     </button>
                                     <div class="prod_basket_area">
@@ -175,7 +185,7 @@
                                 </div>
                                 
                             	<!-- 후기작성 팝업창 -->
-                                <div id="popup" role="presentation" style="position: fixed; z-index: 1300; inset: 0px; display: none;">
+                                <div id="popup1" role="presentation" style="position: fixed; z-index: 1300; inset: 0px; display: none;">
                                 
                                 <form name="review" method="post" enctype="multipart/form-data" id="reviewForm">
                                 	
@@ -188,7 +198,7 @@
                                                     <!-- 헤더 -->
                                                     <div class="dialog_header">
                                                         <div>후기 작성</div>
-                                                        <span id="btn_close" onclick="close_pop()"></span>
+                                                        <span id="btn_close" onclick="close_pop1()"></span>
                                                     </div>
                     
                                                     <!-- 이미지 -->
@@ -241,7 +251,7 @@
 
 													<!-- 취소/등록 -->
                                                     <div class="dialog_cancel_submit">
-                                                        <button type="button" onclick="close_pop()">
+                                                        <button type="button" onclick="close_pop1()">
                                                             <span>취소</span>
                                                         </button>
                                                         <button onclick="ajaxUpload(event)">
@@ -396,13 +406,13 @@
                                 
                                 <!-- 문의하기 버튼 -->
                                 <div class="btn_inquiry_wrap">
-                                    <button type="button" width="120" height="40" onclick="open_pop()">
+                                    <button type="button" width="120" height="40" onclick="open_pop2()">
                                         <span>문의하기</span>
                                     </button>
                                 </div>
                     
                                 <!-- 문의하기 팝업창 -->
-                                <div id="popup" role="presentation" style="position: fixed; z-index: 1300; inset: 0px; display: none;">
+                                <div id="popup2" role="presentation" style="position: fixed; z-index: 1300; inset: 0px; display: none;">
                                     
                                     <div class="MuiBackdrop_root" aria-hidden="true" style="opacity: 1; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"></div>
                                     
@@ -419,13 +429,13 @@
                                                     <!-- 상품 문의하기 -->
                                                     <div class="dialog_header">
                                                         <div>상품 문의하기</div>
-                                                        <span id="btn_close" onclick="close_pop()"></span>
+                                                        <span id="btn_close" onclick="close_pop2()"></span>
                                                     </div>
                     
                                                     <!-- 이미지 -->
                                                     <div class="dialog_image">
-                                                        <div><img src="https://img-cf.kurly.com/shop/data/goods/164820616351l0.jpeg"></div>
-                                                        <div><span>[최현석의 쵸이닷] 새우 봉골레 파스타</span></div>
+                                                        <div><img src="<%=request.getContextPath()%>/${product.pimg1}"></div>
+                                                        <div><span>${product.pname}</span></div>
                                                     </div>
                     
                                                     <!-- 제목 -->
@@ -493,10 +503,10 @@
                     
                                                     <!-- 취소/등록 -->
                                                     <div class="dialog_cancel_submit">
-                                                        <button type="button">
+                                                        <button type="button" onclick="close_pop2()">
                                                             <span>취소</span>
                                                         </button>
-                                                        <button type="button" disabled="">
+                                                        <button type="button">
                                                             <span>등록</span>
                                                         </button>
                                                     </div>
@@ -608,6 +618,7 @@
     </div>
 </body>
 <script>
+// 후기 업로드
 function ajaxUpload(e){
 	e.preventDefault(); // form 안에 submit 역할을 하는 버튼을 누르면 창이 새로고침하여 실행되는데, 새로 실행하지 않게 하고싶을 경우 (submit은 작동됨)
 	
@@ -646,5 +657,66 @@ function ajaxUpload(e){
 		}
 	});  
 };
+
+// 찜 버튼
+$(function() {
+	
+	let wish = $("#wish_check").val();
+	const mid = "${mid}";
+	const pid = "${product.pid}";
+	
+	if(wish == "yes") { // 찜 한 상태
+		$("#wish_img").attr("src", "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxwYXRoIGQ9Ik0yNS44MDcgNy44NjNhNS43NzcgNS43NzcgMCAwIDAtOC4xNzIgMEwxNiA5LjQ5N2wtMS42MzUtMS42MzRhNS43NzkgNS43NzkgMCAxIDAtOC4xNzMgOC4xNzJsMS42MzQgMS42MzQgNy40NjYgNy40NjdhMSAxIDAgMCAwIDEuNDE1IDBzMCAwIDAgMGw3LjQ2Ni03LjQ2N2gwbDEuNjM0LTEuNjM0YTUuNzc3IDUuNzc3IDAgMCAwIDAtOC4xNzJ6IiBmaWxsPSIjRkY1QTVBIiBzdHJva2U9IiNGRjVBNUEiIHN0cm9rZS13aWR0aD0iMS42IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K");
+	} else { // 찜 안한 상태
+		$("#wish_img").attr("src", "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxwYXRoIGQ9Ik0yNS44MDcgNy44NjNhNS43NzcgNS43NzcgMCAwIDAtOC4xNzIgMEwxNiA5LjQ5N2wtMS42MzUtMS42MzRhNS43NzkgNS43NzkgMCAxIDAtOC4xNzMgOC4xNzJsMS42MzQgMS42MzQgNy40NjYgNy40NjdhMSAxIDAgMCAwIDEuNDE1IDBzMCAwIDAgMGw3LjQ2Ni03LjQ2N2gwbDEuNjM0LTEuNjM0YTUuNzc3IDUuNzc3IDAgMCAwIDAtOC4xNzJ6IiBzdHJva2U9IiM1RjAwODAiIHN0cm9rZS13aWR0aD0iMS42IiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K");
+	}
+	
+	// 좋아요 버튼을 클릭 시
+	$(".button_wish").on("click", function(){
+			
+		$.ajax({
+			url: "<%=request.getContextPath()%>/product_wish_update.lo",
+		    type: "post",
+	        data: { 'mid': mid, 'pid': pid, 'wish': wish },
+	        success: function (data) {
+	        	if(wish == "no") { // 찜 안한 상태에서 누름
+		            if (data == 1) { // insert 성공시
+		                $("#wish_img").attr("src", "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxwYXRoIGQ9Ik0yNS44MDcgNy44NjNhNS43NzcgNS43NzcgMCAwIDAtOC4xNzIgMEwxNiA5LjQ5N2wtMS42MzUtMS42MzRhNS43NzkgNS43NzkgMCAxIDAtOC4xNzMgOC4xNzJsMS42MzQgMS42MzQgNy40NjYgNy40NjdhMSAxIDAgMCAwIDEuNDE1IDBzMCAwIDAgMGw3LjQ2Ni03LjQ2N2gwbDEuNjM0LTEuNjM0YTUuNzc3IDUuNzc3IDAgMCAwIDAtOC4xNzJ6IiBmaWxsPSIjRkY1QTVBIiBzdHJva2U9IiNGRjVBNUEiIHN0cm9rZS13aWR0aD0iMS42IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K");
+		                $("#wish_check").val("yes");
+		                wish = $("#wish_check").val();
+		            } else {
+		                $("#wish_img").attr("src", "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxwYXRoIGQ9Ik0yNS44MDcgNy44NjNhNS43NzcgNS43NzcgMCAwIDAtOC4xNzIgMEwxNiA5LjQ5N2wtMS42MzUtMS42MzRhNS43NzkgNS43NzkgMCAxIDAtOC4xNzMgOC4xNzJsMS42MzQgMS42MzQgNy40NjYgNy40NjdhMSAxIDAgMCAwIDEuNDE1IDBzMCAwIDAgMGw3LjQ2Ni03LjQ2N2gwbDEuNjM0LTEuNjM0YTUuNzc3IDUuNzc3IDAgMCAwIDAtOC4xNzJ6IiBzdHJva2U9IiM1RjAwODAiIHN0cm9rZS13aWR0aD0iMS42IiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K");
+		            }
+	        	} else if(wish == "yes") { // 찜 한 상태에서 누름
+		            if (data == 1) { // delete 성공시
+		                $("#wish_img").attr("src", "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxwYXRoIGQ9Ik0yNS44MDcgNy44NjNhNS43NzcgNS43NzcgMCAwIDAtOC4xNzIgMEwxNiA5LjQ5N2wtMS42MzUtMS42MzRhNS43NzkgNS43NzkgMCAxIDAtOC4xNzMgOC4xNzJsMS42MzQgMS42MzQgNy40NjYgNy40NjdhMSAxIDAgMCAwIDEuNDE1IDBzMCAwIDAgMGw3LjQ2Ni03LjQ2N2gwbDEuNjM0LTEuNjM0YTUuNzc3IDUuNzc3IDAgMCAwIDAtOC4xNzJ6IiBzdHJva2U9IiM1RjAwODAiIHN0cm9rZS13aWR0aD0iMS42IiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K");
+		                $("#wish_check").val("no");
+		                wish = $("#wish_check").val();		            
+		            } else {
+		                $("#wish_img").attr("src", "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxwYXRoIGQ9Ik0yNS44MDcgNy44NjNhNS43NzcgNS43NzcgMCAwIDAtOC4xNzIgMEwxNiA5LjQ5N2wtMS42MzUtMS42MzRhNS43NzkgNS43NzkgMCAxIDAtOC4xNzMgOC4xNzJsMS42MzQgMS42MzQgNy40NjYgNy40NjdhMSAxIDAgMCAwIDEuNDE1IDBzMCAwIDAgMGw3LjQ2Ni03LjQ2N2gwbDEuNjM0LTEuNjM0YTUuNzc3IDUuNzc3IDAgMCAwIDAtOC4xNzJ6IiBmaWxsPSIjRkY1QTVBIiBzdHJva2U9IiNGRjVBNUEiIHN0cm9rZS13aWR0aD0iMS42IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K");
+		            }
+	        	}
+	        }, 
+	        error: function(request, status, error){
+				console.log(request);	
+				console.log(status);	
+				console.log(error);	
+				alert("code:"+request.status+"\n"
+						+"message"+request.responseText+"\n"
+						+"error"+error);
+	        }
+			
+			
+		});
+		
+	});
+
+});
+
+
+
+
+
+
 </script>
 </html>

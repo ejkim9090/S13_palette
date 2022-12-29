@@ -402,7 +402,18 @@
     background-color: rgb(255, 255, 255);
     border: 1px solid rgb(221, 221, 221);
 }
-
+.button_wish_logout {
+    display: block;
+    padding: 0px 10px;
+    text-align: center;
+    overflow: hidden;
+    width: 56px;
+    height: 52px;
+    border-radius: 3px;
+    color: rgb(51, 51, 51);
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(221, 221, 221);
+}
 .ico_wish {
     display: inline-block;
     font-size: 16px;
@@ -411,7 +422,14 @@
 .ico_wish img {
 	padding-top: 5px;
 }
-
+.ico_wish_logout{
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 500;
+}
+.ico_wish_logout img {
+	padding-top: 5px;
+}
 .button_notice {
     display: block;
     padding: 0px 10px;

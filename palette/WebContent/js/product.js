@@ -1,6 +1,6 @@
 // 상단
-$(function(){
-    $(".prod_button_area > .button_wish").click(function(){
+/*$(function(){
+    $(".button_wish").click(function(){
 
         if($(this).hasClass("red")){
             $("#wish_img").attr("src", "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxwYXRoIGQ9Ik0yNS44MDcgNy44NjNhNS43NzcgNS43NzcgMCAwIDAtOC4xNzIgMEwxNiA5LjQ5N2wtMS42MzUtMS42MzRhNS43NzkgNS43NzkgMCAxIDAtOC4xNzMgOC4xNzJsMS42MzQgMS42MzQgNy40NjYgNy40NjdhMSAxIDAgMCAwIDEuNDE1IDBzMCAwIDAgMGw3LjQ2Ni03LjQ2N2gwbDEuNjM0LTEuNjM0YTUuNzc3IDUuNzc3IDAgMCAwIDAtOC4xNzJ6IiBzdHJva2U9IiM1RjAwODAiIHN0cm9rZS13aWR0aD0iMS42IiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K");
@@ -10,7 +10,7 @@ $(function(){
             $(this).addClass("red");
         }
     });
-});
+});*/
 // ----------------------------------------------------------------------------------------------
 // 상품설명/상세정보/후기/문의 탭 누를시 색 변경
 
@@ -160,17 +160,25 @@ $(document).ready(function(){
     });
 });
 // ----------------------------------------------------------------------------------------------
-// 문의하기 버튼 누르면 팝업
-
-function open_pop() {
-    document.getElementById('popup').style.display = "block";
+// 후기작성 버튼 누르면 팝업
+function open_pop1() {
+    document.getElementById('popup1').style.display = "block";
     document.body.style.overflow = "hidden"; //팝업창 뜨면 스크롤 제거
 }
-
-
 // X 버튼 누르면 팝업 닫기
-function close_pop() {
-    document.getElementById('popup').style.display = "none";
+function close_pop1() {
+    document.getElementById('popup1').style.display = "none";
+    document.body.style.overflow = "visible"; //팝업 닫으면 다시 스크롤 생성
+}
+
+// 문의하기 버튼 누르면 팝업
+function open_pop2() {
+    document.getElementById('popup2').style.display = "block";
+    document.body.style.overflow = "hidden"; //팝업창 뜨면 스크롤 제거
+}
+// X 버튼 누르면 팝업 닫기
+function close_pop2() {
+    document.getElementById('popup2').style.display = "none";
     document.body.style.overflow = "visible"; //팝업 닫으면 다시 스크롤 생성
 }
 //--------------------------------------------------------------------------------------------------

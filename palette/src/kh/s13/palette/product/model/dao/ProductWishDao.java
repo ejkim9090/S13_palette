@@ -14,8 +14,9 @@ import kh.s13.palette.product.model.vo.ProductWishVo;
 public class ProductWishDao {
 
 //	insert
-	public int insert(Connection conn, ProductWishVo vo) {
-		System.out.println(">>>> ProductWishDao insert param : " + vo);
+	public int insert(Connection conn, String mid, String pid) {
+		System.out.println(">>>> ProductWishDao insert param mid: " + mid);
+		System.out.println(">>>> ProductWishDao insert param pid: " + pid);
 		int result = 0;
 		
 		String sql = "insert into product_wish values(?,?)"; // ""안에 ; 는 쓰면 안됨
@@ -23,8 +24,8 @@ public class ProductWishDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, vo.getMid());
-			pstmt.setString(2, vo.getPid());
+			pstmt.setString(1, mid);
+			pstmt.setString(2, pid);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

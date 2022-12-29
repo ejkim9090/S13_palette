@@ -13,11 +13,12 @@ public class ProductWishService {
 	private ProductWishDao dao = new ProductWishDao();
 
 //	insert
-	public int insert(ProductWishVo vo) {
-		System.out.println(">> ProductWishService insert param vo :" + vo);
+	public int insert(String mid, String pid) {
+		System.out.println(">> ProductWishService insert param mid :" + mid);
+		System.out.println(">> ProductWishService insert param pid :" + pid);
 		int result = 0;
 		Connection conn = JdbcTemplate.getConnection();
-		result = dao.insert(conn, vo);
+		result = dao.insert(conn, mid, pid);
 		System.out.println(">> ProductWishService insert return :" + result);
 		JdbcTemplate.close(conn); // 리턴하기 전에 닫아줌
 		return result;
@@ -25,6 +26,7 @@ public class ProductWishService {
 //	delete
 	public int delete(String mid, String pid /*여기에는 주로 기본키가 들어감*/) {
 		System.out.println(">> ProductWishService delete param mid :" + mid);
+		System.out.println(">> ProductWishService delete param pid :" + pid);
 		int result = 0;
 		Connection conn = JdbcTemplate.getConnection();
 		result = dao.delete(conn, mid, pid);
