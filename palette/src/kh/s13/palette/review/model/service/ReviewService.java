@@ -81,12 +81,12 @@ private ReviewImageDao dao2 = new ReviewImageDao();
 		return volist;
 	}
 //	selectList - 상품 후기
-	public List<ProductReviewVo> selectPList(String pid){
+	public List<ProductReviewVo> selectPList(String pid, int startRnum, int endRnum){
 		List<ProductReviewVo> volist = null;
 		Connection conn = JdbcTemplate.getConnection();
 		
 		// 해당되는 rno의 reviewImage만 가져오게하기
-		volist = dao.selectPList(conn, pid);
+		volist = dao.selectPList(conn, pid, startRnum, endRnum);
 		if(volist != null) {
 			for(int i = 0; i < volist.size(); i++) {
 				int rno = volist.get(i).getRno();
@@ -120,6 +120,16 @@ private ReviewImageDao dao2 = new ReviewImageDao();
 		Connection conn = JdbcTemplate.getConnection();
 		
 		result = dao.selectTotalCnt(conn, mid);
+		
+		JdbcTemplate.close(conn);
+		return result;
+	}
+// 상품 후기 총 개수 
+	public int selectPTotalCnt(String pid) {
+		int result = 0;
+		Connection conn = JdbcTemplate.getConnection();
+		
+		result = dao.selectPTotalCnt(conn, pid);
 		
 		JdbcTemplate.close(conn);
 		return result;

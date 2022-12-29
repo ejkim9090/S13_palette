@@ -2315,3 +2315,52 @@ element.style {
     cursor: pointer;
     background-image: url("https://res.kurly.com/kurly/ico/2021/paging-next-activated.svg");
 }
+/* 후기 페이징 버튼 */
+.button_wrapper {
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    padding: 60px 0px 30px;
+}
+.button_previous:disabled {
+    background-image: url("https://res.kurly.com/kurly/ico/2021/paging-prev-disabled.svg");
+    cursor: default;
+}
+.button_previous {
+    width: 44px;
+    height: 44px;
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+    cursor: pointer;
+    background-color: transparent;
+    background-image: url("https://res.kurly.com/kurly/ico/2021/paging-prev-activated.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.button_text {
+    overflow: hidden;
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+}
+.button button + button {
+    margin-left: 12px;
+}
+.button_next {
+    width: 44px;
+    height: 44px;
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+    cursor: pointer;
+    background-color: transparent;
+    background-image: url("https://res.kurly.com/kurly/ico/2021/paging-next-activated.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.button_next:disabled {
+    background-image: url('https://res.kurly.com/kurly/ico/2021/paging-next-disabled.svg');
+    cursor: default;
+}

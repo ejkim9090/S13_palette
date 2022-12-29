@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import kh.s13.palette.member.model.vo.MemberVo;
 import kh.s13.palette.product.model.service.ProductService;
 import kh.s13.palette.product.model.service.ProductWishService;
+import kh.s13.palette.product.model.vo.MyProductWishVo;
 import kh.s13.palette.product.model.vo.ProductDetailVo;
 import kh.s13.palette.product.model.vo.ProductVo;
 import kh.s13.palette.product.model.vo.ProductWishVo;
@@ -51,34 +52,69 @@ public class ProductController extends HttpServlet {
 		mid = "user1"; // 테스트용
 		
 		// 나의 찜 상태
-		ProductWishService service = new ProductWishService();
-		ProductWishVo vo = service.selectOne(mid, pid);
+		ProductWishService wishService = new ProductWishService();
+		ProductWishVo wishVo = wishService.selectOne(mid, pid);
 		
 		// 상품 한 개 정보
-		ProductService service2 = new ProductService();
-		ProductDetailVo productVo = service2.selectOne(pid);
+		ProductService productService = new ProductService();
+		ProductDetailVo productVo = productService.selectOne(pid);
+		
+		// 후기 사진 더보기
+		ReviewImageService rimageService = new ReviewImageService();
+		List<ReviewImageVo> rimagelist = rimageService.selectList(pid);
 		
 		// 후기 목록
 		ReviewService service3 = new ReviewService();
-		List<ProductReviewVo> reviewlist = service3.selectPList(pid);
+
+		// <내가 정하는 고정개수>
+		final int pageSize = 10; // 페이지당 글 수
 		
-		// 후기 사진
-		ReviewImageService service4 = new ReviewImageService();
-		List<ReviewImageVo> rimagelist = service4.selectList(pid);
-	
-	
-		request.setAttribute("mid", mid);
-		if(vo != null) {
-			request.setAttribute("wish", "yes");
-		}else {
-			request.setAttribute("wish", "no");
+		// <DB에서 불러와야하는 수>
+		int cnt = 0; // 총 글 수
+		int pageCnt = 0; // 총 페이지 수
+		int currentPage = 1; // 현재페이지. 기본 1. 눌리면 바뀜
+				
+		try {
+			cnt = service3.selectPTotalCnt(pid); // 상품 후기 총 개수
+			
+			if(cnt < 1) { // 후기 없는 경우. -> 아래 후기 selectList 할 필요 없음.
+				return;
+			}
+			try {
+				currentPage = Integer.parseInt(request.getParameter("pagenum"));
+			} catch (Exception e) {
+			}
+			pageCnt = (cnt/pageSize) + (cnt%pageSize==0 ? 0 : 1); // 총 페이지 수
+
+			int startRnum = (currentPage - 1) * pageSize + 1; // 해당 페이지의 시작 글 번호
+			int endRnum = startRnum + pageSize - 1; // 해당 페이지의 마지막 글 번호
+			if(endRnum > cnt ) {
+				endRnum = cnt;
+			}
+			
+			List<ProductReviewVo> reviewlist = service3.selectPList(pid, startRnum, endRnum);
+			request.setAttribute("reviewlist", reviewlist);
+			
+		} finally { // finally문은 무조건 거치게됨
+
+			request.setAttribute("pageCnt", pageCnt);
+			request.setAttribute("currentPage", currentPage);
+			
+			request.setAttribute("reviewCnt", cnt);
+			
+			request.setAttribute("mid", mid);
+			if(wishVo != null) {
+				request.setAttribute("wish", "yes");
+			}else {
+				request.setAttribute("wish", "no");
+			}
+			request.setAttribute("product", productVo);
+			request.setAttribute("rimagelist", rimagelist);
+			
+			String viewPath = "/WEB-INF/view/product.jsp";
+			request.getRequestDispatcher(viewPath).forward(request, response);
 		}
-		request.setAttribute("product", productVo);
-		request.setAttribute("reviewlist", reviewlist);
-		request.setAttribute("rimagelist", rimagelist);
 		
-		String viewPath = "/WEB-INF/view/product.jsp";
-		request.getRequestDispatcher(viewPath).forward(request, response);
 	}
 
 

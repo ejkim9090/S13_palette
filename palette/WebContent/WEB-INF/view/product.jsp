@@ -151,7 +151,7 @@
                                 <a href="#product_info" class="active"><span>상품설명</span></a>
                             </div>
                             <div class="prod_tab">
-                                <a href="#review"><span>후기</span><span class="number">(${fn:length(reviewlist) })</span></a>
+                                <a href="#review"><span>후기</span><span class="number">(${reviewCnt })</span></a>
                             </div>
                             <div class="prod_tab">
                                 <a href="#inquiry"><span>문의</span></a>
@@ -179,7 +179,7 @@
                             
                                 <!-- 후기작성 버튼 -->
                                 <div class="btn_inquiry_wrap">
-                                    <button type="button" width="120" height="40" onclick="open_pop()">
+                                    <button type="button" width="120" height="40" onclick="open_pop1()">
                                         <span>후기작성</span>
                                     </button>
                                 </div>
@@ -296,7 +296,7 @@
                                 <div class="user_review_div">
                                     <!-- 총 게시물 수 -->
                                     <div class="total_post">
-                                        <span class="total_post_span">총 ${fn:length(reviewlist) }개</span>
+                                        <span class="total_post_span">총 ${reviewCnt }개</span>
                                     </div>
                                 </div>
 <c:choose>
@@ -344,6 +344,34 @@
                                     </div>
                                 </div>
       		</c:forEach>
+								<div class="button_wrapper">
+			                        <div class="button">
+		        <c:choose>
+		        	<c:when test="${currentPage eq 1}">                
+			                            <button type="button" class="button_previous" disabled>
+			                                <div class="button_text">이전</div>
+			                            </button>
+		            </c:when>
+		            <c:otherwise>
+			                            <button type="button" class="button_previous" onclick="location.href='product?pid=${product.pid }&pagenum=${currentPage-1 }'">
+			                                <div class="button_text">이전</div>
+			                            </button>
+					</c:otherwise>
+				</c:choose>
+				<c:choose>
+        	<c:when test="${currentPage < pageCnt}">                
+			                            <button type="button" class="button_next" onclick="location.href='product?pid=${product.pid }&pagenum=${currentPage+1 }'">
+			                                <div class="button_text">다음</div>
+			                            </button>
+					</c:when>
+		            <c:otherwise>
+			                            <button type="button" class="button_next" disabled>
+			                                <div class="button_text">다음</div>
+			                            </button>
+					</c:otherwise>
+				</c:choose>                      
+			                        </div>
+			                    </div>
       </c:otherwise> 
 </c:choose>              
 							<!-- 사진 더보기 모달창 -->
