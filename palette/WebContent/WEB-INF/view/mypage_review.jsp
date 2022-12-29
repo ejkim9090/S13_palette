@@ -130,17 +130,30 @@
 					
 					<div class="button_wrapper">
                         <div class="button">
-		<c:if test="${currentPage ne 1}">
+        <c:choose>
+        	<c:when test="${currentPage eq 1}">                
+                            <button type="button" class="button_previous" disabled>
+                                <div class="button_text">이전</div>
+                            </button>
+            </c:when>
+            <c:otherwise>
                             <button type="button" class="button_previous" onclick="location.href='mypage_review?pagenum=${currentPage-1 }'">
                                 <div class="button_text">이전</div>
                             </button>
-		</c:if>     
-
-		<c:if test="${currentPage < pageCnt}">
+			</c:otherwise>
+		</c:choose>
+		<c:choose>
+        	<c:when test="${currentPage < pageCnt}">              
                             <button type="button" class="button_next" onclick="location.href='mypage_review?pagenum=${currentPage+1 }'">
                                 <div class="button_text">다음</div>
                             </button>
-		</c:if>                            
+			</c:when>
+            <c:otherwise>
+                            <button type="button" class="button_next" disabled>
+                                <div class="button_text">다음</div>
+                            </button>
+			</c:otherwise>
+		</c:choose>                      
                         </div>
                     </div>
                     

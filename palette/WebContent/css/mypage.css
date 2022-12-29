@@ -165,7 +165,7 @@
 	overflow: hidden;
     display: flex;
     width: 1050px;
-    height: 1200px;
+    height: 1300px;
     padding: 50px 0px 80px;
     margin: 0px auto;
     flex-direction: row;
@@ -533,4 +533,8 @@
     background-image: url("https://res.kurly.com/kurly/ico/2021/paging-next-activated.svg");
     background-repeat: no-repeat;
     background-size: cover;
+}
+.button_next:disabled {
+    background-image: url('https://res.kurly.com/kurly/ico/2021/paging-next-disabled.svg');
+    cursor: default;
 }
