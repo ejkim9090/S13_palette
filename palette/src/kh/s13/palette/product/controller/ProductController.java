@@ -45,11 +45,11 @@ public class ProductController extends HttpServlet {
 		String pid = request.getParameter("pid");
 		
 		String mid = "";
-//		try {
-//			mid = ((MemberVo)request.getSession().getAttribute("loginSsInfo")).getMid();
-//		}catch(Exception e) {
-//		}
-		mid = "user1"; // 테스트용
+		try {
+			mid = ((MemberVo)request.getSession().getAttribute("loginSsInfo")).getMid();
+		}catch(Exception e) {
+		}
+//		mid = "user1"; // 테스트용
 		
 		// 나의 찜 상태
 		ProductWishService wishService = new ProductWishService();

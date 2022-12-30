@@ -53,7 +53,7 @@
                             <button type="submit" id="login_btn">
                                 <span>로그인</span>
                             </button>
-                            <button type="button" id="join_btn" onclick="location.href='<%=request.getContextPath()%>/join.html'">
+                            <button type="button" id="join_btn" onclick="location.href='<%=request.getContextPath()%>/join'">
                                 <span>회원가입</span>
                             </button>
                         </div>

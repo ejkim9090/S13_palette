@@ -1833,6 +1833,22 @@ element.style {
     font-size: 14px;
     font-weight: 500;
 }
+.btn_inquiry_wrap_logout {
+    position: absolute;
+    right: 0px;
+}
+.btn_inquiry_wrap_logout button {
+    display: block;
+    width: 120px;
+    height: 40px;
+    border-radius: 3px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(95, 0, 128);
+}
+.btn_inquiry_wrap_logout span {
+    font-size: 14px;
+    font-weight: 500;
+}
 
 /* 문의하기 팝업창 */
 .MuiBackdrop_root {

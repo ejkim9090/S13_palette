@@ -35,7 +35,7 @@ public class MypageWishController extends HttpServlet {
 		ProductWishService service = new ProductWishService();
 		
 		// <내가 정하는 고정개수>
-		final int pageSize = 6; // 페이지당 글 수
+		final int pageSize = 7; // 페이지당 글 수
 		
 		// <DB에서 불러와야하는 수>
 		int cnt = 0; // 총 글 수

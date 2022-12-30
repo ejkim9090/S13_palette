@@ -111,7 +111,7 @@
                                 <div class="prod_button_area">
 <c:choose>
 	<c:when test="${empty mid }">                               
-                                	<button class="button_wish_logout" type="button" width="56" height="56" radius="3" onclick="location.href='<%=request.getContextPath()%>/login'">
+                                	<button class="button_wish_logout" type="button" width="56" height="56" radius="3" onclick="wish_logout()">
                                 		<span class="ico_wish_logout">
                                             <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxwYXRoIGQ9Ik0yNS44MDcgNy44NjNhNS43NzcgNS43NzcgMCAwIDAtOC4xNzIgMEwxNiA5LjQ5N2wtMS42MzUtMS42MzRhNS43NzkgNS43NzkgMCAxIDAtOC4xNzMgOC4xNzJsMS42MzQgMS42MzQgNy40NjYgNy40NjdhMSAxIDAgMCAwIDEuNDE1IDBzMCAwIDAgMGw3LjQ2Ni03LjQ2N2gwbDEuNjM0LTEuNjM0YTUuNzc3IDUuNzc3IDAgMCAwIDAtOC4xNzJ6IiBzdHJva2U9IiM1RjAwODAiIHN0cm9rZS13aWR0aD0iMS42IiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4K">
                                         </span>
@@ -178,12 +178,22 @@
                             <div class="wrap review">
                             
                                 <!-- 후기작성 버튼 -->
+<c:choose>
+	<c:when test="${empty mid }"> 
+                                <div class="btn_inquiry_wrap_logout" onclick="review_logout()">
+                                    <button type="button" width="120" height="40">
+                                        <span>후기작성</span>
+                                    </button>
+                                </div>
+    </c:when>
+    <c:otherwise>
                                 <div class="btn_inquiry_wrap">
                                     <button type="button" width="120" height="40" onclick="open_pop1()">
                                         <span>후기작성</span>
                                     </button>
                                 </div>
-                                
+    </c:otherwise>
+</c:choose>                                
                             	<!-- 후기작성 팝업창 -->
                                 <div id="popup1" role="presentation" style="position: fixed; z-index: 1300; inset: 0px; display: none;">
                                 
@@ -672,7 +682,7 @@ function ajaxUpload(e){
 				alert("후기 등록 실패")
 			}
 			$('#reviewForm')[0].reset(); // 폼내용 삭제
-			close_pop(); // 폼 닫기
+			close_pop1(); // 폼 닫기
 			location.reload(); // 새로고침 f5
 		},
 		error : function(request, status, error){
@@ -733,14 +743,21 @@ $(function() {
 						+"message"+request.responseText+"\n"
 						+"error"+error);
 	        }
-			
-			
 		});
-		
 	});
-
 });
-
+// 로그인 안한 상태에서 찜 누르면
+function wish_logout(){
+	
+	alert("로그인하셔야 본 서비스를 이용하실 수 있습니다.");
+	location.href = "<%=request.getContextPath()%>/login";
+}
+// 로그인 안한 상태에서 후기 작성 누르면
+function review_logout(){
+	
+	alert("로그인하셔야 본 서비스를 이용하실 수 있습니다.");
+	location.href = "<%=request.getContextPath()%>/login";
+}
 
 
 
