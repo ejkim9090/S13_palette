@@ -16,6 +16,9 @@
 	} else if("${func}" == "memberInsertFail"){
 		alert("${msg}");
 		location.href = "<%= request.getContextPath()%>/join";
+	} else if("${func}" == "loginFail"){
+		alert("${msg}");
+		location.href = "<%= request.getContextPath()%>/login";
 	}
 
 </script>

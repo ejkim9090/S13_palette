@@ -37,13 +37,15 @@ public class LoginDoController extends HttpServlet {
 		MemberService service = new MemberService();
 		MemberVo loginInfo = service.login(mid, mpw);
 		
-		if(loginInfo != null) { // TODO 로그인 실패시 alert창..?
+		if(loginInfo != null) { 
 			System.out.println("로그인 성공");
 			request.getSession().setAttribute("loginSsInfo", loginInfo);
 			response.sendRedirect(request.getContextPath()+"/main");
 		} else {
 			System.out.println("로그인 실패");
-			response.sendRedirect(request.getContextPath()+"/login");
+			request.setAttribute("func", "loginFail");
+			request.setAttribute("msg", "아이디, 비밀번호를 확인해주세요.");
+			request.getRequestDispatcher("/WEB-INF/view/resultAlert.jsp").forward(request, response);
 		} 
 	}
 
