@@ -169,10 +169,10 @@ public class ReviewDao {
 //	selectList - 상품페이지 후기목록
 	public List<ProductReviewVo> selectPList(Connection conn, String pid, int startRnum, int endRnum){
 		List<ProductReviewVo> volist = null;
-		
+		// 후기번호, 회원이름, 변환된회원이름, 상품명, 후기내용, 글등록시간
 		String sql = "select * "
 				+ "		from (select t1.*, rownum r "
-				+ "		from (SELECT R.RNO, M.MNAME, P.PNAME, R.RCONTENT, TO_CHAR(R.RDATE, 'YYYY.MM.DD') RDATE" // 후기번호, 회원이름, 상품명, 후기내용, 글등록시간
+				+ "		from (SELECT R.RNO, M.MNAME, RPAD(SUBSTR(M.MNAME,1,1), LENGTH(M.MNAME)+1, '*') MNAME2, P.PNAME, R.RCONTENT, TO_CHAR(R.RDATE, 'YYYY.MM.DD') RDATE" 
 				+ "     FROM REVIEW R JOIN PRODUCT P ON R.PID = P.PID"
 				+ "                   JOIN MEMBER M ON R.MID = M.MID"
 				+ "     WHERE R.PID = ?"
@@ -193,6 +193,7 @@ public class ReviewDao {
 					ProductReviewVo vo = new ProductReviewVo();
 					vo.setRno(rs.getInt("rno"));
 					vo.setMname(rs.getString("mname"));
+					vo.setMname2(rs.getString("mname2"));
 					vo.setPname(rs.getString("pname"));
 					vo.setRcontent(rs.getString("rcontent").replaceAll("%%", "<br>"));
 					vo.setRdate(rs.getString("rdate"));

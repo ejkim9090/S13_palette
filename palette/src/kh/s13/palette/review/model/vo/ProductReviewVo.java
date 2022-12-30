@@ -12,6 +12,7 @@ public class ProductReviewVo {
 	
 	private int rno;
 	private String mname;
+	private String mname2;
 	private String pname;
 	private String rcontent;
 	private String rdate;
@@ -24,10 +25,12 @@ public class ProductReviewVo {
 	public ProductReviewVo() {
 		super();
 	}
-	public ProductReviewVo(int rno, String mname, String pname, String rcontent, String rdate, List<String> rfilepath) {
+	public ProductReviewVo(int rno, String mname, String mname2, String pname, String rcontent, String rdate,
+			List<String> rfilepath) {
 		super();
 		this.rno = rno;
 		this.mname = mname;
+		this.mname2 = mname2;
 		this.pname = pname;
 		this.rcontent = rcontent;
 		this.rdate = rdate;
@@ -35,8 +38,8 @@ public class ProductReviewVo {
 	}
 	@Override
 	public String toString() {
-		return "ProductReviewVo [rno=" + rno + ", mname=" + mname + ", pname=" + pname + ", rcontent=" + rcontent
-				+ ", rdate=" + rdate + ", rfilepath=" + rfilepath + "]";
+		return "ProductReviewVo [rno=" + rno + ", mname=" + mname + ", mname2=" + mname2 + ", pname=" + pname
+				+ ", rcontent=" + rcontent + ", rdate=" + rdate + ", rfilepath=" + rfilepath + "]";
 	}
 	public int getRno() {
 		return rno;
@@ -49,6 +52,12 @@ public class ProductReviewVo {
 	}
 	public void setMname(String mname) {
 		this.mname = mname;
+	}
+	public String getMname2() {
+		return mname2;
+	}
+	public void setMname2(String mname2) {
+		this.mname2 = mname2;
 	}
 	public String getPname() {
 		return pname;
@@ -74,8 +83,6 @@ public class ProductReviewVo {
 	public void setRfilepath(List<String> rfilepath) {
 		this.rfilepath = rfilepath;
 	}
-
-	
-	
+		
 	
 }
