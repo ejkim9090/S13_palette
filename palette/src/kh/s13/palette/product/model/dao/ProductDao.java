@@ -124,7 +124,7 @@ public class ProductDao {
 	public List<CategoryProductVo> selectList(Connection conn, int cid, String pdelivery, int startprice, int endprice, String sort){
 		List<CategoryProductVo> volist = null;
 		
-		String sql = "	SELECT P.PID, C.CNAME, P.PIMG1, P.PNAME, TO_CHAR(P.PPRICE, '999,999,999') PPRICE " // 카테고리이름, 상품이미지, 상품명, 가격
+		String sql = "	SELECT P.PID, C.CNAME, P.PIMG1, P.PIMG2, P.PNAME, TO_CHAR(P.PPRICE, '999,999,999') PPRICE " // 카테고리이름, 상품이미지, 상품명, 가격
 				+ "	    FROM PRODUCT P JOIN CATEGORY C ON P.CID = C.CID"
 				+ "	    WHERE P.CID = ?";
 		
@@ -164,6 +164,7 @@ public class ProductDao {
 					vo.setPid(rs.getString("pid"));
 					vo.setCname(rs.getString("cname"));
 					vo.setPimg1(rs.getString("pimg1"));
+					vo.setPimg2(rs.getString("pimg2"));
 					vo.setPname(rs.getString("pname"));
 					vo.setPprice(rs.getString("pprice"));
 					

@@ -15,6 +15,7 @@ public class CategoryProductVo {
 	private String cname;
 	private int cnt;
 	private String pimg1;
+	private String pimg2;
 	private String pname;
 	private String pprice;
 	
@@ -23,19 +24,21 @@ public class CategoryProductVo {
 	public CategoryProductVo() {
 		super();
 	}
-	public CategoryProductVo(String pid, String cname, int cnt, String pimg1, String pname, String pprice) {
+	public CategoryProductVo(String pid, String cname, int cnt, String pimg1, String pimg2, String pname,
+			String pprice) {
 		super();
 		this.pid = pid;
 		this.cname = cname;
 		this.cnt = cnt;
 		this.pimg1 = pimg1;
+		this.pimg2 = pimg2;
 		this.pname = pname;
 		this.pprice = pprice;
 	}
 	@Override
 	public String toString() {
-		return "CategoryProductVo [pid=" + pid + ", cname=" + cname + ", cnt=" + cnt + ", pimg1=" + pimg1 + ", pname="
-				+ pname + ", pprice=" + pprice + "]";
+		return "CategoryProductVo [pid=" + pid + ", cname=" + cname + ", cnt=" + cnt + ", pimg1=" + pimg1 + ", pimg2="
+				+ pimg2 + ", pname=" + pname + ", pprice=" + pprice + "]";
 	}
 	public String getPid() {
 		return pid;
@@ -61,6 +64,12 @@ public class CategoryProductVo {
 	public void setPimg1(String pimg1) {
 		this.pimg1 = pimg1;
 	}
+	public String getPimg2() {
+		return pimg2;
+	}
+	public void setPimg2(String pimg2) {
+		this.pimg2 = pimg2;
+	}
 	public String getPname() {
 		return pname;
 	}
@@ -73,5 +82,5 @@ public class CategoryProductVo {
 	public void setPprice(String pprice) {
 		this.pprice = pprice;
 	}
-
+	
 }

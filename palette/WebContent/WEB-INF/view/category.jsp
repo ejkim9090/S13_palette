@@ -201,11 +201,11 @@
                             <div class="contents_pictures1">
 <c:forEach items="${productlist}" var="vo">
                             	
-                                <div class="contents_pricture1_div">
-                                    <div class="contents_pricture1_div2">
-                                        <img src="<%=request.getContextPath()%>/${vo.pimg1}" onclick="location.href='<%=request.getContextPath()%>/product?pid=${vo.pid }';" alt="상품 이미지" loading="lazy">
+                                <div class="contents_picture1_div">
+                                    <div class="contents_picture1_div2">
+                                        <img src="<%=request.getContextPath()%>/${vo.pimg1}" onclick="location.href='<%=request.getContextPath()%>/product?pid=${vo.pid }';" alt="상품 이미지" id="img1">
                                     </div>
-                                    <div class="contents_pricture1_explantion" onClick="location.href='<%=request.getContextPath()%>/product?pid=${vo.pid }';">
+                                    <div class="contents_picture1_explantion" onClick="location.href='<%=request.getContextPath()%>/product?pid=${vo.pid }';">
                                         <span class="contents_1">${vo.pname }</span>
                                         <div class="contents_1_price_div">
                                             <div></div>
