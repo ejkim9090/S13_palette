@@ -17,9 +17,11 @@ import kh.s13.palette.product.model.vo.ProductDetailVo;
 import kh.s13.palette.product.model.vo.ProductVo;
 import kh.s13.palette.product.model.vo.ProductWishVo;
 import kh.s13.palette.review.model.service.ReviewImageService;
+import kh.s13.palette.review.model.service.ReviewLikeService;
 import kh.s13.palette.review.model.service.ReviewService;
 import kh.s13.palette.review.model.vo.ProductReviewVo;
 import kh.s13.palette.review.model.vo.ReviewImageVo;
+import kh.s13.palette.review.model.vo.ReviewLikeVo;
 import kh.s13.palette.review.model.vo.ReviewVo;
 
 /**
@@ -40,16 +42,18 @@ public class ProductController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 		
 		// 상품상세페이지
 		String pid = request.getParameter("pid");
 		
 		String mid = "";
-		try {
-			mid = ((MemberVo)request.getSession().getAttribute("loginSsInfo")).getMid();
-		}catch(Exception e) {
-		}
-//		mid = "user1"; // 테스트용
+//		try {
+//			mid = ((MemberVo)request.getSession().getAttribute("loginSsInfo")).getMid();
+//		}catch(Exception e) {
+//		}
+		mid = "user1"; // 테스트용
 		
 		// 나의 찜 상태
 		ProductWishService wishService = new ProductWishService();
@@ -63,8 +67,19 @@ public class ProductController extends HttpServlet {
 		ReviewImageService rimageService = new ReviewImageService();
 		List<ReviewImageVo> rimagelist = rimageService.selectList(pid);
 		
+		// 나의 후기 좋아요 상태
+		String rnoStr = request.getParameter("rno");
+		int rno = 0;
+		if(rnoStr != null) {
+			try {
+				rno = Integer.parseInt(rnoStr);
+			} catch (Exception e) {}
+		}
+		ReviewLikeService likeService = new ReviewLikeService();
+		ReviewLikeVo likeVo = likeService.selectOne(rno, mid);
+		
 		// 후기 목록
-		ReviewService service3 = new ReviewService();
+		ReviewService reviewService = new ReviewService();
 
 		// <내가 정하는 고정개수>
 		final int pageSize = 10; // 페이지당 글 수
@@ -75,7 +90,7 @@ public class ProductController extends HttpServlet {
 		int currentPage = 1; // 현재페이지. 기본 1. 눌리면 바뀜
 				
 		try {
-			cnt = service3.selectPTotalCnt(pid); // 상품 후기 총 개수
+			cnt = reviewService.selectPTotalCnt(pid); // 상품 후기 총 개수
 			
 			if(cnt < 1) { // 후기 없는 경우. -> 아래 후기 selectList 할 필요 없음.
 				return;
@@ -92,7 +107,7 @@ public class ProductController extends HttpServlet {
 				endRnum = cnt;
 			}
 			
-			List<ProductReviewVo> reviewlist = service3.selectPList(pid, startRnum, endRnum);
+			List<ProductReviewVo> reviewlist = reviewService.selectPList(pid, startRnum, endRnum);
 			request.setAttribute("reviewlist", reviewlist);
 			
 		} finally { // finally문은 무조건 거치게됨
@@ -110,6 +125,11 @@ public class ProductController extends HttpServlet {
 			}
 			request.setAttribute("product", productVo);
 			request.setAttribute("rimagelist", rimagelist);
+			if(likeVo != null) {
+				request.setAttribute("like", "yes");
+			}else {
+				request.setAttribute("like", "no");
+			}
 			
 			String viewPath = "/WEB-INF/view/product.jsp";
 			request.getRequestDispatcher(viewPath).forward(request, response);

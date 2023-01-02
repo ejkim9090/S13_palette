@@ -1452,7 +1452,7 @@ a {
 }
 
 /* 6. 사용자 도움돼요 버튼 */
-.helpful{
+.like{
     display: flex;
     -webkit-box-pack: center;
     justify-content: center;
@@ -1467,75 +1467,44 @@ a {
     line-height: 20px;
     color: rgb(153, 153, 153);
 }
-
-.user_heplful{
+.like_icon{
     width: 15px;
     height: 15px;
     margin-right: 4px;
     background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNCAxNCIgZmlsbD0ibm9uZSIKICAgICB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxwYXRoCiAgICBkPSJNNC4wNDgzNyAxMi45OTk4SDIuMjE5MzVDMS41NDU5MiAxMi45OTk4IDEgMTIuNDYyNiAxIDExLjc5OTlWNy41OTk5MkMxIDYuOTM3MTggMS41NDU5MiA2LjM5OTkzIDIuMjE5MzUgNi4zOTk5M0g0LjA0ODM3TTguMzE2MDggNS4xOTk5NVYyLjc5OTk4QzguMzE2MDggMS44MDU4OCA3LjQ5NzIgMSA2LjQ4NzA2IDFMNC4wNDgzNyA2LjM5OTkzVjEyLjk5OTlIMTAuOTI1NUMxMS41MzM1IDEzLjAwNjYgMTIuMDUzNyAxMi41NzE1IDEyLjE0NDggMTEuOTc5OUwxMi45ODYyIDYuNTc5OTNDMTMuMDM5OSA2LjIzMTg1IDEyLjkzNTUgNS44NzgxMiAxMi43MDA4IDUuNjEyNDVDMTIuNDY2IDUuMzQ2NzggMTIuMTI0NiA1LjE5NTk2IDExLjc2NjggNS4xOTk5NUg4LjMxNjA4WiIKICAgIHN0cm9rZT0iIzk5OTk5OSIgc3Ryb2tlLXdpZHRoPSIxLjEiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIKICAgIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+Cg==) center center no-repeat;
 }
-
-/*2번째 게시글 사진 */
-.user_review_photo1_second{
-	width: 93px;
-    height: 93px;
-    flex-shrink: 0;
-    background: url(https://img-cf.kurly.com/shop/data/review/20211113/8d014828efe740b91d786f9f8e5d729f.jpg) 0% 0% / cover no-repeat;
+.like_logout{
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    min-width: 88px;
+    height: 32px;
+    padding: 0px 13px 0px 11px;
+    border: 1px solid rgb(226, 226, 226);
+    border-radius: 20px;
+    font-size: 12px;
+    line-height: 20px;
+    color: rgb(153, 153, 153);
+}
+.like_icon_logout{
+    width: 15px;
+    height: 15px;
+    margin-right: 4px;
+    background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNCAxNCIgZmlsbD0ibm9uZSIKICAgICB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxwYXRoCiAgICBkPSJNNC4wNDgzNyAxMi45OTk4SDIuMjE5MzVDMS41NDU5MiAxMi45OTk4IDEgMTIuNDYyNiAxIDExLjc5OTlWNy41OTk5MkMxIDYuOTM3MTggMS41NDU5MiA2LjM5OTkzIDIuMjE5MzUgNi4zOTk5M0g0LjA0ODM3TTguMzE2MDggNS4xOTk5NVYyLjc5OTk4QzguMzE2MDggMS44MDU4OCA3LjQ5NzIgMSA2LjQ4NzA2IDFMNC4wNDgzNyA2LjM5OTkzVjEyLjk5OTlIMTAuOTI1NUMxMS41MzM1IDEzLjAwNjYgMTIuMDUzNyAxMi41NzE1IDEyLjE0NDggMTEuOTc5OUwxMi45ODYyIDYuNTc5OTNDMTMuMDM5OSA2LjIzMTg1IDEyLjkzNTUgNS44NzgxMiAxMi43MDA4IDUuNjEyNDVDMTIuNDY2IDUuMzQ2NzggMTIuMTI0NiA1LjE5NTk2IDExLjc2NjggNS4xOTk5NUg4LjMxNjA4WiIKICAgIHN0cm9rZT0iIzk5OTk5OSIgc3Ryb2tlLXdpZHRoPSIxLjEiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIKICAgIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+Cg==) center center no-repeat;
+}
+/* .like:hover{
+	color: rgb(95, 0, 128);
 }
 
-.user_review_photo2_second{
-	width: 93px;
-    height: 93px;
-    flex-shrink: 0;
-    background: url(https://img-cf.kurly.com/shop/data/review/20211113/fffba0ffd1d18a626552f15332317a14.jpg) 0% 0% / cover no-repeat;
-}
+.like_icon:hover{
+	width: 15px;
+    height: 15px;
+    margin-right: 4px;
+    background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNCAxNCIgZmlsbD0ibm9uZSIKICAgICB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxwYXRoCiAgICBkPSJNNC4wNDgzNyAxMi45OTk4SDIuMjE5MzVDMS41NDU5MiAxMi45OTk4IDEgMTIuNDYyNiAxIDExLjc5OTlWNy41OTk5MkMxIDYuOTM3MTggMS41NDU5MiA2LjM5OTkzIDIuMjE5MzUgNi4zOTk5M0g0LjA0ODM3TTguMzE2MDggNS4xOTk5NVYyLjc5OTk4QzguMzE2MDggMS44MDU4OCA3LjQ5NzIgMSA2LjQ4NzA2IDFMNC4wNDgzNyA2LjM5OTkzVjEyLjk5OTlIMTAuOTI1NUMxMS41MzM1IDEzLjAwNjYgMTIuMDUzNyAxMi41NzE1IDEyLjE0NDggMTEuOTc5OUwxMi45ODYyIDYuNTc5OTNDMTMuMDM5OSA2LjIzMTg1IDEyLjkzNTUgNS44NzgxMiAxMi43MDA4IDUuNjEyNDVDMTIuNDY2IDUuMzQ2NzggMTIuMTI0NiA1LjE5NTk2IDExLjc2NjggNS4xOTk5NUg4LjMxNjA4WiIKICAgIHN0cm9rZT0iIzVmMDA4MCIgc3Ryb2tlLXdpZHRoPSIxLjEiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIKICAgIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+Cg==) center center no-repeat;
+}  */
 
-.user_review_photo3_second{
-	    width: 93px;
-    height: 93px;
-    flex-shrink: 0;
-    background: url(https://img-cf.kurly.com/shop/data/review/20211113/a85e678821835cd972f09c350e451bbe.jpg) 0% 0% / cover no-repeat;
-}
-
-
-/*3번째 게시글 사진*/
-.user_review_photo1_third{
-	width: 93px;
-    height: 93px;
-    flex-shrink: 0;
-    background: url(https://img-cf.kurly.com/shop/data/review/20221110/78c36720-5126-4052-944d-9ee6ae9840d7.jpg) 0% 0% / cover no-repeat;
-}
-
-/*6번째 게시글 사진 */
-.user_review_photo1_sixth{
-	width: 93px;
-    height: 93px;
-    flex-shrink: 0;
-    background: url(https://img-cf.kurly.com/shop/data/review/20221110/adfc7a50-32e2-4057-9a94-4bf6588465ff.jpeg) 0% 0% / cover no-repeat;
-}
-
-/* 7번째 게시글 사진 */
-.user_review_photo1_seventh{
-	width: 93px;
-    height: 93px;
-    flex-shrink: 0;
-    background: url(https://img-cf.kurly.com/shop/data/review/20221110/c2720c66-db43-4a13-a79d-fe412f9c7d5e.jpg) 0% 0% / cover no-repeat;
-}
-
-.user_review_photo2_seventh{
-    width: 93px;
-    height: 93px;
-    flex-shrink: 0;
-    background: url(https://img-cf.kurly.com/shop/data/review/20221110/8fba56da-8aaf-4363-ac47-cc6b90f2a9b9.jpg) 0% 0% / cover no-repeat;
-}
-
-/* 8번째 게시글 사진 */
-.user_review_photo1_eighth{
-	width: 93px;
-    height: 93px;
-    flex-shrink: 0;
-    background: url(https://img-cf.kurly.com/shop/data/review/20221109/2b6a134d-5a85-460e-86a4-ca8eb4af0a91.jpg) 0% 0% / cover no-repeat;
-}
 /*friends*/
 .freinds{
 	display: inline-block;
@@ -1618,16 +1587,7 @@ a {
 	right: 0;
 }
 
-/* .helpful:hover{
-	color: rgb(95, 0, 128);
-}
 
-.user_heplful:hover{
-	width: 15px;
-    height: 15px;
-    margin-right: 4px;
-    background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxNCAxNCIgZmlsbD0ibm9uZSIKICAgICB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxwYXRoCiAgICBkPSJNNC4wNDgzNyAxMi45OTk4SDIuMjE5MzVDMS41NDU5MiAxMi45OTk4IDEgMTIuNDYyNiAxIDExLjc5OTlWNy41OTk5MkMxIDYuOTM3MTggMS41NDU5MiA2LjM5OTkzIDIuMjE5MzUgNi4zOTk5M0g0LjA0ODM3TTguMzE2MDggNS4xOTk5NVYyLjc5OTk4QzguMzE2MDggMS44MDU4OCA3LjQ5NzIgMSA2LjQ4NzA2IDFMNC4wNDgzNyA2LjM5OTkzVjEyLjk5OTlIMTAuOTI1NUMxMS41MzM1IDEzLjAwNjYgMTIuMDUzNyAxMi41NzE1IDEyLjE0NDggMTEuOTc5OUwxMi45ODYyIDYuNTc5OTNDMTMuMDM5OSA2LjIzMTg1IDEyLjkzNTUgNS44NzgxMiAxMi43MDA4IDUuNjEyNDVDMTIuNDY2IDUuMzQ2NzggMTIuMTI0NiA1LjE5NTk2IDExLjc2NjggNS4xOTk5NUg4LjMxNjA4WiIKICAgIHN0cm9rZT0iIzVmMDA4MCIgc3Ryb2tlLXdpZHRoPSIxLjEiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIKICAgIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+Cg==) center center no-repeat;
-} */
 
 /* 최근 등록순 사진 */
 /* 1번째 게시글 */
@@ -2125,9 +2085,10 @@ element.style {
     gap: 9px;
     font-size: 20px !important;
 }
-.image_wrap > div {
+.file_image {
     height: 72px;
     width: 72px;
+    border-radius: 6px;
 }
 .file_button {
     width: 100%;

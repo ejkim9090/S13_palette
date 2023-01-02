@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -239,12 +239,12 @@
 														<div></div>
 														<div>
 															<div class="image_wrap">
-																<div>
+																<div class="file_image">
 																	<label for="photo-picker">
 																		<button type="button" class="file_button" onclick="$('#file').trigger('click');" >
 																			<span></span>
 																		</button>
-																		<input type="file" multiple="multiple" name="uploadFile" id="file" accept="image/*">
+																		<input type="file" multiple="multiple" name="uploadFile" id="file" accept="image/*" onchange="setThumbnail(event);">
 																	</label>
 																</div>
 															</div>
@@ -309,6 +309,8 @@
                                         <span class="total_post_span">총 ${reviewCnt }개</span>
                                     </div>
                                 </div>
+                                
+                                <div id="review_content">
 <c:choose>
 	<c:when test="${empty reviewlist}">
 								<div class="review_empty">
@@ -320,40 +322,35 @@
 	<c:otherwise>
 		<c:forEach items="${reviewlist}" var="vo">                    
                                 <!-- 사용자 후기 -->
-                                <div class="user_post_div_first first">
-                                    <div class="user_post_div_second first">
-                                        <div class="user_best_purple first">
-                                            <span class="user_name first">${vo.mname }</span>
+                                <div class="user_post_div_first">
+                                    <div class="user_post_div_second">
+                                        <div class="user_best_purple">
+                                            <span class="user_name">${vo.mname2 }</span>
                                         </div>
                                     </div>
                                     <div>
                                         <!-- 글 제목, 내용, 사진, 요일 등등 -->
-                                        <div class="user_content_div_first first">
+                                        <div class="user_content_div_first">
                                             <div>
-                                                <div class="user_content_title_div first">
-                                                    <h3 class="user_content_title first">${vo.pname }</h3>
+                                                <div class="user_content_title_div">
+                                                    <h3 class="user_content_title">${vo.pname }</h3>
                                                 </div>
-                                                <p class="content_writing first">${vo.rcontent }</p>
-                                                <div class="user_photo first">
+                                                <p class="content_writing">${vo.rcontent }</p>
+                                                <div class="user_photo">
 			<c:forEach items="${vo.rfilepath}" var="filepath">
 													<img src="<%=request.getContextPath()%>/${filepath}">
 			</c:forEach>
                                                 </div>
-                                                <div class="user_footer first">
+                                                <div class="user_footer">
                                                     <div>
-                                                        <span class="user_update first">${vo.rdate }</span>
-                                                    </div>
-                                                    <!-- 도움이 돼요 -->
-                                                    <button class="helpful first">
-                                                        <span class="user_heplful first"></span>
-                                                        <span>도움이 돼요</span>
-                                                    </button>
+                                                        <span class="user_update">${vo.rdate }</span>
+                                                    </div>                                
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-      		</c:forEach>
+      	</c:forEach>
 								<div class="button_wrapper">
 			                        <div class="button">
 		        <c:choose>
@@ -363,14 +360,14 @@
 			                            </button>
 		            </c:when>
 		            <c:otherwise>
-			                            <button type="button" class="button_previous" onclick="location.href='product?pid=${product.pid }&pagenum=${currentPage-1 }'">
+			                            <button type="button" class="button_previous" onclick="location.href='product?pid=${product.pid }&pagenum=${currentPage-1 }#review'">
 			                                <div class="button_text">이전</div>
 			                            </button>
 					</c:otherwise>
 				</c:choose>
 				<c:choose>
-        	<c:when test="${currentPage < pageCnt}">                
-			                            <button type="button" class="button_next" onclick="location.href='product?pid=${product.pid }&pagenum=${currentPage+1 }'">
+        			<c:when test="${currentPage < pageCnt}">                
+			                            <button type="button" class="button_next" onclick="location.href='product?pid=${product.pid }&pagenum=${currentPage+1 }#review'">
 			                                <div class="button_text">다음</div>
 			                            </button>
 					</c:when>
@@ -384,6 +381,7 @@
 			                    </div>
       </c:otherwise> 
 </c:choose>              
+								</div>
 							<!-- 사진 더보기 모달창 -->
                             <div role="presentation" class="view_more_user_wrap" id="review_more_user" style="display: none;">
                                 <div aria-hidden="true" class="view_more_user_div1"
@@ -696,6 +694,35 @@ function ajaxUpload(e){
 	});  
 };
 
+// 후기 첨부파일 개수 제한 + 이미지 첨부시 미리보기(썸네일)
+function setThumbnail(event){
+	
+	var maxCnt = 5; // 첨부파일 최대 개수
+	var curCnt = $("#file")[0].files.length;  // 현재 선택된 첨부파일 개수
+	console.log("선택된 파일 개수 :" + curCnt);
+	
+	if (curCnt > maxCnt) {
+	    alert("사진은 최대 5개까지 첨부 가능합니다.");
+	    $("#file").val(''); // 5개 초과시 선택된 파일 다 취소
+	} else {
+		for(var image of event.target.files){
+			console.log(image);
+			var reader = new FileReader();
+			
+			reader.onload = function(event){
+				var img = document.createElement("img");
+				img.setAttribute("src", event.target.result);
+				img.setAttribute("class", "file_image");
+				document.querySelector("div.image_wrap").appendChild(img);
+			};
+			console.log(image);
+			reader.readAsDataURL(image);
+		}
+	}
+	
+}
+
+
 // 찜 버튼
 $(function() {
 	
@@ -746,6 +773,9 @@ $(function() {
 		});
 	});
 });
+
+
+
 // 로그인 안한 상태에서 찜 누르면
 function wish_logout(){
 	
@@ -758,7 +788,6 @@ function review_logout(){
 	alert("로그인하셔야 본 서비스를 이용하실 수 있습니다.");
 	location.href = "<%=request.getContextPath()%>/login";
 }
-
 
 
 
